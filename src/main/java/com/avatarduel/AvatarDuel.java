@@ -9,6 +9,7 @@ import java.util.List;
 import com.avatarduel.Cards;
 
 import com.avatarduel.model.Card;
+import com.avatarduel.model.Character;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -40,6 +41,9 @@ public class AvatarDuel extends Application {
       Cards c = Cards.getInstance();
       Player P1 = new Player(c.makeDeck());
       Player P2 = new Player(c.makeDeck());
+      P1.takeCardFromDeck();
+      P1.getCardsInHand().stream().forEach(o -> System.out.println(o.getName() + "\t||\t" + o.getDescription() + "\t||\t" + o.getElement() + "\t||\t" + o.getClass()));
+      P1.getCardsInHand().stream().filter(o -> o instanceof com.avatarduel.model.Character).forEach(o-> System.out.println(o.getName() + " ATTACK: "+((Character) o).getAttack()));
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }
