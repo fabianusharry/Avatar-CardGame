@@ -6,6 +6,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avatarduel.Cards;
+
+import com.avatarduel.model.Card;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -32,7 +35,11 @@ public class AvatarDuel extends Application {
     stage.setScene(scene);
     stage.show();
 
+
+    Cards c = Cards.getInstance();
+
     try {
+        c.loadAllCards();
 //      this.loadCards();
       text.setText("Avatar Duel!");
     } catch (Exception e) {
