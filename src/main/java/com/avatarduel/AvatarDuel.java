@@ -20,7 +20,7 @@ import javafx.scene.image.ImageView;
 public class AvatarDuel extends Application {
 
   @Override
-  public void start(Stage stage) {
+  public void start(Stage stage) throws IOException, URISyntaxException {
     Text text = new Text();
     text.setText("Loading...");
     text.setX(50);
@@ -36,12 +36,10 @@ public class AvatarDuel extends Application {
     stage.show();
 
 
-    Cards c = Cards.getInstance();
-
     try {
-        c.loadAllCards();
-//      this.loadCards();
-      text.setText("Avatar Duel!");
+      Cards c = Cards.getInstance();
+      Player P1 = new Player(c.makeDeck());
+      Player P2 = new Player(c.makeDeck());
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }
