@@ -24,4 +24,12 @@ public class SummonedCharacter {
         }
         return value;
     }
+
+    public Card getCharacter() {
+        return character;
+    }
+
+    public void setAttackMode(boolean attackMode) {
+        isAttackMode = attackMode;
+    }
 }

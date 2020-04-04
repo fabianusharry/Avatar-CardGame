@@ -12,8 +12,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Cards { //implement Singleton Design Pattern
-    private static Cards instance = null; //Singleton attribute
+public class CardLoader { //implement Singleton Design Pattern
+    private static CardLoader instance = null; //Singleton attribute
 
     // Cards attribute
     private List<Land> listLand;
@@ -28,7 +28,7 @@ public class Cards { //implement Singleton Design Pattern
     private static final String SKILL_DESTROY_CSV_FILE_PATH = "";
     private static final String SKILL_POWER_UP_CSV_FILE_PATH = "";
 
-    private Cards() throws IOException, URISyntaxException {
+    private CardLoader() throws IOException, URISyntaxException {
         listLand = new ArrayList<>();
         listCharacter = new ArrayList<>();
         listSkillAura = new ArrayList<>();
@@ -83,9 +83,9 @@ public class Cards { //implement Singleton Design Pattern
 //        Collections.shuffle(listSkillPowerUp);
     }
 
-    public static Cards getInstance() throws IOException, URISyntaxException {
+    public static CardLoader getInstance() throws IOException, URISyntaxException {
         if (instance == null) {
-            instance = new Cards();
+            instance = new CardLoader();
         }
         return instance;
     }
