@@ -6,4 +6,10 @@ public class SkillPowerUp extends Skill {
     }
     @Override
     public String effect() { return "PowerUp"; } //masih bingung
+
+    @Override
+    public int activate(String attr) {
+
+        return -1;
+    }
 }

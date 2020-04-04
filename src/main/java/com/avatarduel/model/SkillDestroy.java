@@ -6,4 +6,10 @@ public class SkillDestroy extends Skill {
     }
     @Override
     public String effect() { return "Destroy"; } //masih bingung
+
+    @Override
+    public int activate(String attr) {
+
+        return -1;
+    }
 }

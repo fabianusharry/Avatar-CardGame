@@ -1,6 +1,7 @@
 package com.avatarduel;
 
 import com.avatarduel.model.Card;
+import com.avatarduel.model.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,14 @@ public class Player {
         return cardsInHand;
     }
 
+    public void resetPower() {
+//        airPower = (int) cardsInHand.stream().filter(o -> o instanceof com.avatarduel.model.Land && o.getElement() == Element.AIR).count();
+//        earthPower = (int) cardsInHand.stream().filter(o -> o instanceof com.avatarduel.model.Land && o.getElement() == Element.EARTH).count();
+//        firePower = (int) cardsInHand.stream().filter(o -> o instanceof com.avatarduel.model.Land && o.getElement() == Element.FIRE).count();
+//        waterPower = (int) cardsInHand.stream().filter(o -> o instanceof com.avatarduel.model.Land && o.getElement() == Element.WATER).count();
+//        System.out.println("POWER :" + airPower + " " + earthPower + " " + firePower + " " + waterPower);
+    }
+
     public int getWaterPower() {
         return waterPower;
     }
@@ -50,10 +59,6 @@ public class Player {
 
     public int getAirPower() {
         return airPower;
-    }
-
-    public void setAirPower(int airPower) {
-        this.airPower = airPower;
     }
 
     public int getEarthPower() {

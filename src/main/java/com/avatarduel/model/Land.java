@@ -13,4 +13,11 @@ public class Land extends Card {
   public void addPower() {
     //notify player to update element power (?)
   }
+
+  @Override
+  public int activate(String attr) {
+
+
+    return 0;
+  }
 }

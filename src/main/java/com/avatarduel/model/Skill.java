@@ -14,4 +14,5 @@ public abstract class Skill extends Card {
     public int getPower() { return power; }
 
     abstract String effect(); //masih bingung
+
 }

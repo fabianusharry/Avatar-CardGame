@@ -1,6 +1,6 @@
 package com.avatarduel.model;
 
-public class Card {
+public abstract class Card {
     protected String name;
     protected String description;
     protected Element element;
@@ -20,4 +20,6 @@ public class Card {
     public String getName() { return name; }
     public String getDescription() { return description; }
     public Element getElement() { return element; }
+
+    public abstract int activate(String attr);
 }

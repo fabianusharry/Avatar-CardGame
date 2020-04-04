@@ -2,9 +2,9 @@ package com.avatarduel.model;
 
 public class Character extends Card {
 
-    private int attack;
-    private int defense;
-    private int power;
+    protected int attack;
+    protected int defense;
+    protected int power;
 
     public Character() {
         super();
@@ -21,4 +21,19 @@ public class Character extends Card {
     public int getAttack() { return attack; }
     public int getDefense() { return defense; }
     public int getPower() { return power; }
+
+    @Override
+    public int activate(String attr) {
+        int result = -1;
+        if (attr == "attack") {
+            result = getAttack();
+        }
+        if (attr == "defense") {
+            result = getDefense();
+        }
+        if (attr == "power") {
+            result = getPower();
+        }
+        return result;
+    }
 }

@@ -18,4 +18,10 @@ public class SkillAura extends Skill {
 
     @Override
     public String effect() { return "Aura"; } //masih bingung
+
+    @Override
+    public int activate(String attr) {
+
+        return -1;
+    }
 }
