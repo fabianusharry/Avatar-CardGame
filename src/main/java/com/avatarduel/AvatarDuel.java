@@ -20,7 +20,7 @@ public class AvatarDuel extends Application {
 
   }
 
-  public void mainPhase1(Player myself) {
+public void mainPhase1(Player myself) {
     boolean isLandReleased = false;
     while (true) {
 
@@ -68,16 +68,16 @@ public class AvatarDuel extends Application {
       P1 = new Player(c.makeDeck());
       P2 = new Player(c.makeDeck());
 
-      CardField P1Field = new CardField();
-      CardField P2Field = new CardField();
+      // CardField P1Field = new CardField();
+      // CardField P2Field = new CardField();
 
-      P1.getCardsInHand().stream().filter(o -> o instanceof com.avatarduel.model.Character).forEach(o-> System.out.println(o.getName() + " ATTACK: "+ o.activate("attack")));
+      // P1.getCardsInHand().stream().filter(o -> o instanceof com.avatarduel.model.Character).forEach(o-> System.out.println(o.getName() + " ATTACK: "+ o.activate("attack")));
 
-      for (Card o : P1.getCardsInHand()) {
-        if (o instanceof com.avatarduel.model.Character) {
-          P1Field.getCharacterField().placeCard(1, o, true);
-        }
-      }
+      // for (Card o : P1.getCardsInHand()) {
+      //   if (o instanceof com.avatarduel.model.Character) {
+      //     P1Field.getCharacterField().placeCard(1, o, true);
+      //   }
+      // }
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }
