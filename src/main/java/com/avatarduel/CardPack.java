@@ -11,6 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Queue;
+import java.util.LinkedList;
+
 // import java.util.Collections;
 import java.util.List;
 // import java.util.Random;
@@ -19,7 +24,7 @@ public class CardPack { //implement Singleton Design Pattern
     private static CardPack instance = null; //Singleton attribute
 
     // Cards attribute
-    private List<Card> cards;
+    private Queue<Card> cards;
     // private List<Land> listLand;
     // private List<Character> listCharacter;
     // private List<Aura> listAura;
@@ -39,7 +44,7 @@ public class CardPack { //implement Singleton Design Pattern
         // listAura = new ArrayList<>();
         // listDestroy = new ArrayList<>();
         // listPowerUp = new ArrayList<>();
-        this.cards = new ArrayList<>();
+        this.cards = new LinkedList<>();
         loadAllCards();
     }
 
@@ -81,17 +86,21 @@ public class CardPack { //implement Singleton Design Pattern
         }
     }
 
-    // private void shuffleAll() {
-        // Collections.shuffle(listLand);
-        // Collections.shuffle(listCharacter);
-        // Collections.shuffle(listAura);
-//        Collections.shuffle(listDestroy);
-//        Collections.shuffle(listPowerUp);
-    // }
+    private void shuffle() {
+        List<Card> shuffledItems = new ArrayList<Card>(this.cards);
+        Collections.shuffle(shuffledItems);
+        this.cards = new LinkedList<Card>(shuffledItems);
+    }
 
-    public List<Card> cards()
+    public List<Card> getCards(int amount)
     {
-        return this.cards;
+        List<Card> ret = new ArrayList<Card>();
+        for (int i = 0; i < amount; i++)
+        {
+            ret.add(this.cards.peek());
+            this.cards.remove();
+        }
+        return ret;
     }
 
     public static CardPack getInstance() throws IOException, URISyntaxException {
