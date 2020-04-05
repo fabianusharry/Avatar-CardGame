@@ -36,7 +36,7 @@ public class Player {
         handCards.add(deck.take());
     }
 
-    public Card takeCardFromHand(int index) {
+    public Card takeCard(int index) {
         Card takenCard = handCards.take();
         if (takenCard instanceof com.avatarduel.model.Card.Land) { //kalo Land tambah power
             power.add(takenCard.getElement());

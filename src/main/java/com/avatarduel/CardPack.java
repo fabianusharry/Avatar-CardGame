@@ -97,21 +97,4 @@ public class CardPack { //implement Singleton Design Pattern
     public List<Skill> getSkills() {
         return skills;
     }
-
-//    public List<Card> makeDeck() {
-////         int nDeck = new Random().nextInt(21) + 40; //random nDeck 40-60
-//         int nDeck = new Random().nextInt(30) + 10; //SEMENTARA (JUMLAH KARTU KURANG)
-//         int nCharacter, nLand, nSkill; // land : character : skill = 2 : 2 : 1
-//
-//         nLand = nCharacter = 2*nDeck/5;
-//         nSkill = nDeck - (nLand + nCharacter);
-//         List<Card> result = new ArrayList<Card>(lands.subList(0, nLand));
-//
-//         shuffle();
-//         result.addAll(characters.subList(0, nCharacter));
-//         result.addAll(skills.subList(0, nSkill));
-//         Collections.shuffle(result);
-// //        System.out.println("Check nDeck (class Cards) "+ nDeck + " " + nLand + " " + nCharacter + " " + nSkill + " " + result.size());
-//         return result;
-//     }
 }

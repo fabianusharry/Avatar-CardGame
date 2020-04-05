@@ -5,9 +5,10 @@ import java.net.URISyntaxException;
 
 import com.avatarduel.model.Player.Player;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class AvatarDuel extends Application {
@@ -22,7 +23,12 @@ public class AvatarDuel extends Application {
 
 public void mainPhase1(Player myself) {
     boolean isLandReleased = false;
-    while (true) {
+    boolean end = false;
+    while (!end) {
+
+//      if (button end phase clicked) {
+////        end = true;
+////      }
 
     }
   }
@@ -49,10 +55,11 @@ public void mainPhase1(Player myself) {
 
     Text text = new Text();
     text.setText("Loading...");
-    text.setX(50);
-    text.setY(50);
+    text.setX(640);
+    text.setY(360);
+    text.setTextAlignment(TextAlignment.CENTER);
 
-    Group root = new Group();
+    StackPane root = new StackPane();
 
     root.getChildren().add(text);
     Scene scene = new Scene(root, 1280, 720);
@@ -61,13 +68,11 @@ public void mainPhase1(Player myself) {
     stage.setScene(scene);
     stage.show();
 
-
     try {
-      CardPack c = CardPack.getInstance();
-
       P1 = new Player();
       P2 = new Player();
 
+      text.setText("Avatar Duel!");
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }
