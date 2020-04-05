@@ -18,9 +18,9 @@ public class CardPack { //implement Singleton Design Pattern
     private static CardPack instance = null; //Singleton attribute
 
     // CardPack attribute
-     private List<Land> lands;
-     private List<Character> characters;
-     private List<Skill> skills;
+    private List<Land> lands;
+    private List<Character> characters;
+    private List<Skill> skills;
 
     private static final String LAND_CSV_FILE_PATH = "card/data/land.csv";
     private static final String CHARACTER_CSV_FILE_PATH = "card/data/character.csv";
@@ -73,7 +73,7 @@ public class CardPack { //implement Singleton Design Pattern
         }
     }
 
-    private void shuffle() {
+    public void shuffle() {
         Collections.shuffle(lands);
         Collections.shuffle(characters);
         Collections.shuffle(skills);
@@ -86,21 +86,32 @@ public class CardPack { //implement Singleton Design Pattern
         return instance;
     }
 
+    public List<Land> getLands() {
+        return lands;
+    }
 
-     public List<Card> makeDeck() {
- //        int nDeck = new Random().nextInt(21) + 40; //random nDeck 40-60
-         int nDeck = new Random().nextInt(30) + 10; //SEMENTARA (JUMLAH KARTU KURANG)
-         int nCharacter, nLand, nSkill; // land : character : skill = 2 : 2 : 1
+    public List<Character> getCharacters() {
+        return characters;
+    }
 
-         nLand = nCharacter = 2*nDeck/5;
-         nSkill = nDeck - (nLand + nCharacter);
-         List<Card> result = new ArrayList<Card>(lands.subList(0, nLand));
+    public List<Skill> getSkills() {
+        return skills;
+    }
 
-         shuffle();
-         result.addAll(characters.subList(0, nCharacter));
-         result.addAll(skills.subList(0, nSkill));
-         Collections.shuffle(result);
- //        System.out.println("Check nDeck (class Cards) "+ nDeck + " " + nLand + " " + nCharacter + " " + nSkill + " " + result.size());
-         return result;
-     }
+//    public List<Card> makeDeck() {
+////         int nDeck = new Random().nextInt(21) + 40; //random nDeck 40-60
+//         int nDeck = new Random().nextInt(30) + 10; //SEMENTARA (JUMLAH KARTU KURANG)
+//         int nCharacter, nLand, nSkill; // land : character : skill = 2 : 2 : 1
+//
+//         nLand = nCharacter = 2*nDeck/5;
+//         nSkill = nDeck - (nLand + nCharacter);
+//         List<Card> result = new ArrayList<Card>(lands.subList(0, nLand));
+//
+//         shuffle();
+//         result.addAll(characters.subList(0, nCharacter));
+//         result.addAll(skills.subList(0, nSkill));
+//         Collections.shuffle(result);
+// //        System.out.println("Check nDeck (class Cards) "+ nDeck + " " + nLand + " " + nCharacter + " " + nSkill + " " + result.size());
+//         return result;
+//     }
 }

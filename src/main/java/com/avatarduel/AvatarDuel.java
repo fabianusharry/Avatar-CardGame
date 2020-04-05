@@ -65,8 +65,8 @@ public void mainPhase1(Player myself) {
     try {
       CardPack c = CardPack.getInstance();
 
-      P1 = new Player(c.makeDeck());
-      P2 = new Player(c.makeDeck());
+      P1 = new Player();
+      P2 = new Player();
 
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);

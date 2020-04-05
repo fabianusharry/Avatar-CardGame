@@ -1,21 +1,30 @@
 package com.avatarduel.model.Cards;
 
+import com.avatarduel.CardPack;
 import com.avatarduel.model.Card.Card;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.*;
 
 public class Deck implements Cards {
     private Stack<Card> cards;
 
-    public Deck() {
+    public Deck() throws IOException, URISyntaxException {
         cards = new Stack<Card>();
-    }
+        //         int nDeck = new Random().nextInt(21) + 40; //random nDeck 40-60
+        int nDeck = new Random().nextInt(30) + 10; //SEMENTARA (JUMLAH KARTU KURANG)
+        int nCharacter, nLand, nSkill; // land : character : skill = 2 : 2 : 1
 
-    public Deck(List<Card> c) {
-        this();
-        cards.addAll(c);
+        CardPack pack = CardPack.getInstance();
+        pack.shuffle();
+
+        nLand = nCharacter = 2*nDeck/5;
+        nSkill = nDeck - (nLand + nCharacter);
+        cards.addAll(pack.getLands().subList(0, nLand));
+        cards.addAll(pack.getCharacters().subList(0, nCharacter));
+        cards.addAll(pack.getSkills().subList(0, nSkill));
+        Collections.shuffle(cards);
     }
 
     public int size() {
@@ -35,4 +44,13 @@ public class Deck implements Cards {
         } //else throw exception (END GAME)
         return takenCard;
     }
+
+    public List<Card> takes(int nCard) {
+        List<Card> takenCards = new LinkedList<>();
+        for (int i = 0; i < nCard; i++) {
+            takenCards.add(this.take());
+        }
+        return takenCards;
+    }
+
 }

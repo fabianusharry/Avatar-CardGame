@@ -1,26 +1,24 @@
 package com.avatarduel.model.Player;
 
 import com.avatarduel.model.Card.Card;
-import com.avatarduel.model.Cards.Cards;
 import com.avatarduel.model.Cards.Deck;
 import com.avatarduel.model.Cards.HandCards;
-import com.avatarduel.model.Card.Element;
 import com.avatarduel.model.Power;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Player {
-
     private int HP;
     private Power power;
     private Deck deck;
     private HandCards handCards;
 
-    public Player(List<Card> cards) {
+    public Player() throws IOException, URISyntaxException {
         this.HP = 80;
         power = new Power();
-        handCards = new HandCards(cards.subList(0, 7));
-        deck = new Deck(cards.subList(7, cards.size()));
+        deck = new Deck();
+        handCards = new HandCards(deck.takes(7));
     }
 
     public int getHP() {
