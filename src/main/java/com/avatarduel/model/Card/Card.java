@@ -1,7 +1,5 @@
 package com.avatarduel.model.Card;
 
-import com.avatarduel.model.Element;
-
 public abstract class Card {
     
     protected String name;

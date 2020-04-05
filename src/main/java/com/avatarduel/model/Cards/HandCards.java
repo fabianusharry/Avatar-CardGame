@@ -1,22 +1,40 @@
 package com.avatarduel.model.Cards;
 
-import com.avatarduel.model.Cards.Cards;;
+import com.avatarduel.model.Card.Card;
 
-public class HandCards extends Cards
-{
+import java.util.LinkedList;
+import java.util.List;
 
-    public HandCards()
-    {
-        super(new );
+public class HandCards implements Cards {
+    private List<Card> cards;
+
+    public HandCards(List<Card> c) {
+        cards = new LinkedList<Card>(c);
     }
 
-    public void add(Card newCard)
-    {
-        this.cards.add(newCard);
+    public int size() {
+        return cards.size();
     }
 
-    public Card Draw()
-    {
-        
+    public void add(Card newCard) {
+        if (cards.size() < 12) {
+            cards.add(newCard);
+        } //else throw exception
+    }
+
+    public Card take() {
+        Card takenCard = null;
+        if (cards.size() > 0) {
+            takenCard = cards.remove(0);
+        }
+        return takenCard;
+    }
+
+    public Card take(int index) {
+        Card takenCard = null;
+        if (cards.size() > 0) {
+            takenCard = cards.remove(index);
+        }
+        return takenCard;
     }
 }

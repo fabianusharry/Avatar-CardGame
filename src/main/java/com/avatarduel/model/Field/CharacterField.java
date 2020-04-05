@@ -1,6 +1,6 @@
-package com.avatarduel;
+package com.avatarduel.model.Field;
 
-import com.avatarduel.model.Card;
+import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.SummonedCharacter;
 
 public class CharacterField implements Field {

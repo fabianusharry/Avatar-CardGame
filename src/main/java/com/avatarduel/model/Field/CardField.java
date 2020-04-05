@@ -1,4 +1,4 @@
-package com.avatarduel;
+package com.avatarduel.model.Field;
 
 public class CardField {
     CharacterField characterField;

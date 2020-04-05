@@ -1,7 +1,6 @@
-package com.avatarduel;
+package com.avatarduel.model.Field;
 
-import com.avatarduel.model.Card;
-import com.avatarduel.model.Skill;
+import com.avatarduel.model.Card.Card;
 
 public interface Field {
     public void placeCard(int index, Card card);

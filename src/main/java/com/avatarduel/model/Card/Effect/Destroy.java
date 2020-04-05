@@ -1,7 +1,7 @@
 package com.avatarduel.model.Card.Effect;
 
 import com.avatarduel.model.Card.Skill;
-import com.avatarduel.model.Element;
+import com.avatarduel.model.Card.Element;
 
 public class Destroy extends Skill {
 

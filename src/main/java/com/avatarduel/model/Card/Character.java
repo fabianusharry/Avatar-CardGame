@@ -1,7 +1,5 @@
 package com.avatarduel.model.Card;
 
-import com.avatarduel.model.Element;
-
 public class Character extends Card {
 
     protected int attack;

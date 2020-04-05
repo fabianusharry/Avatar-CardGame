@@ -1,7 +1,7 @@
-package com.avatarduel;
+package com.avatarduel.model.Field;
 
-import com.avatarduel.model.Card;
-import com.avatarduel.model.Skill;
+import com.avatarduel.model.Card.Card;
+import com.avatarduel.model.Card.Skill;
 
 public class SkillField implements Field {
     Skill[] field;
