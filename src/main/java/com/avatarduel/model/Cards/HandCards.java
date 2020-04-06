@@ -5,7 +5,7 @@ import com.avatarduel.model.Card.Card;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HandCards implements Cards {
+public class HandCards {
     private List<Card> cards;
 
     public HandCards(List<Card> c) {

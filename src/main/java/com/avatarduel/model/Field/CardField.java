@@ -1,19 +1,19 @@
 package com.avatarduel.model.Field;
 
 public class CardField {
-    CharacterField characterField;
-    SkillField skillField;
+    Field characterField;
+    Field skillField;
 
     public CardField() {
         this.characterField = new CharacterField();
         this.skillField = new SkillField();
     }
 
-    public CharacterField getCharacterField() {
+    public Field getCharacterField() {
         return characterField;
     }
 
-    public SkillField getSkillField() {
+    public Field getSkillField() {
         return skillField;
     }
 }

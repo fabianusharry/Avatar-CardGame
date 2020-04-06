@@ -5,7 +5,7 @@ import com.avatarduel.model.Card.Element;
 import java.util.HashMap;
 import java.util.Map;
 
-public class    Power {
+public class Power {
     Map<Element, Integer> power;
 
     public Power() {

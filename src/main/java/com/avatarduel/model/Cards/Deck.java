@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 
-public class Deck implements Cards {
+public class Deck {
     private Stack<Card> cards;
 
     public Deck() throws IOException, URISyntaxException {
@@ -29,12 +29,6 @@ public class Deck implements Cards {
 
     public int size() {
         return cards.size();
-    }
-
-    public void add(Card newCard) {
-        if (cards.size() < 60) {
-            cards.push(newCard);
-        } //else throw exception
     }
 
     public Card take() {

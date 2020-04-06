@@ -4,5 +4,7 @@ import com.avatarduel.model.Card.Card;
 
 public interface Field {
     public void placeCard(int index, Card card);
-    public void removeCard(int index);
+    public Card removeCard(int index);
+    public Card getCard(int index);
+    public void changeCardPosition(int index);
 }

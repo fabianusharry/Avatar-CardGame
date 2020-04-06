@@ -4,28 +4,31 @@ import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.SummonedCharacter;
 
 public class CharacterField implements Field {
-    SummonedCharacter[] field;
+    private SummonedCharacter[] field;
 
     public CharacterField() {
         field = new SummonedCharacter[8];
     }
     public SummonedCharacter[] getField() { return field; }
 
-    public void placeCard(int index, Card card, boolean isAttackMode) {
-        placeCard(index, card);
-        field[index].setAttackMode(isAttackMode);
-    }
-
     public void placeCard(int index, Card card) {
         if (field[index] == null) {
             field[index] = new SummonedCharacter(card, true);
+            // habis placeCard invoke player buat milih mau attack mode atau defense mode dari GUI, kalo mau defense -> panggil summonedCharacter.rotate();
         } // else throw exception (?)
-        else {
-            System.out.println("UDAH DIISI " + field[index].getCharacter().getName());
-        }
     }
 
-    public void removeCard(int index) {
+    public Card removeCard(int index) {
+        SummonedCharacter result = field[index];
         field[index] = null;
+        return result.getCharacter();
+    }
+
+    public Card getCard(int index) {
+        return field[index].getCharacter();
+    }
+
+    public void changeCardPosition(int index) {
+        field[index].rotate();
     }
 }

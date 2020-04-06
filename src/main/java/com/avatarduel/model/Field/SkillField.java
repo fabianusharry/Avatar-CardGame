@@ -16,7 +16,15 @@ public class SkillField implements Field {
         } // else throw exception (?)
     }
 
-    public void removeCard(int index) {
+    public Card removeCard(int index) {
+        Card result = field[index];
         field[index] = null;
+        return result;
     }
+
+    public Card getCard(int index) {
+        return field[index];
+    }
+
+    public void changeCardPosition(int index) { }
 }

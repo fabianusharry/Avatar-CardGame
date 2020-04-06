@@ -3,7 +3,7 @@ package com.avatarduel.model;
 import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Cards.Deck;
 import com.avatarduel.model.Cards.HandCards;
-import com.avatarduel.model.Power;
+import com.avatarduel.model.Field.CardField;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -13,12 +13,14 @@ public class Player {
     private Power power;
     private Deck deck;
     private HandCards handCards;
+    public CardField field;
 
     public Player() throws IOException, URISyntaxException {
         this.HP = 80;
         power = new Power();
         deck = new Deck();
         handCards = new HandCards(deck.takes(7));
+        field = new CardField();
     }
 
     public int getHP() {
