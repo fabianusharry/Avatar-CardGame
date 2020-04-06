@@ -3,7 +3,7 @@ package com.avatarduel;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import com.avatarduel.model.Player.Player;
+import com.avatarduel.model.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

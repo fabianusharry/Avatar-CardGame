@@ -1,4 +1,4 @@
-package com.avatarduel.model.Player;
+package com.avatarduel.model;
 
 import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Cards.Deck;
