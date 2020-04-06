@@ -1,19 +1,19 @@
-id,name,element,description,imagepath,power
-45,God’s Order,AIR,Order sent by god formed to a card.,,2
-46,Justice Crash,AIR,May justice serve you well.,,2
-56,Ascension,AIR,Send thee to the heaven.,,2
-57,Wisdom,AIR,Increase card intelligence.,,2
-58,Third Eye,EARTH,Gain a third visual eye.,,3
-59,Re-elevate,EARTH,Gain a plus one effect.,,5
-63,Progression,EARTH,Drastically increase one’s stat.,,4
-65,Phoenix Force,EARTH,The most powerful force in x-men.,,3
-70,Heaven’s Aura,EARTH,Aura that makes you addicted.,,2
-72,Holy Arc,EARTH,Blind all the lost soul.,,4
-74,Rejuvenate,EARTH,"Restoring, reduce, regrow, recycle.",,4
-84,Replenish,EARTH,Filling again the emptiness in your soul.,,3
-86,Retribution,EARTH,One’s lost become one’s gain.,,3
-87,Spirit’s Hand,EARTH,The good and helping spriit.,,2
-90,Shining Light,FIRE,Glimpse of the heaven.,,5
-91,Soulseer,FIRE,Seek what you can’t see.,,3
-93,CurseCharmer,FIRE,Cast a curse.,,1
-94,Divine Heliowitch,FIRE,Everything you never heard before.,,4
+id	name	element	description	imagepath	power
+45	God’s Order	AIR	Order sent by god formed to a card.		2
+46	Justice Crash	AIR	May justice serve you well.		2
+56	Ascension	AIR	Send thee to the heaven.		2
+57	Wisdom	AIR	Increase card intelligence.		2
+58	Third Eye	EARTH	Gain a third visual eye.		3
+59	Re-elevate	EARTH	Gain a plus one effect.		5
+63	Progression	EARTH	Drastically increase one’s stat.		4
+65	Phoenix Force	EARTH	The most powerful force in x-men.		3
+70	Heaven’s Aura	EARTH	Aura that makes you addicted.		2
+72	Holy Arc	EARTH	Blind all the lost soul.		4
+74	Rejuvenate	EARTH	Restoring, reduce, regrow, recycle.		4
+84	Replenish	EARTH	Filling again the emptiness in your soul.		3
+86	Retribution	EARTH	One’s lost become one’s gain.		3
+87	Spirit’s Hand	EARTH	The good and helping spriit.		2
+90	Shining Light	FIRE	Glimpse of the heaven.		5
+91	Soulseer	FIRE	Seek what you can’t see.		3
+93	CurseCharmer	FIRE	Cast a curse.		1
+94	Divine Heliowitch	FIRE	Everything you never heard before.		4
