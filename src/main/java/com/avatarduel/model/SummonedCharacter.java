@@ -1,6 +1,6 @@
 package com.avatarduel.model;
 
-import com.avatarduel.model.Character;
+import com.avatarduel.model.Card.Card;
 
 public class SummonedCharacter {
     Card character;
@@ -15,15 +15,15 @@ public class SummonedCharacter {
         this.isAttackMode = !this.isAttackMode;
     }
 
-    public int getPositionValue() {
-        int value;
-        if (this.isAttackMode == true) {
-            value = character.activate("attack");
-        } else {
-            value = character.activate("defense");
-        }
-        return value;
-    }
+    // public int getPositionValue() {
+    //     int value;
+    //     if (this.isAttackMode == true) {
+    //         value = character.activate("attack");
+    //     } else {
+    //         value = character.activate("defense");
+    //     }
+    //     return value;
+    // }
 
     public Card getCharacter() {
         return character;

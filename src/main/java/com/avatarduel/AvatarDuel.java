@@ -3,11 +3,12 @@ package com.avatarduel;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import com.avatarduel.model.Card;
+import com.avatarduel.model.Player;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class AvatarDuel extends Application {
@@ -16,13 +17,18 @@ public class AvatarDuel extends Application {
   Player P2;
 
   public void drawPhase(Player myself) {
-    myself.takeCardFromDeck();
+    myself.draw();
 
   }
 
-  public void mainPhase1(Player myself) {
+public void mainPhase1(Player myself) {
     boolean isLandReleased = false;
-    while (true) {
+    boolean end = false;
+    while (!end) {
+
+//      if (button end phase clicked) {
+////        end = true;
+////      }
 
     }
   }
@@ -49,10 +55,11 @@ public class AvatarDuel extends Application {
 
     Text text = new Text();
     text.setText("Loading...");
-    text.setX(50);
-    text.setY(50);
+    text.setX(640);
+    text.setY(360);
+    text.setTextAlignment(TextAlignment.CENTER);
 
-    Group root = new Group();
+    StackPane root = new StackPane();
 
     root.getChildren().add(text);
     Scene scene = new Scene(root, 1280, 720);
@@ -61,23 +68,11 @@ public class AvatarDuel extends Application {
     stage.setScene(scene);
     stage.show();
 
-
     try {
-      CardLoader c = CardLoader.getInstance();
+      P1 = new Player();
+      P2 = new Player();
 
-      P1 = new Player(c.makeDeck());
-      P2 = new Player(c.makeDeck());
-
-      CardField P1Field = new CardField();
-      CardField P2Field = new CardField();
-
-      P1.getCardsInHand().stream().filter(o -> o instanceof com.avatarduel.model.Character).forEach(o-> System.out.println(o.getName() + " ATTACK: "+ o.activate("attack")));
-
-      for (Card o : P1.getCardsInHand()) {
-        if (o instanceof com.avatarduel.model.Character) {
-          P1Field.getCharacterField().placeCard(1, o, true);
-        }
-      }
+      text.setText("Avatar Duel!");
     } catch (Exception e) {
       text.setText("Failed to load cards: " + e);
     }
