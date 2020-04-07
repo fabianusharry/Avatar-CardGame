@@ -2,8 +2,8 @@ package com.avatarduel.model.Card;
 
 public class Land extends Card {
 
-    public Land(String name, String description, Element element) {
-        super(name, description, element);
+    public Land(String name, String description, Element element, String imgPath) {
+        super(name, description, element, imgPath);
     }
 
     @Override
@@ -11,4 +11,9 @@ public class Land extends Card {
 
     @Override
     public void setAttribute(Attribute attribute, int value) { } // attribut land card tidak ada yang perlu di set
+
+    @Override
+    public void render() {
+
+    }
 }

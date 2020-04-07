@@ -6,12 +6,13 @@ public abstract class Skill extends Card {
    
     protected int power;
 
-    public Skill(String name, String description, Element element, int power) {
-        super(name, description, element);
+    public Skill(String name, String description, Element element, int power, String imgPath) {
+        super(name, description, element, imgPath);
         this.power = power;
     }
 
     public int getPower() { return power; }
+    public abstract void activate(Player destination, int index);
 
     @Override
     public int getAttribute(Attribute attribute) {
@@ -25,5 +26,8 @@ public abstract class Skill extends Card {
     @Override
     public void setAttribute(Attribute attribute, int value) { } // atribut Skill card tidak perlu ada yang di set
 
-    public abstract void activate(Player destination, int index);
+    @Override
+    public void render() {
+
+    }
 }

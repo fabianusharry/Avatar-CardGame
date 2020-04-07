@@ -6,8 +6,8 @@ public class Character extends Card {
     protected int defense;
     protected int power;
 
-    public Character(String name, String description, Element element, int attack, int defense, int power) {
-        super(name, description, element);
+    public Character(String name, String description, Element element, int attack, int defense, int power, String imgPath) {
+        super(name, description, element, imgPath);
         this.attack = attack;
         this.defense = defense;
         this.power = power;
@@ -33,5 +33,10 @@ public class Character extends Card {
         } else if (attribute == Attribute.DEFENSE) {
             defense = value;
         }
+    }
+
+    @Override
+    public void render() {
+
     }
 }

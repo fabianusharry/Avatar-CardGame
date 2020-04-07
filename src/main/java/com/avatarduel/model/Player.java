@@ -26,6 +26,7 @@ public class Player {
     public int getHP() {
         return HP;
     }
+    public HandCards getHandCards() { return handCards; }
 
     public void setHP(int HP) {
         if (HP <= 0) {

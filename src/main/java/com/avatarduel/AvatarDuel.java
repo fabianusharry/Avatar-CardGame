@@ -3,6 +3,7 @@ package com.avatarduel;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import com.avatarduel.gui.Loader.CardLoader;
 import com.avatarduel.model.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -73,6 +74,10 @@ public class AvatarDuel extends Application {
             P2 = new Player();
 
             text.setText("Avatar Duel!");
+
+            CardLoader test = new CardLoader(P1.takeCard(1));
+            test.render();
+
         } catch (Exception e) {
             text.setText("Failed to load cards: " + e);
         }

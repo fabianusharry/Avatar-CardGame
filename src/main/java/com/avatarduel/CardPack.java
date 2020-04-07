@@ -48,7 +48,7 @@ public class CardPack { //implement Singleton Design Pattern
         reader.setSkipHeader(true);
         List<String[]> rows = reader.read();
         for (String[] row : rows) {
-            this.lands.add(new Land(row[1], row[3], Element.valueOf(row[2])));
+            this.lands.add(new Land(row[1], row[3], Element.valueOf(row[2]), row[4]));
         }
     }
 
@@ -58,7 +58,7 @@ public class CardPack { //implement Singleton Design Pattern
         reader.setSkipHeader(true);
         List<String[]> rows = reader.read();
         for (String[] row : rows) {
-            this.characters.add(new Character(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[7])));
+            this.characters.add(new Character(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5]), Integer.parseInt(row[6]), Integer.parseInt(row[7]), row[4]));
         }
     }
 
@@ -68,7 +68,7 @@ public class CardPack { //implement Singleton Design Pattern
         reader.setSkipHeader(true);
         List<String[]> rows = reader.read();
         for (String[] row : rows) {
-            this.skills.add(new Aura(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[6]), Integer.parseInt(row[7]), Integer.parseInt(row[5])));
+            this.skills.add(new Aura(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[6]), Integer.parseInt(row[7]), Integer.parseInt(row[5]), row[4]));
         }
     }
 
@@ -78,7 +78,17 @@ public class CardPack { //implement Singleton Design Pattern
         reader.setSkipHeader(true);
         List<String[]> rows = reader.read();
         for (String[] row : rows) {
-            this.skills.add(new Destroy(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5])));
+            this.skills.add(new Destroy(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5]), row[4]));
+        }
+    }
+
+    private void loadSkillPowerUpCards() throws IOException, URISyntaxException {
+        File csvFile = new File(getClass().getResource(CardPack.SKILL_POWER_UP_CSV_FILE_PATH).toURI());
+        CSVReader reader = new CSVReader(csvFile, "\t");
+        reader.setSkipHeader(true);
+        List<String[]> rows = reader.read();
+        for (String[] row : rows) {
+            this.skills.add(new Destroy(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5]), row[4]));
         }
     }
 

@@ -11,8 +11,8 @@ public class Aura extends Skill {
     private int attack;
     private  int defense;
 
-    public Aura(String name, String description, Element element, int attack, int defense, int power) {
-        super(name, description, element, power);
+    public Aura(String name, String description, Element element, int attack, int defense, int power, String imgPath) {
+        super(name, description, element, power, imgPath);
         this.attack = attack;
         this.defense = defense;
     }

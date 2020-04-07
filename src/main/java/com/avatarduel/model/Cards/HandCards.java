@@ -15,6 +15,7 @@ public class HandCards {
     public int size() {
         return cards.size();
     }
+    public List<Card> getCards() { return cards; }
 
     public void add(Card newCard) {
         if (cards.size() < 12) {

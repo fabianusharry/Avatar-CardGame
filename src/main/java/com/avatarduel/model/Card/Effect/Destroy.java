@@ -8,8 +8,8 @@ import com.avatarduel.model.Player;
 
 public class Destroy extends Skill {
 
-    public Destroy(String name, String description, Element element, int power) {
-        super(name, description, element, power);
+    public Destroy(String name, String description, Element element, int power, String imgPath) {
+        super(name, description, element, power, imgPath);
     }
     
     @Override
