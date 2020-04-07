@@ -3,7 +3,7 @@ package com.avatarduel.model.Field;
 import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Card.Skill;
 
-public class SkillField implements Field {
+public class SkillField {
     Skill[] field;
 
     public SkillField() {
@@ -25,6 +25,4 @@ public class SkillField implements Field {
     public Card getCard(int index) {
         return field[index];
     }
-
-    public void changeCardPosition(int index) { }
 }

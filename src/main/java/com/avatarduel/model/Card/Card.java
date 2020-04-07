@@ -16,5 +16,6 @@ public abstract class Card {
     public String getDescription() { return description; }
     public Element getElement() { return element; }
 
-    public abstract void use();
+    public abstract int getAttribute(Attribute  attribute);
+    public abstract void setAttribute(Attribute  attribute, int value);
 }

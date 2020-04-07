@@ -1,7 +1,10 @@
 package com.avatarduel.model.Card.Effect;
 
+import com.avatarduel.model.Card.Attribute;
+import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Card.Skill;
 import com.avatarduel.model.Card.Element;
+import com.avatarduel.model.Player;
 
 public class Destroy extends Skill {
 
@@ -10,5 +13,7 @@ public class Destroy extends Skill {
     }
     
     @Override
-    public void use() { }
+    public void activate(Player destination, int index) {
+        Card destinationCard = destination.field.getCharacterField().removeCard(index);
+    }
 }

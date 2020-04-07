@@ -22,14 +22,6 @@ public class HandCards {
         } //else throw exception
     }
 
-    public Card take() {
-        Card takenCard = null;
-        if (cards.size() > 0) {
-            takenCard = cards.remove(0);
-        }
-        return takenCard;
-    }
-
     public Card take(int index) {
         Card takenCard = null;
         if (cards.size() > 0) {

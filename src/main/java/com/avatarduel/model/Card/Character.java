@@ -13,10 +13,25 @@ public class Character extends Card {
         this.power = power;
     }
 
-    public int getAttack() { return attack; }
-    public int getDefense() { return defense; }
-    public int getPower() { return power; }
+    @Override
+    public int getAttribute(Attribute attribute) {
+        int result = -1;
+        if (attribute == Attribute.ATTACK) {
+            result = attack;
+        } else if (attribute == Attribute.DEFENSE) {
+            result = defense;
+        } else if (attribute == Attribute.POWER) {
+            result = power;
+        }
+        return result;
+    }
 
     @Override
-    public void use() { }
+    public void setAttribute(Attribute  attribute, int value) {
+        if (attribute == Attribute.ATTACK) {
+            attack = value;
+        } else if (attribute == Attribute.DEFENSE) {
+            defense = value;
+        }
+    }
 }

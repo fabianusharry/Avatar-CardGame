@@ -1,7 +1,10 @@
 package com.avatarduel.model.Card.Effect;
 
+import com.avatarduel.model.Card.Attribute;
+import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Card.Skill;
 import com.avatarduel.model.Card.Element;
+import com.avatarduel.model.Player;
 
 public class Aura extends Skill {
     
@@ -19,5 +22,11 @@ public class Aura extends Skill {
 
 
     @Override
-    public void use() { }
+    public void activate(Player destination, int index) {
+        Card destinationCard = destination.field.getCharacterField().getCard(index);
+        int newAttack = destinationCard.getAttribute(Attribute.ATTACK)+this.attack;
+        int newDefense = destinationCard.getAttribute(Attribute.DEFENSE)+this.defense;
+        destinationCard.setAttribute(Attribute.ATTACK, newAttack);
+        destinationCard.setAttribute(Attribute.DEFENSE, newDefense);
+    }
 }

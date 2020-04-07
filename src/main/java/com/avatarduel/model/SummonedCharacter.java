@@ -1,8 +1,9 @@
 package com.avatarduel.model;
 
+import com.avatarduel.model.Card.Attribute;
 import com.avatarduel.model.Card.Card;
 
-public class SummonedCharacter {
+public class SummonedCharacter implements SummonedCard {
     Card character;
     private boolean isAttackMode;
 
@@ -11,19 +12,23 @@ public class SummonedCharacter {
         this.isAttackMode = isAttackMode;
     }
 
+    public boolean isAttackMode() {
+        return isAttackMode;
+    }
+
     public void rotate() {
         this.isAttackMode = !this.isAttackMode;
     }
 
-    // public int getPositionValue() {
-    //     int value;
-    //     if (this.isAttackMode == true) {
-    //         value = character.activate("attack");
-    //     } else {
-    //         value = character.activate("defense");
-    //     }
-    //     return value;
-    // }
+    public int getPositionValue() {
+         int value;
+         if (this.isAttackMode) {
+             value = character.getAttribute(Attribute.ATTACK);
+         } else {
+             value = character.getAttribute(Attribute.DEFENSE);
+         }
+         return value;
+     }
 
     public Card getCharacter() {
         return character;

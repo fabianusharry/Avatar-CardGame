@@ -1,15 +1,16 @@
 package com.avatarduel.model.Field;
 
 import com.avatarduel.model.Card.Card;
+import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
 
-public class CharacterField implements Field {
-    private SummonedCharacter[] field;
+public class CharacterField {
+    private SummonedCard[] field;
 
     public CharacterField() {
         field = new SummonedCharacter[8];
     }
-    public SummonedCharacter[] getField() { return field; }
+    public SummonedCard[] getField() { return field; }
 
     public void placeCard(int index, Card card) {
         if (field[index] == null) {
@@ -19,7 +20,7 @@ public class CharacterField implements Field {
     }
 
     public Card removeCard(int index) {
-        SummonedCharacter result = field[index];
+        SummonedCard result = field[index];
         field[index] = null;
         return result.getCharacter();
     }
@@ -30,5 +31,9 @@ public class CharacterField implements Field {
 
     public void changeCardPosition(int index) {
         field[index].rotate();
+    }
+
+    public boolean isAttackMode(int index) {
+        return field[index].isAttackMode();
     }
 }

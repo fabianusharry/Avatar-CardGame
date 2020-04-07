@@ -7,5 +7,8 @@ public class Land extends Card {
     }
 
     @Override
-    public void use() { }
+    public int getAttribute(Attribute attribute) { return -1; }
+
+    @Override
+    public void setAttribute(Attribute attribute, int value) { } // attribut land card tidak ada yang perlu di set
 }
