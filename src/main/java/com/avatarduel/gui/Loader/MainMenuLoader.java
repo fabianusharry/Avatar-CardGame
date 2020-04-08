@@ -1,31 +1,37 @@
 package com.avatarduel.gui.Loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.Controller.CardController;
+import com.avatarduel.gui.Controller.MainMenuController;
 import com.avatarduel.model.Card.Card;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class MainMenuLoader implements Loader {
-    Stage mainMenu;
+    Pane mainMenu;
 
-    public MainMenuLoader(Card card) throws IOException {
+    public MainMenuLoader() throws IOException {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/loading.fxml"));
         MainMenuController controller = new MainMenuController();
         loader.setController(controller);
         // make stage
         AnchorPane pane = loader.load();
-        Scene scene = new Scene(pane, 480, 640);
-        this.mainMenu = new Stage();
-        this.mainMenu.setScene(scene);
+        
+    }
+
+    public Pane getPane() {
+        return mainMenu;
     }
 
     public void render() {
-        mainMenu.show();
+        Stage stage = new Stage();
+        Scene scene = new Scene(mainMenu, 480, 640);
+        stage.setScene(scene);
+        stage.show();
     }
 }
