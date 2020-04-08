@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ProgressBar fx:id="P1HPBar" layoutX="549.0" layoutY="667.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
+      <ProgressBar fx:id="P2HPBar" layoutX="549.0" layoutY="14.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
+      <Label fx:id="P1Name" layoutX="549.0" layoutY="639.0" prefHeight="31.0" prefWidth="179.0" text="Player 1 - Name" textAlignment="RIGHT">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="P2Name" layoutX="1087.0" layoutY="52.0" prefHeight="31.0" prefWidth="179.0" text="Player 2 - Name" textAlignment="RIGHT">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="22.0" />
+         </font>
+      </Label>
+      <Pane fx:id="cardView" layoutX="29.0" layoutY="40.0" prefHeight="640.0" prefWidth="480.0" />
+      <ProgressBar fx:id="P1Turn" layoutX="837.0" layoutY="645.0" prefHeight="20.0" prefWidth="215.0" styleClass="yellow-bar" stylesheets="@css/progressbar.css" />
+      <ProgressBar fx:id="P2Turn" layoutX="729.0" layoutY="58.0" prefHeight="20.0" prefWidth="215.0" styleClass="yellow-bar" stylesheets="@css/progressbar.css" />
+      <Label fx:id="P1HP" layoutX="1184.0" layoutY="639.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="P2HP" layoutX="549.0" layoutY="52.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="22.0" />
+         </font>
+      </Label>
+      <Line endX="133.0" layoutX="1124.0" layoutY="360.0" startX="-566.0" />
+   </children>
+</Pane>

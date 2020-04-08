@@ -34,8 +34,8 @@ public class CardController extends AvatarDuel implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         description.setText(card.getDescription());
-        description.setVisible(true);
-        description.setDisable(true);
+        description.setEditable(false);
+        description.setStyle("-fx-opacity: 0.8;");
         name.setText(card.getName());
         element.setText(card.getElement().toString());
         cardImage.setImage(new Image(getClass().getSuperclass().getResource(card.getImgPath()).toString()));
