@@ -21,7 +21,7 @@ public class MainMenuLoader implements Loader {
         MainMenuController controller = new MainMenuController();
         loader.setController(controller);
         // make stage
-        AnchorPane pane = loader.load();
+        this.mainMenu = loader.load();
         
     }
 
@@ -31,8 +31,9 @@ public class MainMenuLoader implements Loader {
 
     public void render() {
         Stage stage = new Stage();
-        Scene scene = new Scene(mainMenu, 480, 640);
+        Scene scene = new Scene(mainMenu, 1280, 720);
         stage.setScene(scene);
+        stage.setTitle("Avatar Card Game");
         stage.show();
     }
 }

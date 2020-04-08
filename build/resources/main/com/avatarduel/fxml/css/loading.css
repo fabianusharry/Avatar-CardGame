@@ -13,11 +13,8 @@
     -fx-background-color: black;
     -fx-text-fill : white;
 }
-.playerName1{
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
-}
-.labelPlayer{
+
+.labelplayer{
     -fx-text-fill: green;
 }
 .text-field {

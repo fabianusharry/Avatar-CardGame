@@ -19,22 +19,22 @@
 
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bodybg" stylesheets="@css\loading.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <Text fx:id="gameTitle" layoutX="380.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avatar Card Game" style = "fx-text-fill: green" >
+   <Text fx:id="gameTitle" layoutX="380.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avatar Card Game" >
       <font>
          <Font name="Forte" size="72.0" />
       </font>
    </Text>
-   <Text fx:id="player1label" layoutX="350.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 : " styleClass= "labelPlayer" >
+   <Text fx:id="player1label" layoutX="350.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1 : " styleClass= "labelplayer" >
       <font>
          <Font name="Forte" size="54.0" />
       </font>
    </Text>
-   <Text fx:id = "player2label" layoutX="350.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2 : " styleClass= "labelPlayer">
+   <Text fx:id = "player2label" layoutX="350.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2 : " styleClass= "labelplayer">
       <font>
          <Font name="Forte" size="54.0" />
       </font>
    </Text>
-   <Button fx:id="startButton" layoutX="560.0" layoutY="500.0" text="Start" styleClass= "startbutton">
+   <Button fx:id="startButton" layoutX="560.0" layoutY="550.0" text="Start" styleClass= "startbutton">
       <font>
          <Font name="Forte" size="56.0" />
       </font>
