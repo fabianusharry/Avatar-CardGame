@@ -3,7 +3,10 @@ package com.avatarduel;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import javafx.fxml.FXMLLoader;
+
 import com.avatarduel.gui.Loader.CardLoader;
+import com.avatarduel.gui.Loader.MainMenuLoader;
 import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Player;
 import javafx.application.Application;
@@ -12,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.scene.*;
 
 public class AvatarDuel extends Application {
     boolean endGame;
@@ -65,25 +69,37 @@ public class AvatarDuel extends Application {
 
         root.getChildren().add(text);
         Scene scene = new Scene(root, 1280, 720);
-
+        
         stage.setTitle("Avatar Duel");
         stage.setScene(scene);
         stage.show();
+
+        Parent root2 = FXMLLoader.load(AvatarDuel.class.getResource("fxml/loading.fxml"));
+    
+        Scene scene2 = new Scene(root2, 1280, 720);
+
+        stage.setTitle("FXML Welcome");
+        stage.setScene(scene2);
+        stage.show();
+        // MainMenuLoader mainMenu = new MainMenuLoader();
+        // mainMenu.render();
+
+
 
         try {
             P1 = new Player("ab");
             P2 = new Player("cd");
 
             for (Card o : P1.getHandCards().getCards()) {
-                CardLoader test = new CardLoader(o);
+//                CardLoader test = new CardLoader(o);
 //                Scene scene1 = new Scene(test.getPane());
 //                stage.setScene(scene1);
-                test.render();
+//                test.render();
 //                root.getChildren().add(test.getPane());
             }
 
         } catch (Exception e) {
-            text.setText("Failed to load cards: " + e);
+            //text.setText("Failed to load cards: " + e);
         }
     }
 

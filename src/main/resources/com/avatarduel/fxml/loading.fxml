@@ -5,12 +5,15 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bodybg" stylesheets="@loading.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text layoutX="510.0" layoutY="632.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading" wrappingWidth="260.51953125">
-         <font>
-            <Font name="Forte" size="72.0" />
-         </font>
-      </Text>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bodybg" stylesheets="@css\loading.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <Text layoutX="510.0" layoutY="632.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading" wrappingWidth="260.51953125">
+      <font>
+         <Font name="Forte" size="72.0" />
+      </font>
+   </Text>
+   <Text layoutX="360.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avatar Card Game" >
+      <font>
+         <Font name="Forte" size="72.0" />
+      </font>
+   </Text>
 </AnchorPane>
