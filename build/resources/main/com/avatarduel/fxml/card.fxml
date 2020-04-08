@@ -33,7 +33,7 @@
           <Insets bottom="35.0" top="20.0" />
         </GridPane.margin>
     </TextArea>
-    <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="The Legend Aang" wrappingWidth="306.03125" GridPane.columnIndex="1" GridPane.columnSpan="2">
+    <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="306.03125" GridPane.columnIndex="1" GridPane.columnSpan="2">
         <font>
           <Font name="Modern No. 20" size="27.0" />
         </font>
@@ -41,7 +41,7 @@
           <Insets top="30.0" />
         </GridPane.margin>
     </Text>
-    <Text fx:id="element" strokeType="OUTSIDE" strokeWidth="0.0" text="WATER" textAlignment="RIGHT" wrappingWidth="73.03125" GridPane.columnIndex="3">
+    <Text fx:id="element" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="73.03125" GridPane.columnIndex="3">
         <font>
           <Font name="Modern No. 20" size="18.0" />
         </font>
@@ -49,17 +49,17 @@
           <Insets left="40.0" top="30.0" />
         </GridPane.margin>
     </Text>
-    <Text fx:id="attack" strokeType="OUTSIDE" strokeWidth="0.0" text="ATT : 50" wrappingWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <Text fx:id="attr1" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <font>
           <Font name="Modern No. 20" size="24.0" />
         </font>
     </Text>
-    <Text fx:id="defense" strokeType="OUTSIDE" strokeWidth="0.0" text="DEF : 50" textAlignment="CENTER" wrappingWidth="121.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <Text fx:id="attr2" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="121.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <font>
           <Font name="Modern No. 20" size="24.0" />
         </font>
     </Text>
-    <Text fx:id="power" strokeType="OUTSIDE" strokeWidth="0.0" text="POW : 50" textAlignment="RIGHT" wrappingWidth="121.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+    <Text fx:id="attr3" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="121.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
         <font>
           <Font name="Modern No. 20" size="24.0" />
         </font>

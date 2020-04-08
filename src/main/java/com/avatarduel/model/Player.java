@@ -1,6 +1,8 @@
 package com.avatarduel.model;
 
+import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Element;
 import com.avatarduel.model.cards.Deck;
 import com.avatarduel.model.cards.HandCards;
 import com.avatarduel.model.field.CardField;
@@ -11,7 +13,8 @@ import java.net.URISyntaxException;
 public class Player {
     private String name;
     private int HP;
-    private Power power;
+    private Power powerNow;
+    private Power maxPower;
     private Deck deck;
     private HandCards handCards;
     public CardField field;
@@ -19,7 +22,8 @@ public class Player {
     public Player(String name) throws IOException, URISyntaxException {
         this.name = name;
         this.HP = 80;
-        power = new Power();
+        powerNow = new Power();
+        maxPower = new Power();
         deck = new Deck();
         handCards = new HandCards(deck.takes(7));
         field = new CardField();
@@ -28,8 +32,22 @@ public class Player {
     public int getHP() {
         return HP;
     }
-    public HandCards getHandCards() { return handCards; }
-    public String getName() { return name; }
+
+    public HandCards getHandCards() {
+        return handCards;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Power getPowerNow() {
+        return powerNow;
+    }
+
+    public Power getMaxPower() {
+        return maxPower;
+    }
 
     public void setHP(int HP) {
         if (HP <= 0) {
@@ -43,9 +61,18 @@ public class Player {
     }
 
     public Card takeCard(int index) {
-        Card takenCard = handCards.take(index);
-        if (takenCard instanceof com.avatarduel.model.card.Land) {
-            power.add(takenCard.getElement());
+        Card takenCard = null;
+        if (handCards.peek(index) instanceof com.avatarduel.model.card.Land) {
+            takenCard = handCards.take(index);
+            powerNow.add(takenCard.getElement());
+            maxPower.add(takenCard.getElement());
+        } else {
+            //SEMENTARA DI DISABLE IF NYA BUAT DEBUGGING
+//            if (powerNow.get(handCards.peek(index).getElement()) >= handCards.peek(index).getAttribute(Attribute.POWER)) {
+                takenCard = handCards.take(index);
+                Element takenCardElement = takenCard.getElement();
+                powerNow.set(takenCardElement, powerNow.get(takenCardElement) - takenCard.getAttribute(Attribute.POWER));
+//            } //else ga berhasil
         }
         return takenCard;
     }

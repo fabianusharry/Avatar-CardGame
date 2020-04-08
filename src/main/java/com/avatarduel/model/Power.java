@@ -23,4 +23,8 @@ public class Power {
     public void add(Element element) {
         power.put(element, power.get(element)+1);
     }
+
+    public void set(Element element, int value) {
+        power.put(element, value);
+    }
 }

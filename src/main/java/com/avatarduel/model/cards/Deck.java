@@ -12,8 +12,7 @@ public class Deck {
 
     public Deck() throws IOException, URISyntaxException {
         cards = new Stack<Card>();
-        //         int nDeck = new Random().nextInt(21) + 40; //random nDeck 40-60
-        int nDeck = new Random().nextInt(30) + 10; //SEMENTARA (JUMLAH KARTU KURANG)
+        int nDeck = new Random().nextInt(21) + 40; //random nDeck 40-60
         int nCharacter, nLand, nSkill; // land : character : skill = 2 : 2 : 1
 
         CardPack pack = CardPack.getInstance();

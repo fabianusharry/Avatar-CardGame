@@ -27,9 +27,9 @@ public class CardController extends AvatarDuel implements Initializable {
     @FXML private TextArea description;
     @FXML private Text name;
     @FXML private Text element;
-    @FXML private Text attack;
-    @FXML private Text defense;
-    @FXML private Text power;
+    @FXML private Text attr1;
+    @FXML private Text attr2;
+    @FXML private Text attr3;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,14 +45,23 @@ public class CardController extends AvatarDuel implements Initializable {
     public void setAttribute() {
         String imgPath = null;
         if (card instanceof com.avatarduel.model.card.Character) {
-            attack.setText("ATT: " + card.getAttribute(Attribute.ATTACK));
-            defense.setText("DEF: " + card.getAttribute(Attribute.DEFENSE));
-            power.setText("POW: " + card.getAttribute(Attribute.POWER));
+            attr1.setText("ATT: " + card.getAttribute(Attribute.ATTACK));
+            attr2.setText("DEF: " + card.getAttribute(Attribute.DEFENSE));
+            attr3.setText("POW: " + card.getAttribute(Attribute.POWER));
             imgPath = "card/image/template/characterCard.png";
         } else if (card instanceof com.avatarduel.model.card.Skill) {
-            power.setText("POW: " + card.getAttribute(Attribute.POWER));
+            attr1.setText("SKILL");
+            if (card instanceof com.avatarduel.model.card.effect.Aura) {
+                attr2.setText("AURA");
+            } else if (card instanceof com.avatarduel.model.card.effect.Destroy) {
+                attr2.setText("DESTROY");
+            } else {
+                attr2.setText("PWR UP");
+            }
+            attr3.setText("POW: " + card.getAttribute(Attribute.POWER));
             imgPath = "card/image/template/skillCard.png";
         } else if (card instanceof com.avatarduel.model.card.Land) {
+            attr3.setText("LAND");
             imgPath = "card/image/template/landCard.png";
         }
         setBackground(imgPath);

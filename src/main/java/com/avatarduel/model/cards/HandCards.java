@@ -30,4 +30,8 @@ public class HandCards {
         }
         return takenCard;
     }
+
+    public Card peek(int index) {
+        return cards.get(index);
+    }
 }
