@@ -18,8 +18,8 @@ public class MainMenuLoader implements Loader {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/loading.fxml"));
 
-        // MainMenuController controller = new MainMenuController();
-        // loader.setController(controller);
+        MainMenuController controller = new MainMenuController();
+        loader.setController(controller);
         // make stage
         AnchorPane pane = loader.load();
         
