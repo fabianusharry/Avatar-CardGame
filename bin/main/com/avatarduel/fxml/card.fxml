@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane fx:id="cardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="65.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="0.0" prefWidth="112.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="0.0" prefWidth="124.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="116.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="64.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="94.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="386.0" minHeight="10.0" prefHeight="351.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <ImageView fx:id="cardImage" fitHeight="361.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+        <Image url="@Air%20Funnel.png" />
+    </ImageView>
+    <TextArea fx:id="description" prefHeight="75.0" prefWidth="360.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+        <GridPane.margin>
+          <Insets bottom="35.0" top="20.0" />
+        </GridPane.margin>
+    </TextArea>
+    <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="The Legend Aang" wrappingWidth="306.03125" GridPane.columnIndex="1" GridPane.columnSpan="2">
+        <font>
+          <Font name="Modern No. 20" size="27.0" />
+        </font>
+        <GridPane.margin>
+          <Insets top="30.0" />
+        </GridPane.margin>
+    </Text>
+    <Text fx:id="element" strokeType="OUTSIDE" strokeWidth="0.0" text="WATER" textAlignment="RIGHT" wrappingWidth="73.03125" GridPane.columnIndex="3">
+        <font>
+          <Font name="Modern No. 20" size="18.0" />
+        </font>
+        <GridPane.margin>
+          <Insets left="40.0" top="30.0" />
+        </GridPane.margin>
+    </Text>
+    <Text fx:id="attack" strokeType="OUTSIDE" strokeWidth="0.0" text="ATT : 50" wrappingWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <font>
+          <Font name="Modern No. 20" size="24.0" />
+        </font>
+    </Text>
+    <Text fx:id="defense" strokeType="OUTSIDE" strokeWidth="0.0" text="DEF : 50" textAlignment="CENTER" wrappingWidth="121.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <font>
+          <Font name="Modern No. 20" size="24.0" />
+        </font>
+    </Text>
+    <Text fx:id="power" strokeType="OUTSIDE" strokeWidth="0.0" text="POW : 50" textAlignment="RIGHT" wrappingWidth="121.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+        <font>
+          <Font name="Modern No. 20" size="24.0" />
+        </font>
+    </Text>
+</GridPane>
