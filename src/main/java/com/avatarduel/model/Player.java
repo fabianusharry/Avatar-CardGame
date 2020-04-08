@@ -9,13 +9,15 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Player {
+    private String name;
     private int HP;
     private Power power;
     private Deck deck;
     private HandCards handCards;
     public CardField field;
 
-    public Player() throws IOException, URISyntaxException {
+    public Player(String name) throws IOException, URISyntaxException {
+        this.name = name;
         this.HP = 80;
         power = new Power();
         deck = new Deck();
@@ -27,6 +29,7 @@ public class Player {
         return HP;
     }
     public HandCards getHandCards() { return handCards; }
+    public String getName() { return name; }
 
     public void setHP(int HP) {
         if (HP <= 0) {

@@ -39,7 +39,7 @@ public class CardPack { //implement Singleton Design Pattern
         loadCharacterCards();
         loadSkillAuraCards();
         loadSkillDestroyCards();
-//        loadSkillPowerUpCards();
+        loadSkillPowerUpCards();
     }
 
     private void loadLandCards() throws IOException, URISyntaxException {
@@ -88,7 +88,7 @@ public class CardPack { //implement Singleton Design Pattern
         reader.setSkipHeader(true);
         List<String[]> rows = reader.read();
         for (String[] row : rows) {
-            this.skills.add(new Destroy(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5]), row[4]));
+            this.skills.add(new PowerUp(row[1], row[3], Element.valueOf(row[2]), Integer.parseInt(row[5]), row[4]));
         }
     }
 
