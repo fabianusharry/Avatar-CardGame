@@ -25,7 +25,7 @@
         <RowConstraints maxHeight="320.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <ImageView fx:id="cardImage" fitHeight="361.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+    <ImageView fx:id="cardImage" fitHeight="361.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 1;" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
         <Image url="@Air%20Funnel.png" />
     </ImageView>
     <TextArea fx:id="description" prefHeight="75.0" prefWidth="360.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">

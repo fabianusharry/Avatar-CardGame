@@ -1,6 +1,6 @@
 package com.avatarduel.model;
 
-import com.avatarduel.model.Card.Element;
+import com.avatarduel.model.card.Element;
 
 import java.util.HashMap;
 import java.util.Map;

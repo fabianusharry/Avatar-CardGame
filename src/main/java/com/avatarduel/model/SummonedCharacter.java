@@ -1,7 +1,7 @@
 package com.avatarduel.model;
 
-import com.avatarduel.model.Card.Attribute;
-import com.avatarduel.model.Card.Card;
+import com.avatarduel.model.card.Attribute;
+import com.avatarduel.model.card.Card;
 
 public class SummonedCharacter implements SummonedCard {
     Card character;

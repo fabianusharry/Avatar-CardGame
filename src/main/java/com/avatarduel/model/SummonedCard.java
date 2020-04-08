@@ -1,6 +1,6 @@
 package com.avatarduel.model;
 
-import com.avatarduel.model.Card.Card;
+import com.avatarduel.model.card.Card;
 
 public interface SummonedCard {
 

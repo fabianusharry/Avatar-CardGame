@@ -1,8 +1,8 @@
 package com.avatarduel;
 
-import com.avatarduel.model.Card.*;
-import com.avatarduel.model.Card.Character;
-import com.avatarduel.model.Card.Effect.*;
+import com.avatarduel.model.card.*;
+import com.avatarduel.model.card.Character;
+import com.avatarduel.model.card.effect.*;
 import com.avatarduel.util.CSVReader;
 
 import java.io.File;

@@ -3,12 +3,12 @@ package com.avatarduel;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import javafx.fxml.FXMLLoader;
-
-import com.avatarduel.gui.Controller.MainMenuController;
-import com.avatarduel.gui.Loader.CardLoader;
-import com.avatarduel.gui.Loader.MainMenuLoader;
-import com.avatarduel.model.Card.Card;
+import com.avatarduel.gui.controller.GameController;
+import com.avatarduel.gui.controller.MainMenuController;
+import com.avatarduel.gui.loader.CardLoader;
+import com.avatarduel.gui.loader.GameLoader;
+import com.avatarduel.gui.loader.MainMenuLoader;
+import com.avatarduel.model.card.Card;
 import com.avatarduel.model.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,12 +16,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.*;
 
 public class AvatarDuel extends Application {
-    boolean endGame;
-    Player P1;
-    Player P2;
+    public boolean endGame;
+    public Player P1;
+    public Player P2;
 
     public void drawPhase(Player myself) {
         myself.draw();
@@ -73,23 +72,29 @@ public class AvatarDuel extends Application {
         
         stage.setTitle("Avatar Duel");
         stage.setScene(scene);
-        stage.show();
+//        stage.show();
 
-        MainMenuLoader mainMenu = new MainMenuLoader();
-        mainMenu.render();
+//        MainMenuLoader mainMenu = new MainMenuLoader();
+//        mainMenu.render();
 
         try {
-            System.out.println(MainMenuController.getName(1));
-            P1 = new Player(MainMenuController.getName(1));
-            P2 = new Player(MainMenuController.getName(2));
+//            System.out.println(MainMenuController.getName(1));
+//            P1 = new Player(MainMenuController.getName(1));
+//            P2 = new Player(MainMenuController.getName(2));
 
-            for (Card o : P1.getHandCards().getCards()) {
-               CardLoader test = new CardLoader(o);
-               Scene scene1 = new Scene(test.getPane());
-               stage.setScene(scene1);
-               test.render();
-               root.getChildren().add(test.getPane());
-            }
+            P1 = new Player("Abc");
+            P2 = new Player("Def");
+
+            GameLoader test = new GameLoader(this);
+            test.render();
+
+//            for (Card o : P1.getHandCards().getCards()) {
+//               CardLoader test1 = new CardLoader(o);
+////               Scene scene1 = new Scene(test.getPane());
+////               stage.setScene(scene1);
+//               test1.render();
+////               root.getChildren().add(test.getPane());
+//            }
 
         } catch (Exception e) {
             text.setText("Failed to load cards: " + e);

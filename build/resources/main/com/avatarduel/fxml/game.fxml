@@ -2,61 +2,52 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="game" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1360.0" styleClass="bodybg" stylesheets="@css/game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ProgressBar fx:id="P1HPBar" layoutX="549.0" layoutY="667.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
-      <ProgressBar fx:id="P2HPBar" layoutX="549.0" layoutY="14.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
-      <Label fx:id="P2Name" layoutX="549.0" layoutY="639.0" prefHeight="31.0" prefWidth="179.0" text="Player 1 - Name" textAlignment="RIGHT">
-         <font>
-            <Font name="Berlin Sans FB Bold" size="22.0" />
-         </font>
-      </Label>
-      <Label fx:id="P1Name1" layoutX="1087.0" layoutY="52.0" prefHeight="31.0" prefWidth="179.0" text="Player 2 - Name" textAlignment="RIGHT">
-         <font>
-            <Font name="Berlin Sans FB Bold" size="22.0" />
-         </font>
-      </Label>
-      <Pane fx:id="cardView" layoutX="29.0" layoutY="40.0" prefHeight="640.0" prefWidth="480.0" />
-      <ProgressBar layoutX="728.0" layoutY="645.0" prefHeight="20.0" prefWidth="215.0" styleClass="yellow-bar" stylesheets="@css/progressbar.css" />
-      <ProgressBar layoutX="773.0" layoutY="58.0" prefHeight="20.0" prefWidth="300.0" styleClass="yellow-bar" stylesheets="@css/progressbar.css" />
-      <GridPane fx:id="myField" gridLinesVisible="true" hgap="10.0" layoutX="626.0" layoutY="182.0" prefHeight="150.0" prefWidth="640.0" vgap="10.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <GridPane fx:id="myField1" gridLinesVisible="true" hgap="10.0" layoutX="537.0" layoutY="349.0" prefHeight="150.0" prefWidth="640.0" vgap="10.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
+      <Pane layoutX="81.0" layoutY="213.0" prefHeight="351.0" prefWidth="351.0" style="-fx-background-color: gray;" />
+      <Pane layoutX="2.0" layoutY="2.0" prefHeight="768.0" prefWidth="1360.0" style="-fx-background-color: white; -fx-opacity: 0.7;">
+         <children>
+            <Pane fx:id="P1Field" layoutX="620.0" layoutY="391.0" prefHeight="170.0" prefWidth="717.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P1HandCards" layoutX="708.0" layoutY="571.0" prefHeight="85.0" prefWidth="628.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P1deck" layoutX="619.0" layoutY="571.0" prefHeight="85.0" prefWidth="70.0" style="-fx-background-color: red;" />
+            <Pane fx:id="cardView" layoutX="14.0" layoutY="64.0" prefHeight="640.0" prefWidth="480.0" />
+            <ProgressBar fx:id="P1HPBar" layoutX="14.0" layoutY="716.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P1Name" layoutX="1167.0" layoutY="720.0" prefHeight="31.0" prefWidth="179.0" text="Player 1 - Name" textAlignment="RIGHT">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="22.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="P1Turn" layoutX="841.0" layoutY="726.0" prefHeight="20.0" prefWidth="299.0" styleClass="yellow-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P1HP" layoutX="741.0" layoutY="720.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="142.0" layoutX="1193.0" layoutY="384.0" startX="-682.0" />
+            <ProgressBar fx:id="P2HPBar" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P2HP" layoutX="741.0" layoutY="18.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="22.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="P2Turn" layoutX="841.0" layoutY="24.0" prefHeight="20.0" prefWidth="299.0" styleClass="yellow-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P2Name" layoutX="1167.0" layoutY="18.0" prefHeight="31.0" prefWidth="179.0" text="Player 2 - Name" textAlignment="RIGHT">
+               <font>
+                  <Font name="Berlin Sans FB Bold" size="22.0" />
+               </font>
+            </Label>
+            <Pane fx:id="P2Field" layoutX="620.0" layoutY="207.0" prefHeight="170.0" prefWidth="717.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P2HandCards" layoutX="708.0" layoutY="112.0" prefHeight="85.0" prefWidth="628.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P2deck" layoutX="619.0" layoutY="112.0" prefHeight="85.0" prefWidth="70.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P1gameStage" layoutX="619.0" layoutY="666.0" prefHeight="38.0" prefWidth="715.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P2gameStage" layoutX="619.0" layoutY="64.0" prefHeight="38.0" prefWidth="715.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P1Element" layoutX="508.0" layoutY="394.0" prefHeight="310.0" prefWidth="99.0" style="-fx-background-color: red;" />
+            <Pane fx:id="P2Element" layoutX="508.0" layoutY="64.0" prefHeight="310.0" prefWidth="99.0" style="-fx-background-color: red;" />
+         </children>
+      </Pane>
    </children>
 </Pane>

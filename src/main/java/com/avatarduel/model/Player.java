@@ -1,9 +1,9 @@
 package com.avatarduel.model;
 
-import com.avatarduel.model.Card.Card;
-import com.avatarduel.model.Cards.Deck;
-import com.avatarduel.model.Cards.HandCards;
-import com.avatarduel.model.Field.CardField;
+import com.avatarduel.model.card.Card;
+import com.avatarduel.model.cards.Deck;
+import com.avatarduel.model.cards.HandCards;
+import com.avatarduel.model.field.CardField;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -44,7 +44,7 @@ public class Player {
 
     public Card takeCard(int index) {
         Card takenCard = handCards.take(index);
-        if (takenCard instanceof com.avatarduel.model.Card.Land) {
+        if (takenCard instanceof com.avatarduel.model.card.Land) {
             power.add(takenCard.getElement());
         }
         return takenCard;

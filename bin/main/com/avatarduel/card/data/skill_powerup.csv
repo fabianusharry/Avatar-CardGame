@@ -1,19 +1,12 @@
 id	name	element	description	imagepath	power
-45	God’s Order	AIR	Order sent by god formed to a card.		2
-46	Justice Crash	AIR	May justice serve you well.		2
-56	Ascension	AIR	Send thee to the heaven.		2
-57	Wisdom	AIR	Increase card intelligence.		2
-58	Third Eye	EARTH	Gain a third visual eye.		3
-59	Re-elevate	EARTH	Gain a plus one effect.		5
-63	Progression	EARTH	Drastically increase one’s stat.		4
-65	Phoenix Force	EARTH	The most powerful force in x-men.		3
-70	Heaven’s Aura	EARTH	Aura that makes you addicted.		2
-72	Holy Arc	EARTH	Blind all the lost soul.		4
-74	Rejuvenate	EARTH	Restoring, reduce, regrow, recycle.		4
-84	Replenish	EARTH	Filling again the emptiness in your soul.		3
-86	Retribution	EARTH	One’s lost become one’s gain.		3
-87	Spirit’s Hand	EARTH	The good and helping spriit.		2
-90	Shining Light	FIRE	Glimpse of the heaven.		5
-91	Soulseer	FIRE	Seek what you can’t see.		3
-93	CurseCharmer	FIRE	Cast a curse.		1
-94	Divine Heliowitch	FIRE	Everything you never heard before.		4
+65	Air Funnel	AIR	Technique to create a cannon for small projectiles.	card/image/skill/Air Funnel.png	2
+66	Air Scooter	AIR	A form of transportation invented by Aang.	card/image/skill/Air Scooter.png	2
+67	Airbender Staff	AIR	A wooden stave used primarily by airbenders to augment their bending.	card/image/skill/Airbender Staff.png	2
+68	Airbender Upgraded Staff	AIR	Upgraded staff made by Mechanist for Aang at the Fire Nation Invasion.	card/image/skill/Airbender Upgraded Staff.png	2
+69	Asphyxiation	AIR	Manipulates the flow of air within a person's respiratory system and prevents any new intake of breath by forming a ball of air around the head.	card/image/skill/Asphyxiation.png	3
+70	Glider	AIR	Aerial transportation made by Mechanist, inspired from Air nomad gliders.	card/image/skill/Glider.png	1
+71	Hot Air Balloon	AIR	Air balloon created by Mechanist, originally developed for the Fire Nation	card/image/skill/Hot Air Balloon.png	3
+72	Crystal Armor	EARTH	Armor made of crystal that makes the person cannot move.	card/image/skill/Crystal Armor.png	3
+73	Earth Sink	EARTH	Make the person sink to the ground.	card/image/skill/Earth Sink.png	2
+74	Lavabending	EARTH	Manipulate molten earth.	card/image/skill/Lavabending.png	4
+75	Metalbending	EARTH	Ability to bend metal.	card/image/skill/Metalbending.png	4
