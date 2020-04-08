@@ -7,32 +7,32 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="480.0" styleClass="bodybg" stylesheets="@css/card.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="cardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <ImageView fx:id="cardImage" fitHeight="350.0" fitWidth="350.0" layoutX="65.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@Air%20Funnel.png" />
    </ImageView>
-   <TextArea fx:id="description" layoutX="60.0" layoutY="523.0" prefHeight="75.0" prefWidth="360.0" styleClass="text-area" stylesheets="@css/card.css" wrapText="true" />
-   <Text fx:id="name" layoutX="54.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="288.03125">
+   <TextArea fx:id="description" layoutX="60.0" layoutY="523.0" prefHeight="75.0" prefWidth="360.0" wrapText="true" />
+   <Text fx:id="name" layoutX="53.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="306.03125">
       <font>
-         <Font name="Modern No. 20" size="32.0" />
+         <Font name="Modern No. 20" size="27.0" />
       </font>
    </Text>
-   <Text fx:id="element" layoutX="301.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="129.03125">
+   <Text fx:id="element" layoutX="350.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="73.03125">
       <font>
-         <Font name="Modern No. 20" size="26.0" />
+         <Font name="Modern No. 20" size="18.0" />
       </font>
    </Text>
-   <Text fx:id="attack" layoutX="60.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Att : 50" wrappingWidth="121.0">
-      <font>
-         <Font name="Modern No. 20" size="26.0" />
-      </font>
-   </Text>
-   <Text fx:id="defense" layoutX="180.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Def : 50" textAlignment="CENTER" wrappingWidth="121.0">
+   <Text fx:id="attack" layoutX="60.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="121.0">
       <font>
          <Font name="Modern No. 20" size="26.0" />
       </font>
    </Text>
-   <Text fx:id="power" layoutX="299.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pow : 50" textAlignment="RIGHT" wrappingWidth="121.0">
+   <Text fx:id="defense" layoutX="180.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " textAlignment="CENTER" wrappingWidth="121.0">
+      <font>
+         <Font name="Modern No. 20" size="26.0" />
+      </font>
+   </Text>
+   <Text fx:id="power" layoutX="299.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " textAlignment="RIGHT" wrappingWidth="121.0">
       <font>
          <Font name="Modern No. 20" size="26.0" />
       </font>

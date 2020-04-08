@@ -6,12 +6,13 @@ import com.avatarduel.model.Card.Card;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class CardLoader implements Loader {
-    Stage card;
+    Pane card;
 
     public CardLoader(Card card) throws IOException {
         // init loader
@@ -19,13 +20,18 @@ public class CardLoader implements Loader {
         CardController controller = new CardController(card);
         loader.setController(controller);
         // make stage
-        AnchorPane pane = loader.load();
-        Scene scene = new Scene(pane, 480, 640);
-        this.card = new Stage();
-        this.card.setScene(scene);
+        this.card = loader.load();
+
+    }
+
+    public Pane getPane() {
+        return card;
     }
 
     public void render() {
-        card.show();
+        Stage stage = new Stage();
+        Scene scene = new Scene(card, 480, 640);
+        stage.setScene(scene);
+        stage.show();
     }
 }

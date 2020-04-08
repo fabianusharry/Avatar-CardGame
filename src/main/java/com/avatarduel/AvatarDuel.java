@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import com.avatarduel.gui.Loader.CardLoader;
+import com.avatarduel.model.Card.Card;
 import com.avatarduel.model.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -70,13 +71,16 @@ public class AvatarDuel extends Application {
         stage.show();
 
         try {
-            P1 = new Player();
-            P2 = new Player();
+            P1 = new Player("ab");
+            P2 = new Player("cd");
 
-            text.setText("Avatar Duel!");
-
-            CardLoader test = new CardLoader(P1.takeCard(1));
-            test.render();
+            for (Card o : P1.getHandCards().getCards()) {
+                CardLoader test = new CardLoader(o);
+//                Scene scene1 = new Scene(test.getPane());
+//                stage.setScene(scene1);
+                test.render();
+//                root.getChildren().add(test.getPane());
+            }
 
         } catch (Exception e) {
             text.setText("Failed to load cards: " + e);
