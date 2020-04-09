@@ -67,12 +67,11 @@ public class Player {
             powerNow.add(takenCard.getElement());
             maxPower.add(takenCard.getElement());
         } else {
-            //SEMENTARA DI DISABLE IF NYA BUAT DEBUGGING
-//            if (powerNow.get(handCards.peek(index).getElement()) >= handCards.peek(index).getAttribute(Attribute.POWER)) {
+            if (powerNow.get(handCards.peek(index).getElement()) >= handCards.peek(index).getAttribute(Attribute.POWER)) {
                 takenCard = handCards.take(index);
                 Element takenCardElement = takenCard.getElement();
                 powerNow.set(takenCardElement, powerNow.get(takenCardElement) - takenCard.getAttribute(Attribute.POWER));
-//            } //else ga berhasil
+            } //else ga berhasil
         }
         return takenCard;
     }

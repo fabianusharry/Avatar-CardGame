@@ -84,7 +84,7 @@ public class AvatarDuel extends Application {
 
             P1 = new Player("Abc");
             P2 = new Player("Def");
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 2; i++) {
                 P1.draw();
             }
             GameLoader test = new GameLoader(this);

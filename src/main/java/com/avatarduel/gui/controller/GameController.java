@@ -44,12 +44,22 @@ public class GameController implements Initializable {
     @FXML private Text P1DeckSize;
     @FXML private Pane P1HandCards;
     @FXML private Pane P1Field;
+    @FXML private Text drawPhaseP1;
+    @FXML private Text mainPhaseP1;
+    @FXML private Text battlePhaseP1;
+    @FXML private Text endPhaseP1;
+    @FXML private Pane P1Blocker;
     @FXML private Pane P2Element;
     @FXML private Pane P2gameStage;
     @FXML private ImageView P2deck;
     @FXML private Text P2DeckSize;
     @FXML private Pane P2HandCards;
     @FXML private Pane P2Field;
+    @FXML private Text drawPhaseP2;
+    @FXML private Text mainPhaseP2;
+    @FXML private Text battlePhaseP2;
+    @FXML private Text endPhaseP2;
+    @FXML private Pane P2Blocker;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,17 +67,34 @@ public class GameController implements Initializable {
         P2Name.setText("Player 2 - " + game.P2.getName());
         // TEST
         try {
-            CardLoader p1card = new CardLoader(game.P1.takeCard(0));
+            CardLoader p1card = new CardLoader(game.P1.getHandCards().peek(0));
             PowerLoader p1power = new PowerLoader(game.P1);
             HandLoader p1hand = new HandLoader(game.P1.getHandCards());
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
             P1HandCards.getChildren().add(p1hand.getPane());
-//            p1power.render();
+            setEnableP2(true);
+            setEnableP1(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void setEnableP1(Boolean isEnabled) {
+        if (isEnabled) {
+            P1Blocker.setDisable(false); //blocker dilepas
+        } else {
+            P1Blocker.setDisable(true); //pasang blocker
+        }
+    }
+
+    public void setEnableP2(Boolean isEnabled) {
+        if (isEnabled) {
+            P2Blocker.setDisable(false); //blocker dilepas
+        } else {
+            P2Blocker.setDisable(true); //pasang blocker
+        }
     }
 
     @FXML
