@@ -7,7 +7,7 @@ public class SkillField {
     Skill[] field;
 
     public SkillField() {
-        field = new Skill[8];
+        field = new Skill[6];
     }
 
     public void placeCard(int index, Card card) {

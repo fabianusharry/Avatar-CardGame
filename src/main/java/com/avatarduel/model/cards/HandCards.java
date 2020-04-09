@@ -32,6 +32,9 @@ public class HandCards {
     }
 
     public Card peek(int index) {
-        return cards.get(index);
+        Card takenCard = null;
+        if (index >= 0 && index < size())
+            takenCard = cards.get(index);
+        return takenCard;
     }
 }

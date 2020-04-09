@@ -8,7 +8,7 @@ public class CharacterField {
     private SummonedCard[] field;
 
     public CharacterField() {
-        field = new SummonedCharacter[8];
+        field = new SummonedCharacter[6];
     }
     public SummonedCard[] getField() { return field; }
 

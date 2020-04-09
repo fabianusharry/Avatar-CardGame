@@ -2,6 +2,7 @@ package com.avatarduel.gui.controller;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.loader.CardLoader;
+import com.avatarduel.gui.loader.HandLoader;
 import com.avatarduel.gui.loader.PowerLoader;
 import com.avatarduel.model.Power;
 import com.avatarduel.model.card.Attribute;
@@ -39,12 +40,14 @@ public class GameController implements Initializable {
     @FXML private Label P2HP;
     @FXML private Pane P1Element;
     @FXML private Pane P1gameStage;
-    @FXML private Pane P1deck;
+    @FXML private ImageView P1deck;
+    @FXML private Text P1DeckSize;
     @FXML private Pane P1HandCards;
     @FXML private Pane P1Field;
     @FXML private Pane P2Element;
     @FXML private Pane P2gameStage;
-    @FXML private Pane P2deck;
+    @FXML private ImageView P2deck;
+    @FXML private Text P2DeckSize;
     @FXML private Pane P2HandCards;
     @FXML private Pane P2Field;
 
@@ -56,12 +59,25 @@ public class GameController implements Initializable {
         try {
             CardLoader p1card = new CardLoader(game.P1.takeCard(0));
             PowerLoader p1power = new PowerLoader(game.P1);
+            HandLoader p1hand = new HandLoader(game.P1.getHandCards());
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
+            P1HandCards.getChildren().add(p1hand.getPane());
 //            p1power.render();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void P1draw() {
+        // harus di cek skrg turn siapa
+        System.out.println("MASUK");
+    }
+
+    @FXML
+    public void P2draw() {
+        System.out.println("MASUK2");
     }
 }
