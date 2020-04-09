@@ -1,9 +1,8 @@
 package com.avatarduel.gui.controller;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.loader.CardLoader;
-import com.avatarduel.gui.loader.HandLoader;
-import com.avatarduel.gui.loader.PowerLoader;
+import com.avatarduel.gui.loader.*;
+import com.avatarduel.model.Player;
 import com.avatarduel.model.Power;
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
@@ -22,10 +21,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
-    private AvatarDuel game;
+    private static GameController instance = null; //Singleton attribute
 
-    public GameController(AvatarDuel game) {
-        this.game = game;
+    private Player P1;
+    private Player P2;
+
+    public static GameController getInstance() throws Exception {
+        if (instance == null) {
+            instance = new GameController();
+        }
+        return instance;
+    }
+
+    private GameController() throws Exception {
+        this.P1 = new Player(MainMenuLoader.getInstance().getP1Name());
+        this.P2 = new Player(MainMenuLoader.getInstance().getP2Name());
     }
 
     @FXML private Pane cardPane;
@@ -63,13 +73,13 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        P1Name.setText("Player 1 - " + game.P1.getName());
-        P2Name.setText("Player 2 - " + game.P2.getName());
+        P1Name.setText("Player 1 - " + P1.getName());
+        P2Name.setText("Player 2 - " + P2.getName());
         // TEST
         try {
-            CardLoader p1card = new CardLoader(game.P1.getHandCards().peek(0));
-            PowerLoader p1power = new PowerLoader(game.P1);
-            HandLoader p1hand = new HandLoader(game.P1.getHandCards());
+            CardLoader p1card = new CardLoader(P1.getHandCards().peek(0));
+            PowerLoader p1power = new PowerLoader(P1);
+            HandLoader p1hand = new HandLoader(P1.getHandCards());
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
             P1HandCards.getChildren().add(p1hand.getPane());
@@ -106,5 +116,10 @@ public class GameController implements Initializable {
     @FXML
     public void P2draw() {
         System.out.println("MASUK2");
+    }
+
+    void setCardView(Card card) throws IOException {
+        CardLoader newCardView = new CardLoader(card);
+        cardView.getChildren().add(newCardView.getPane());
     }
 }

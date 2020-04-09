@@ -3,6 +3,7 @@ package com.avatarduel.gui.loader;
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.controller.CardController;
 import com.avatarduel.gui.controller.GameController;
+import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,13 +14,25 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class GameLoader {
+    private static GameLoader instance = null; //Singleton attribute
+
     Pane game;
 
-    public GameLoader(AvatarDuel game) throws IOException {
+    public static GameLoader getInstance() throws Exception {
+        if (instance == null) {
+            instance = new GameLoader();
+        }
+        return instance;
+    }
+
+    public static Boolean isInstantiated() {
+        return instance != null;
+    }
+
+    private GameLoader() throws Exception {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/game.fxml"));
-        GameController controller = new GameController(game);
-        loader.setController(controller);
+        loader.setController(GameController.getInstance());
         // make stage
         this.game = loader.load();
 

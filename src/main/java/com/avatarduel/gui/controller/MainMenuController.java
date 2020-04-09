@@ -1,7 +1,10 @@
 package com.avatarduel.gui.controller;
 
+import java.io.IOException;
 import java.lang.Exception;
 import com.avatarduel.AvatarDuel;
+import com.avatarduel.gui.loader.GameLoader;
+import com.avatarduel.gui.loader.MainMenuLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -25,17 +28,14 @@ public class MainMenuController extends AvatarDuel implements Initializable {
     @FXML private TextField playerName2;
 
     @FXML
-    private void handleStartButtonPress(ActionEvent event)
-    {
+    private void startGame() throws Exception {
         nameOfPlayer1 = playerName1.getText();
         nameOfPlayer2 = playerName2.getText();
-        System.out.println(nameOfPlayer1);
-        System.out.println(nameOfPlayer2);
-        playerName1.setText("");
-        playerName2.setText("");   
+        MainMenuLoader.getInstance().closeStage();
+        GameLoader.getInstance().render();
     }
 
-    public static String getName(int player) throws Exception{
+    public String getName(int player) throws Exception {
         if(!nameOfPlayer1.equals("") && !nameOfPlayer2.equals("")){
             if(player == 1){
                 return nameOfPlayer1;
@@ -45,20 +45,15 @@ public class MainMenuController extends AvatarDuel implements Initializable {
             }
         }
         else{
-            throw new Exception("Nama Player Belum diinput");
+            throw new Exception("Nama Player Belum Diinput");
         }
-        return "-1";
+        return null;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        startButton.setOnAction(this::handleStartButtonPress);
         playerName1.setText("Masukkan nama player 1");
         playerName2.setText("Masukkan nama player 2");
-        // description.setDisable(true);
-        // name.setText(card.getName());
-        // element.setText(card.getElement().toString());
-        // cardImage.setImage(new Image(getClass().getSuperclass().getResource(card.getImgPath()).toString()));
     }
 
     @FXML

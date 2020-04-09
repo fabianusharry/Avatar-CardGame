@@ -4,16 +4,16 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="card10" layoutX="10.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card9" layoutX="68.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card8" layoutX="126.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card7" layoutX="184.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card6" layoutX="242.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card5" layoutX="300.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card4" layoutX="358.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card3" layoutX="416.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card2" layoutX="474.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card1" layoutX="532.0" prefHeight="85.0" prefWidth="58.0" />
-      <Pane fx:id="card0" layoutX="590.0" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card10" layoutX="10.0" onMouseEntered="#showCard11" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card9" layoutX="68.0" onMouseEntered="#showCard10" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card8" layoutX="126.0" onMouseEntered="#showCard9" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card7" layoutX="184.0" onMouseEntered="#showCard8" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card6" layoutX="242.0" onMouseEntered="#showCard7" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card5" layoutX="300.0" onMouseEntered="#showCard6" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card4" layoutX="358.0" onMouseEntered="#showCard5" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card3" layoutX="416.0" onMouseEntered="#showCard4" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card2" layoutX="474.0" onMouseEntered="#showCard3" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card1" layoutX="532.0" onMouseEntered="#showCard2" prefHeight="85.0" prefWidth="58.0" />
+      <Pane fx:id="card0" layoutX="590.0" onMouseEntered="#showCard1" prefHeight="85.0" prefWidth="58.0" />
    </children>
 </Pane>

@@ -56,39 +56,22 @@ public class AvatarDuel extends Application {
 
 
     @Override
-    public void start(Stage stage) throws IOException, URISyntaxException {
+    public void start(Stage stage) throws Exception {
         endGame = false;
 
-        Text text = new Text();
-        text.setText("Loading...");
-        text.setX(640);
-        text.setY(360);
-        text.setTextAlignment(TextAlignment.CENTER);
+        MainMenuLoader mainMenu = MainMenuLoader.getInstance();
+        mainMenu.render(stage);
 
-        StackPane root = new StackPane();
+//        try {
+//            P1 = new Player(mainMenu.getP1Name());
+//            P2 = new Player(mainMenu.getP2Name());
+//            for (int i = 0; i < 2; i++) {
+//                P1.draw();
+//            }
 
-        root.getChildren().add(text);
-        Scene scene = new Scene(root, 1280, 720);
-        
-        stage.setTitle("Avatar Duel");
-        stage.setScene(scene);
-//        stage.show();
 
-//        MainMenuLoader mainMenu = new MainMenuLoader();
-//        mainMenu.render();
-
-        try {
-//            System.out.println(MainMenuController.getName(1));
-//            P1 = new Player(MainMenuController.getName(1));
-//            P2 = new Player(MainMenuController.getName(2));
-
-            P1 = new Player("Abc");
-            P2 = new Player("Def");
-            for (int i = 0; i < 2; i++) {
-                P1.draw();
-            }
-            GameLoader test = new GameLoader(this);
-            test.render();
+//            GameLoader game = new GameLoader(this);
+//            stage.setScene(new Scene(game.getPane(), 1360, 768));
 
 //            for (Card o : P1.getHandCards().getCards()) {
 //               CardLoader test1 = new CardLoader(o);
@@ -98,9 +81,9 @@ public class AvatarDuel extends Application {
 ////               root.getChildren().add(test.getPane());
 //            }
 
-        } catch (Exception e) {
-            text.setText("Failed to load cards: " + e);
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static void main(String[] args) {

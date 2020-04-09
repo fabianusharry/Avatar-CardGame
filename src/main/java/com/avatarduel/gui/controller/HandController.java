@@ -54,4 +54,66 @@ public class HandController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void showCard0() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(0));
+    }
+
+    @FXML
+    public void showCard1() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(1));
+    }
+
+    @FXML
+    public void showCard2() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(2));
+    }
+
+    @FXML
+    public void showCard3() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(3));
+    }
+
+    @FXML
+    public void showCard4() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(4));
+    }
+
+    @FXML
+    public void showCard5() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(5));
+    }
+
+    @FXML
+    public void showCard6() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(6));
+    }
+
+    @FXML
+    public void showCard7() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(7));
+    }
+
+    @FXML
+    public void showCard8() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(8));
+    }
+
+    @FXML
+    public void showCard9() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(9));
+    }
+
+    @FXML
+    public void showCard10() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(10));
+    }
+
+    @FXML
+    public void showCard11() throws Exception {
+        GameController.getInstance().setCardView(hand.peek(11));
+    }
+
+
 }

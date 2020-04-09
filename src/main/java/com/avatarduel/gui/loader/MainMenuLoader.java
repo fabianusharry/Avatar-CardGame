@@ -1,6 +1,7 @@
 package com.avatarduel.gui.loader;
 
 import com.avatarduel.AvatarDuel;
+import com.avatarduel.CardPack;
 import com.avatarduel.gui.controller.MainMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,17 +12,26 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class MainMenuLoader implements Loader {
-    Pane mainMenu;
+    private static MainMenuLoader instance = null; //Singleton attribute
 
-    public MainMenuLoader() throws IOException {
+    MainMenuController controller;
+    Pane mainMenu;
+    Stage stage;
+
+    public static MainMenuLoader getInstance() throws IOException {
+        if (instance == null) {
+            instance = new MainMenuLoader();
+        }
+        return instance;
+    }
+
+    private MainMenuLoader() throws IOException {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/menu.fxml"));
-
-        MainMenuController controller = new MainMenuController();
+        controller = new MainMenuController();
         loader.setController(controller);
         // make stage
         this.mainMenu = loader.load();
-        
     }
 
     public Pane getPane() {
@@ -29,11 +39,32 @@ public class MainMenuLoader implements Loader {
     }
 
     public void render() {
-        Stage stage = new Stage();
+        stage = new Stage();
         Scene scene = new Scene(mainMenu, 1360, 768);
         stage.setScene(scene);
         stage.setTitle("Avatar Card Game");
         stage.setResizable(false);
         stage.show();
+    }
+
+    public void render(Stage stage) {
+        this.stage = stage;
+        Scene scene = new Scene(mainMenu, 1360, 768);
+        stage.setScene(scene);
+        stage.setTitle("Avatar Card Game");
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void closeStage() {
+        stage.close();
+    }
+
+    public String getP1Name() throws Exception {
+        return controller.getName(1);
+    }
+
+    public String getP2Name() throws Exception {
+        return controller.getName(2);
     }
 }
