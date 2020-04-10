@@ -1,6 +1,8 @@
 package com.avatarduel.gui.controller;
 
 import com.avatarduel.AvatarDuel;
+import com.avatarduel.gui.event.Event;
+import com.avatarduel.gui.event.EventListener;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.Power;
@@ -20,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameController implements Initializable {
+public class GameController implements Initializable, EventListener {
     private static GameController instance = null; //Singleton attribute
 
     private Player P1;
@@ -83,9 +85,9 @@ public class GameController implements Initializable {
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
             P1HandCards.getChildren().add(p1hand.getPane());
-            setEnableP2(true);
-            setEnableP1(false);
-        } catch (IOException e) {
+//            setEnableP2(true);
+//            setEnableP1(false);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -118,8 +120,19 @@ public class GameController implements Initializable {
         System.out.println("MASUK2");
     }
 
-    void setCardView(Card card) throws IOException {
+    public Pane getCardView() {
+        return cardView;
+    }
+
+    public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
         cardView.getChildren().add(newCardView.getPane());
+    }
+
+    @Override
+    public void update(Event eventType, Object value) throws IOException {
+        if (eventType.equals(Event.ChangeCardView)) {
+            setCardView((Card) value);
+        }
     }
 }

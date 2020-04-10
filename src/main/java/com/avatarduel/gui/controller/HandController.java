@@ -1,6 +1,9 @@
 package com.avatarduel.gui.controller;
 
 import com.avatarduel.AvatarDuel;
+import com.avatarduel.gui.event.Event;
+import com.avatarduel.gui.event.EventListener;
+import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.CardLoader;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.gui.loader.PowerLoader;
@@ -19,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class HandController implements Initializable {
     private HandCards hand;
+    private EventManager events;
 
     @FXML private Pane card0;
     @FXML private Pane card1;
@@ -32,8 +36,10 @@ public class HandController implements Initializable {
     @FXML private Pane card9;
     @FXML private Pane card10;
 
-    public HandController(HandCards hand) {
+    public HandController(HandCards hand) throws Exception {
         this.hand = hand;
+        events = new EventManager(Event.ChangeCardView);
+        events.subscribe(Event.ChangeCardView, GameController.getInstance());
     }
 
     @Override
@@ -57,63 +63,56 @@ public class HandController implements Initializable {
 
     @FXML
     public void showCard0() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(0));
+        events.notify(Event.ChangeCardView, hand.peek(0));
     }
 
     @FXML
     public void showCard1() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(1));
+        events.notify(Event.ChangeCardView, hand.peek(1));
     }
 
     @FXML
     public void showCard2() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(2));
+        events.notify(Event.ChangeCardView, hand.peek(2));
     }
 
     @FXML
     public void showCard3() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(3));
+        events.notify(Event.ChangeCardView, hand.peek(3));
     }
 
     @FXML
     public void showCard4() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(4));
+        events.notify(Event.ChangeCardView, hand.peek(4));
     }
 
     @FXML
     public void showCard5() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(5));
+        events.notify(Event.ChangeCardView, hand.peek(5));
     }
 
     @FXML
     public void showCard6() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(6));
+        events.notify(Event.ChangeCardView, hand.peek(6));
     }
 
     @FXML
     public void showCard7() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(7));
+        events.notify(Event.ChangeCardView, hand.peek(7));
     }
 
     @FXML
     public void showCard8() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(8));
+        events.notify(Event.ChangeCardView, hand.peek(8));
     }
 
     @FXML
     public void showCard9() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(9));
+        events.notify(Event.ChangeCardView, hand.peek(9));
     }
 
     @FXML
     public void showCard10() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(10));
+        events.notify(Event.ChangeCardView, hand.peek(9));
     }
-
-    @FXML
-    public void showCard11() throws Exception {
-        GameController.getInstance().setCardView(hand.peek(11));
-    }
-
-
 }

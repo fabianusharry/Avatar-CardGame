@@ -14,7 +14,7 @@ import java.io.IOException;
 public class HandLoader implements Loader {
     Pane mainMenu;
 
-    public HandLoader(HandCards hand) throws IOException {
+    public HandLoader(HandCards hand) throws Exception {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/hand.fxml"));
 
