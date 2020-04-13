@@ -29,7 +29,6 @@ public class FieldPlayer1Controller implements Initializable{
     public List<Pane> SkillFields = new ArrayList<>(Arrays.asList(Skill1,Skill2,Skill3,Skill4,Skill5,Skill6));
     public FieldPlayer1Controller(){
         this.cards = new CardField();
-        
     }
     
     
