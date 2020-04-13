@@ -1,6 +1,6 @@
 package com.avatarduel.gui.event;
 
 public enum Event {
-    ChangeCardView
-
+    CHANGE_CARD_VIEW,
+    DRAW_CARD
 }

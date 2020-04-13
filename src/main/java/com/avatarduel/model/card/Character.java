@@ -34,9 +34,4 @@ public class Character extends Card {
             defense = value;
         }
     }
-
-    @Override
-    public void render() {
-
-    }
 }

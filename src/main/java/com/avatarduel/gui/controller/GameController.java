@@ -1,19 +1,14 @@
 package com.avatarduel.gui.controller;
 
-import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
-import com.avatarduel.model.Power;
-import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -110,13 +105,14 @@ public class GameController implements Initializable, EventListener {
     }
 
     @FXML
-    public void P1draw() {
-        // harus di cek skrg turn siapa
-        System.out.println("MASUK");
+    public void p1Draw() throws Exception {
+        P1.draw();
+        P1HandCards.getChildren().clear(); // hapus pane yg lama
+        P1HandCards.getChildren().add(new HandLoader(P1.getHandCards()).getPane());
     }
 
     @FXML
-    public void P2draw() {
+    public void p2Draw() {
         System.out.println("MASUK2");
     }
 
@@ -131,7 +127,7 @@ public class GameController implements Initializable, EventListener {
 
     @Override
     public void update(Event eventType, Object value) throws IOException {
-        if (eventType.equals(Event.ChangeCardView)) {
+        if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
             setCardView((Card) value);
         }
     }

@@ -25,9 +25,4 @@ public abstract class Skill extends Card {
 
     @Override
     public void setAttribute(Attribute attribute, int value) { } // atribut Skill card tidak perlu ada yang di set
-
-    @Override
-    public void render() {
-
-    }
 }

@@ -11,9 +11,4 @@ public class Land extends Card {
 
     @Override
     public void setAttribute(Attribute attribute, int value) { } // attribut land card tidak ada yang perlu di set
-
-    @Override
-    public void render() {
-
-    }
 }

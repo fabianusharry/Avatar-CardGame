@@ -18,9 +18,7 @@ public class HandCards {
     public List<Card> getCards() { return cards; }
 
     public void add(Card newCard) {
-        if (cards.size() < 12) {
-            cards.add(newCard);
-        } //else throw exception
+        cards.add(newCard);
     }
 
     public Card take(int index) {

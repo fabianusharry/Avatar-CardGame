@@ -21,5 +21,4 @@ public abstract class Card {
 
     public abstract int getAttribute(Attribute  attribute);
     public abstract void setAttribute(Attribute  attribute, int value);
-    public abstract void render();
 }

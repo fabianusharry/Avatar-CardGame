@@ -57,7 +57,9 @@ public class Player {
     }
 
     public void draw() {
-        handCards.add(deck.take());
+        if (this.getHandCards().size() < 11) {
+            handCards.add(deck.take());
+        }
     }
 
     public Card takeCard(int index) {
