@@ -1,13 +1,11 @@
 package com.avatarduel.gui.loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.CardPack;
 import com.avatarduel.gui.controller.MainMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 

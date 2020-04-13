@@ -17,11 +17,6 @@ public class EventManager {
         users.add(listener);
     }
 
-    public void unsubscribe(Event eventType, EventListener listener) {
-        List<EventListener> users = listeners.get(eventType);
-        users.remove(listener);
-    }
-
     public void notify(Event eventType, Object value) throws IOException {
         if (value != null) {
             List<EventListener> users = listeners.get(eventType);
