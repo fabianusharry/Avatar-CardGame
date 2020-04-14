@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.Pane?>
+<?import java.util.ArrayList?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -15,5 +16,20 @@
       <Pane fx:id="card2" layoutX="474.0" onMouseClicked="#getCard" onMouseEntered="#showCard" prefHeight="85.0" prefWidth="58.0" />
       <Pane fx:id="card1" layoutX="532.0" onMouseClicked="#getCard" onMouseEntered="#showCard" prefHeight="85.0" prefWidth="58.0" />
       <Pane fx:id="card0" layoutX="590.0" onMouseClicked="#getCard" onMouseEntered="#showCard" prefHeight="85.0" prefWidth="58.0" />
+      <fx:define>
+         <ArrayList fx:id="cards">
+            <fx:reference source="card0"/>
+            <fx:reference source="card1"/>
+            <fx:reference source="card2"/>
+            <fx:reference source="card3"/>
+            <fx:reference source="card4"/>
+            <fx:reference source="card5"/>
+            <fx:reference source="card6"/>
+            <fx:reference source="card7"/>
+            <fx:reference source="card8"/>
+            <fx:reference source="card9"/>
+            <fx:reference source="card10"/>
+         </ArrayList>
+      </fx:define>
    </children>
 </Pane>

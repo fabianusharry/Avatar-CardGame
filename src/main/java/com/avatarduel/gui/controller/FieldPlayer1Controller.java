@@ -62,7 +62,7 @@ public class FieldPlayer1Controller implements Initializable{
                     CharacterFields.get(i).getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(i)).getPane());
                 }
                 if(s.getCard(i)!=null){
-                    SkillFields.get(i).getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(i)).getPane());
+                    SkillFields.get(i).getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(i)).getPane());
                 }
             }
         }
