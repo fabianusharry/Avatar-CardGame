@@ -23,7 +23,7 @@ public class HandCards {
 
     public Card take(int index) {
         Card takenCard = null;
-        if (cards.size() > 0) {
+        if (cards.size() > 0 && index < size()) {
             takenCard = cards.remove(index);
         }
         return takenCard;

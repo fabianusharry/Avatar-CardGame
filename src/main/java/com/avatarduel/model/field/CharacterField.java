@@ -10,7 +10,6 @@ public class CharacterField {
     public CharacterField() {
         field = new SummonedCharacter[6];
     }
-    public SummonedCard[] getField() { return field; }
 
     public void placeCard(int index, Card card) {
         if (field[index] == null) {
@@ -26,11 +25,17 @@ public class CharacterField {
     }
 
     public Card getCard(int index) {
-        return field[index].getCharacter();
+        Card c = null;
+        if (field[index] != null) {
+            c = field[index].getCharacter();
+        }
+        return c;
     }
 
     public void changeCardPosition(int index) {
-        field[index].rotate();
+        if (field[index] != null) {
+            field[index].rotate();
+        }
     }
 
     public boolean isAttackMode(int index) {

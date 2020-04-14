@@ -77,7 +77,9 @@ public class GameController implements Initializable, EventListener {
             CardLoader p1card = new CardLoader(P1.getHandCards().peek(0));
             PowerLoader p1power = new PowerLoader(P1);
             HandLoader p1hand = new HandLoader(P1.getHandCards(), "P1");
+            P1.field.getCharacterField().placeCard(1, P1.takeCard(0));
             FieldPlayer1Loader p1field = new FieldPlayer1Loader(P1.field);
+            P1Field.getChildren().add(p1field.getPane());
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
             P1HandCards.getChildren().add(p1hand.getPane());

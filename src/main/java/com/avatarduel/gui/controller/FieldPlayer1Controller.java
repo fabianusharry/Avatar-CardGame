@@ -33,8 +33,7 @@ public class FieldPlayer1Controller implements Initializable{
     public CardField cards;
 
     HashMap<Integer,Pane> map = new HashMap<>();
-    public List<Pane> CharacterFields = new ArrayList<>(Arrays.asList(Character1,Character2,Character3,Character4,Character5,Character6));
-    public List<Pane> SkillFields = new ArrayList<>(Arrays.asList(Skill1,Skill2,Skill3,Skill4,Skill5,Skill6));
+
     public FieldPlayer1Controller(CardField cards) throws Exception{
         this.cards = cards;
         this.map.put(0,Character1);
@@ -66,23 +65,19 @@ public class FieldPlayer1Controller implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        try{
+        try {
             CharacterField c = cards.getCharacterField();
-            SkillField s = cards.getSkillField(); 
-            if(c!=null){
-                for(int i = 0;i<6;i++){
-                    Pane p = map.get(i);
-                    if(c.getField()[i]!=null){
-                        p.getChildren().add(new MiniCardLoader(c.getCard(i)).getPane());
-                    }
+            SkillField s = cards.getSkillField();
+            for(int i = 0;i<6;i++){
+                Pane p = map.get(i);
+                if(c.getCard(i)!=null){
+                    p.getChildren().add(new MiniCardLoader(c.getCard(i)).getPane());
                 }
             }
-            if(s!=null){
-                for(int i = 6;i<12;i++){
-                    Pane p = map.get(i);
-                    if(s.getCard(i%6)!=null){
-                        p.getChildren().add(new MiniCardLoader(s.getCard(i%6)).getPane());
-                    }
+            for(int i = 6;i<12;i++){
+                Pane p = map.get(i);
+                if(s.getCard(i%6)!=null){
+                    p.getChildren().add(new MiniCardLoader(s.getCard(i%6)).getPane());
                 }
             }
         }

@@ -16,27 +16,27 @@
       <Pane opacity="0.7" prefHeight="768.0" prefWidth="1360.0" style="-fx-background-color: white;">
          <children>
             <Pane fx:id="cardView" layoutX="14.0" layoutY="64.0" prefHeight="640.0" prefWidth="480.0" />
-            <ProgressBar fx:id="P1HPBar" layoutX="14.0" layoutY="716.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
-            <Label fx:id="P1Name" layoutX="1167.0" layoutY="720.0" prefHeight="31.0" prefWidth="179.0" text="Player 1 - Name" textAlignment="RIGHT">
+            <ProgressBar fx:id="P1HPBar" layoutX="14.0" layoutY="723.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P1Name" layoutX="1167.0" layoutY="727.0" prefHeight="31.0" prefWidth="179.0" text="Player 1 - Name" textAlignment="RIGHT">
                <font>
                   <Font name="Berlin Sans FB Bold" size="22.0" />
                </font>
             </Label>
-            <ProgressBar fx:id="P1Turn" layoutX="841.0" layoutY="726.0" prefHeight="20.0" prefWidth="299.0" styleClass="red-bar" stylesheets="@css/progressbar.css" />
-            <Label fx:id="P1HP" layoutX="741.0" layoutY="720.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
+            <ProgressBar fx:id="P1Turn" layoutX="841.0" layoutY="732.0" prefHeight="20.0" prefWidth="299.0" styleClass="red-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P1HP" layoutX="741.0" layoutY="727.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
                <font>
                   <Font name="Berlin Sans FB Bold" size="22.0" />
                </font>
             </Label>
             <Line endX="142.0" layoutX="1193.0" layoutY="384.0" startX="-682.0" />
-            <ProgressBar fx:id="P2HPBar" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
-            <Label fx:id="P2HP" layoutX="741.0" layoutY="18.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
+            <ProgressBar fx:id="P2HPBar" layoutX="14.0" layoutY="10.0" prefHeight="38.0" prefWidth="717.0" progress="1.0" styleClass="green-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P2HP" layoutX="741.0" layoutY="14.0" prefHeight="31.0" prefWidth="82.0" text="HP : 80" textAlignment="RIGHT">
                <font>
                   <Font name="Berlin Sans FB Bold" size="22.0" />
                </font>
             </Label>
-            <ProgressBar fx:id="P2Turn" layoutX="841.0" layoutY="24.0" prefHeight="20.0" prefWidth="299.0" progress="0.0" styleClass="red-bar" stylesheets="@css/progressbar.css" />
-            <Label fx:id="P2Name" layoutX="1167.0" layoutY="18.0" prefHeight="31.0" prefWidth="179.0" text="Player 2 - Name" textAlignment="RIGHT">
+            <ProgressBar fx:id="P2Turn" layoutX="841.0" layoutY="19.0" prefHeight="20.0" prefWidth="299.0" progress="0.0" styleClass="red-bar" stylesheets="@css/progressbar.css" />
+            <Label fx:id="P2Name" layoutX="1167.0" layoutY="14.0" prefHeight="31.0" prefWidth="179.0" text="Player 2 - Name" textAlignment="RIGHT">
                <font>
                   <Font name="Berlin Sans FB Bold" size="22.0" />
                </font>
