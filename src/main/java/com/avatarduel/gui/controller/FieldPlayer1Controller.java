@@ -66,20 +66,18 @@ public class FieldPlayer1Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources){
         try {
-            CharacterField c = cards.getCharacterField();
-            SkillField s = cards.getSkillField();
-            for(int i = 0;i<6;i++){
-                Pane p = map.get(i);
-                if(c.getCard(i)!=null){
-                    p.getChildren().add(new MiniCardLoader(c.getCard(i)).getPane());
-                }
-            }
-            for(int i = 6;i<12;i++){
-                Pane p = map.get(i);
-                if(s.getCard(i%6)!=null){
-                    p.getChildren().add(new MiniCardLoader(s.getCard(i%6)).getPane());
-                }
-            }
+            Character1.getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(0)).getPane());
+            Character2.getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(1)).getPane());
+            Character3.getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(2)).getPane());
+            Character4.getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(3)).getPane());
+            Character5.getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(4)).getPane());
+            Character6.getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(5)).getPane());
+            Skill1.getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(0)).getPane());
+            Skill2.getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(1)).getPane());
+            Skill3.getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(2)).getPane());
+            Skill4.getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(3)).getPane());
+            Skill5.getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(4)).getPane());
+            Skill6.getChildren().add(new MiniCardLoader(cards.getSkillField().getCard(5)).getPane());
         }
         catch(IOException e){
             e.printStackTrace();

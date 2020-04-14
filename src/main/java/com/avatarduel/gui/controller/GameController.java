@@ -74,10 +74,11 @@ public class GameController implements Initializable, EventListener {
         P2Name.setText("Player 2 - " + P2.getName());
         // TEST
         try {
+//            P1.field.getCharacterField().placeCard(1, P1.takeCard(0));
             CardLoader p1card = new CardLoader(P1.getHandCards().peek(0));
             PowerLoader p1power = new PowerLoader(P1);
-            HandLoader p1hand = new HandLoader(P1.getHandCards(), "P1");
-            P1.field.getCharacterField().placeCard(1, P1.takeCard(0));
+            HandLoader p1hand = new HandLoader(P1, "P1");
+
             FieldPlayer1Loader p1field = new FieldPlayer1Loader(P1.field);
             P1Field.getChildren().add(p1field.getPane());
             cardView.getChildren().add(p1card.getPane());
@@ -110,7 +111,7 @@ public class GameController implements Initializable, EventListener {
     @FXML
     public void p1Draw() throws Exception {
         P1.draw();
-        reload(P1HandCards, new HandLoader(P1.getHandCards(), "P1").getPane());
+        reload(P1HandCards, new HandLoader(P1, "P1").getPane());
     }
 
     @FXML
@@ -138,8 +139,7 @@ public class GameController implements Initializable, EventListener {
             setCardView((Card) value);
         } else if (eventType.equals(Event.TAKE_HAND_CARD)) {
             if (value.equals("P1")) {
-
-                reload(P1HandCards, new HandLoader(P1.getHandCards(), "P1").getPane());
+                reload(P1HandCards, new HandLoader(P1, "P1").getPane());
             }
         }
     }
