@@ -28,26 +28,14 @@ public class FieldPlayer2Controller implements Initializable{
     @FXML private Pane Skill3;
     @FXML private Pane Skill4;
     @FXML private Pane Skill5;
-    @FXML private Pane Skill6;
+    @FXML private Pane Skill6; 
+    @FXML private List<Pane> CharacterFields;
+    @FXML private List<Pane> SkillFields;
     public CardField cards;
 
-    HashMap<Integer,Pane> map = new HashMap<>();
-    public List<Pane> CharacterFields = new ArrayList<>(Arrays.asList(Character1,Character2,Character3,Character4,Character5,Character6));
-    public List<Pane> SkillFields = new ArrayList<>(Arrays.asList(Skill1,Skill2,Skill3,Skill4,Skill5,Skill6));
-    public FieldPlayer2Controller(CardField cards){
+
+    public FieldPlayer2Controller(CardField cards) throws Exception{
         this.cards = cards;
-        this.map.put(0,Character1);
-        this.map.put(1,Character2);
-        this.map.put(2,Character3);
-        this.map.put(3,Character4);
-        this.map.put(4,Character5);
-        this.map.put(5,Character6);
-        this.map.put(6,Skill1);
-        this.map.put(7,Skill2);
-        this.map.put(8,Skill3);
-        this.map.put(9,Skill4);
-        this.map.put(10,Skill5);
-        this.map.put(11,Skill6);
     }
     
     public Card getCardAt(String args,int index){
@@ -65,23 +53,15 @@ public class FieldPlayer2Controller implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        try{
+        try {
             CharacterField c = cards.getCharacterField();
-            SkillField s = cards.getSkillField(); 
-            if(c!=null){
-                for(int i = 0;i<6;i++){
-                    Pane p = map.get(i);
-                    if(c.getCard(i)!=null){
-                        p.getChildren().add(new MiniCardLoader(c.getCard(i)).getPane());
-                    }
+            SkillField s = cards.getSkillField();
+            for(int i=0;i<6;i++){
+                if(c.getCard(i)!=null){
+                    CharacterFields.get(i).getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(i)).getPane());
                 }
-            }
-            if(s!=null){
-                for(int i = 6;i<12;i++){
-                    Pane p = map.get(i);
-                    if(s.getCard(i%6)!=null){
-                        p.getChildren().add(new MiniCardLoader(s.getCard(i%6)).getPane());
-                    }
+                if(s.getCard(i)!=null){
+                    SkillFields.get(i).getChildren().add(new MiniCardLoader(cards.getCharacterField().getCard(i)).getPane());
                 }
             }
         }
@@ -94,17 +74,14 @@ public class FieldPlayer2Controller implements Initializable{
         if(c instanceof Skill){
             if(getCardAt("Skill",index)!=null){
                 cards.getSkillField().placeCard(index, c);
-                Pane p = map.get(index+6);
-                p.getChildren().add(new MiniCardLoader(c).getPane());
+                SkillFields.get(index).getChildren().add(new MiniCardLoader(c).getPane());
             }
         }
-        else if(c instanceof com.avatarduel.model.card.Character){
+        else{
             if(getCardAt("Character",index)!=null){
                 cards.getCharacterField().placeCard(index,c);
-                Pane p = map.get(index);
-                p.getChildren().add(new MiniCardLoader(c).getPane());
+                CharacterFields.get(index).getChildren().add(new MiniCardLoader(c).getPane());
             }
         }
     }
-    
 }

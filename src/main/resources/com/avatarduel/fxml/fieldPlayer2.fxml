@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import java.util.ArrayList?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -30,6 +31,24 @@
                </children>
             </HBox>
          </children>
+         <fx:define>
+            <ArrayList fx:id="CharacterFields">
+               <fx:reference source="Character1"/>
+               <fx:reference source="Character2"/>
+               <fx:reference source="Character3"/>
+               <fx:reference source="Character4"/>
+               <fx:reference source="Character5"/>
+               <fx:reference source="Character6"/>
+            </ArrayList>
+            <ArrayList fx:id="SkillFields">
+               <fx:reference source="Skill1"/>
+               <fx:reference source="Skill2"/>
+               <fx:reference source="Skill3"/>
+               <fx:reference source="Skill4"/>
+               <fx:reference source="Skill5"/>
+               <fx:reference source="Skill6"/>
+            </ArrayList>
+         </fx:define>
       </VBox>
    </children>
 </AnchorPane>
