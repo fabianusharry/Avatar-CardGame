@@ -43,7 +43,7 @@
             </Label>
             <Pane fx:id="P2Blocker" layoutX="494.0" layoutY="52.0" prefHeight="330.0" prefWidth="854.0">
                <children>
-                  <Pane fx:id="P2Field" layoutX="123.0" layoutY="142.0" prefHeight="180.0" prefWidth="717.0" style="-fx-background-color: #c6c6c6;" />
+                  <Pane fx:id="P2Field" layoutX="123.0" layoutY="142.0" prefHeight="180.0" prefWidth="717.0" styleClass="fieldbg" />
                   <Pane fx:id="P2HandCards" layoutX="192.0" layoutY="49.0" prefHeight="85.0" prefWidth="648.0" style="-fx-background-color: #c6c6c6;" />
                   <Pane fx:id="P2gameStage" layoutX="192.0" layoutY="3.0" prefHeight="38.0" prefWidth="648.0" style="-fx-background-color: #c6c6c6;">
                      <children>
@@ -64,14 +64,14 @@
             </Pane>
             <Pane fx:id="P1Blocker" layoutX="496.0" layoutY="382.0" prefHeight="330.0" prefWidth="854.0">
                <children>
-                  <Pane fx:id="P1Field" layoutX="122.0" layoutY="11.0" prefHeight="180.0" prefWidth="717.0" style="-fx-background-color: #c6c6c6;" />
+                  <Pane fx:id="P1Field" layoutX="122.0" layoutY="11.0" prefHeight="180.0" prefWidth="717.0" styleClass="fieldbg" />
                   <Pane fx:id="P1Element" layoutX="14.0" layoutY="14.0" prefHeight="310.0" prefWidth="99.0" />
                   <ImageView fx:id="P1deck" fitHeight="85.0" fitWidth="70.0" layoutX="124.0" layoutY="198.0" onMousePressed="#p1Draw" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../card/image/template/back.png" />
                      </image>
                   </ImageView>
-                  <Pane fx:id="P1gameStage" layoutX="192.0" layoutY="290.0" prefHeight="38.0" prefWidth="648.0" style="-fx-background-color: #c6c6c6;">
+                  <Pane fx:id="P1gameStage" layoutX="192.0" layoutY="294.0" prefHeight="38.0" prefWidth="648.0" style="-fx-background-color: #c6c6c6;">
                      <children>
                         <Text fx:id="drawPhaseP1" fill="RED" layoutX="21.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Draw Phase" />
                         <Text fx:id="mainPhaseP1" layoutX="197.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Main Phase" />

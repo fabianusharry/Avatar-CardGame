@@ -1,0 +1,4 @@
+.black-border { 
+	-fx-border-color: grey;
+	-fx-border-width: 2
+}

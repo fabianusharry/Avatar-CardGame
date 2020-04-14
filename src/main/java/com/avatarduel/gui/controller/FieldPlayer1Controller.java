@@ -85,4 +85,15 @@ public class FieldPlayer1Controller implements Initializable{
             }
         }
     }
+
+    void enable(boolean value) {
+        if (value) {
+            //
+        } else {
+            for (int i = 0; i < 12; i++) {
+                CharacterFields.get(i).setOnMouseClicked(null);
+                SkillFields.get(i).setOnMouseClicked(null);
+            }
+        }
+    }
 }

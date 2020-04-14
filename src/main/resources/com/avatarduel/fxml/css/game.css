@@ -12,3 +12,7 @@
     -fx-font-family: "Cooper Black";
     -fx-font-size: 14;
 }
+
+.fieldbg {
+    -fx-background-image: url('../../game/field.jpg');
+}

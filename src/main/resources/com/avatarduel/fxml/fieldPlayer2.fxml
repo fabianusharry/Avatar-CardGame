@@ -12,41 +12,41 @@
          <children>
             <HBox spacing="60.0">
                <children>
-                  <Pane fx:id="Skill1" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Skill2" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Skill3" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Skill4" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Skill5" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Skill6" prefHeight="85.0" prefWidth="70.0" />
+                  <Pane fx:id="Skill1" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill2" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill3" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill4" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill5" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill6" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
                </children>
             </HBox>
             <HBox spacing="60.0">
                <children>
-                  <Pane fx:id="Character1" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Character2" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Character3" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Character4" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Character5" prefHeight="85.0" prefWidth="70.0" />
-                  <Pane fx:id="Character6" prefHeight="85.0" prefWidth="70.0" />
+                  <Pane fx:id="Character1" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character2" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character3" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character4" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character5" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character6" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
                </children>
             </HBox>
          </children>
          <fx:define>
             <ArrayList fx:id="CharacterFields">
-               <fx:reference source="Character1"/>
-               <fx:reference source="Character2"/>
-               <fx:reference source="Character3"/>
-               <fx:reference source="Character4"/>
-               <fx:reference source="Character5"/>
-               <fx:reference source="Character6"/>
+               <fx:reference source="Character1" />
+               <fx:reference source="Character2" />
+               <fx:reference source="Character3" />
+               <fx:reference source="Character4" />
+               <fx:reference source="Character5" />
+               <fx:reference source="Character6" />
             </ArrayList>
             <ArrayList fx:id="SkillFields">
-               <fx:reference source="Skill1"/>
-               <fx:reference source="Skill2"/>
-               <fx:reference source="Skill3"/>
-               <fx:reference source="Skill4"/>
-               <fx:reference source="Skill5"/>
-               <fx:reference source="Skill6"/>
+               <fx:reference source="Skill1" />
+               <fx:reference source="Skill2" />
+               <fx:reference source="Skill3" />
+               <fx:reference source="Skill4" />
+               <fx:reference source="Skill5" />
+               <fx:reference source="Skill6" />
             </ArrayList>
          </fx:define>
       </VBox>

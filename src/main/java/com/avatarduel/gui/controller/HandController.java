@@ -6,8 +6,10 @@ import com.avatarduel.gui.loader.BackCardLoader;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -18,13 +20,15 @@ import java.util.ResourceBundle;
 public class HandController implements Initializable {
     private Player player;
     private EventManager events;
-    String playerId;
+    private String playerId;
+    private boolean viewEnabled;
 
     @FXML private List<Pane> cards;
 
     public HandController(Player player, String playerId) throws Exception {
         this.player = player;
         this.playerId = playerId;
+        viewEnabled = true;
         events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
         events.subscribe(Event.TAKE_HAND_CARD, GameController.getInstance());
@@ -51,14 +55,35 @@ public class HandController implements Initializable {
 
     @FXML
     public void showCard(javafx.event.Event evt) throws Exception {
-        String id = evt.getSource().toString().replaceAll("[^0-9]","");
-        events.notify(Event.CHANGE_CARD_VIEW, player.getHandCards().peek(Integer.parseInt(id)));
+        if (viewEnabled) {
+            String id = evt.getSource().toString().replaceAll("[^0-9]","");
+            events.notify(Event.CHANGE_CARD_VIEW, player.getHandCards().peek(Integer.parseInt(id)));
+        }
     }
 
     public void flipCards() throws IOException {
         for (int i = 0; i < player.getHandCards().size(); i++) {
-//            cards.get(i).getChildren().clear();
+            cards.get(i).getChildren().clear();
             cards.get(i).getChildren().add(new BackCardLoader().getPane());
+        }
+        this.viewEnabled = false;
+    }
+
+    public void enable(boolean value) {
+        if (value) {
+            for (int i = 0; i < player.getHandCards().size(); i++) {
+                cards.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    try {
+                        getCard(e);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            }
+        } else {
+            for (int i = 0; i < player.getHandCards().size(); i++) {
+                cards.get(i).setOnMouseClicked(null);
+            }
         }
     }
 }
