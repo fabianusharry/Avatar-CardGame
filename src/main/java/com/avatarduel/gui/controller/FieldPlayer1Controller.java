@@ -69,13 +69,21 @@ public class FieldPlayer1Controller implements Initializable{
         try{
             CharacterField c = cards.getCharacterField();
             SkillField s = cards.getSkillField(); 
-            for(int i = 0;i<6;i++){
-                Pane p = map.get(i);
-                p.getChildren().add(new MiniCardLoader(c.getCard(i)).getPane());
+            if(c!=null){
+                for(int i = 0;i<6;i++){
+                    Pane p = map.get(i);
+                    if(c.getField()[i]!=null){
+                        p.getChildren().add(new MiniCardLoader(c.getCard(i)).getPane());
+                    }
+                }
             }
-            for(int i = 6;i<12;i++){
-                Pane p = map.get(i);
-                p.getChildren().add(new MiniCardLoader(s.getCard(i%6)).getPane());
+            if(s!=null){
+                for(int i = 6;i<12;i++){
+                    Pane p = map.get(i);
+                    if(s.getCard(i%6)!=null){
+                        p.getChildren().add(new MiniCardLoader(s.getCard(i%6)).getPane());
+                    }
+                }
             }
         }
         catch(IOException e){
