@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 public class MainMenuController extends AvatarDuel implements Initializable {
     private static String nameOfPlayer1;
     private static String nameOfPlayer2;
+    private static final String TEMPLATE = "Masukkan nama pemain";
 
     public MainMenuController(){
         nameOfPlayer1 = "";
@@ -30,8 +31,18 @@ public class MainMenuController extends AvatarDuel implements Initializable {
 
     @FXML
     private void startGame() throws Exception {
-        nameOfPlayer1 = playerName1.getText();
-        nameOfPlayer2 = playerName2.getText();
+        if (!playerName1.getText().equals(TEMPLATE) && !playerName1.getText().equals("")) {
+            nameOfPlayer1 = playerName1.getText();
+        } else {
+            playerName1.requestFocus();
+            return;
+        }
+        if (!playerName2.getText().equals(TEMPLATE)&& !playerName2.getText().equals("")) {
+            nameOfPlayer2 = playerName2.getText();
+        } else {
+            playerName2.requestFocus();
+            return;
+        }
         MainMenuLoader.getInstance().closeStage();
         GameLoader.getInstance().render();
     }
@@ -60,8 +71,8 @@ public class MainMenuController extends AvatarDuel implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playerName1.setText("Masukkan nama player 1");
-        playerName2.setText("Masukkan nama player 2");
+        playerName1.setText(TEMPLATE);
+        playerName2.setText(TEMPLATE);
     }
 
     @FXML
