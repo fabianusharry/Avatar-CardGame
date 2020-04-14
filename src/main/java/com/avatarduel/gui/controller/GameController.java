@@ -76,7 +76,7 @@ public class GameController implements Initializable, EventListener {
         try {
             CardLoader p1card = new CardLoader(P1.getHandCards().peek(0));
             PowerLoader p1power = new PowerLoader(P1);
-            HandLoader p1hand = new HandLoader(P1.getHandCards());
+            HandLoader p1hand = new HandLoader(P1.getHandCards(), "P1");
             FieldPlayer1Loader p1field = new FieldPlayer1Loader(P1.field);
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
@@ -108,8 +108,7 @@ public class GameController implements Initializable, EventListener {
     @FXML
     public void p1Draw() throws Exception {
         P1.draw();
-        P1HandCards.getChildren().clear(); // hapus pane yg lama
-        P1HandCards.getChildren().add(new HandLoader(P1.getHandCards()).getPane());
+        reload(P1HandCards, new HandLoader(P1.getHandCards(), "P1").getPane());
     }
 
     @FXML
@@ -126,10 +125,20 @@ public class GameController implements Initializable, EventListener {
         cardView.getChildren().add(newCardView.getPane());
     }
 
+    public void reload(Pane pane, Pane newNode) {
+        pane.getChildren().clear();
+        pane.getChildren().add(newNode);
+    }
+
     @Override
-    public void update(Event eventType, Object value) throws IOException {
+    public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
             setCardView((Card) value);
+        } else if (eventType.equals(Event.TAKE_HAND_CARD)) {
+            if (value.equals("P1")) {
+
+                reload(P1HandCards, new HandLoader(P1.getHandCards(), "P1").getPane());
+            }
         }
     }
 }

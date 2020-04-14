@@ -17,7 +17,7 @@ public class EventManager {
         users.add(listener);
     }
 
-    public void notify(Event eventType, Object value) throws IOException {
+    public void notify(Event eventType, Object value) throws Exception {
         if (value != null) {
             List<EventListener> users = listeners.get(eventType);
             for (EventListener listener : users) {

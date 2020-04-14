@@ -30,6 +30,6 @@
       </font>
    </Button>
    <TextField fx:id="playerName1" layoutX="624.0" layoutY="592.0" onMousePressed="#fillP1Name" prefHeight="10.0" prefWidth="360.0" styleClass="text-field" />
-   <TextField fx:id="playerName2" layoutX="624.0" layoutY="692.0" onMousePressed="#fillP2Name" prefHeight="10.0" prefWidth="360.0" styleClass="text-field" />
+   <TextField fx:id="playerName2" layoutX="624.0" layoutY="692.0" onKeyPressed="#buttonPressed" onMousePressed="#fillP2Name" prefHeight="10.0" prefWidth="360.0" styleClass="text-field" />
       
 </AnchorPane>

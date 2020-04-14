@@ -31,7 +31,7 @@ public class FieldPlayer1Controller implements Initializable{
     @FXML private Pane Skill5;
     @FXML private Pane Skill6;
     public CardField cards;
-//    HashMap<Pane,Integer> map = new HashMap<>();
+
     HashMap<Integer,Pane> map = new HashMap<>();
     public List<Pane> CharacterFields = new ArrayList<>(Arrays.asList(Character1,Character2,Character3,Character4,Character5,Character6));
     public List<Pane> SkillFields = new ArrayList<>(Arrays.asList(Skill1,Skill2,Skill3,Skill4,Skill5,Skill6));

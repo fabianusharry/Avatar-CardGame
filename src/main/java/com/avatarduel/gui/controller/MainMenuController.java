@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +34,13 @@ public class MainMenuController extends AvatarDuel implements Initializable {
         nameOfPlayer2 = playerName2.getText();
         MainMenuLoader.getInstance().closeStage();
         GameLoader.getInstance().render();
+    }
+
+    @FXML
+    public void buttonPressed(KeyEvent e) throws Exception {
+        if (e.getCode().toString().equals("ENTER")) {
+            startGame();
+        }
     }
 
     public String getName(int player) throws Exception {

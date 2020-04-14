@@ -3,7 +3,10 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.MiniCardLoader;
+import com.avatarduel.model.card.Card;
 import com.avatarduel.model.cards.HandCards;
+import javafx.scene.control.Control;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
@@ -13,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HandController implements Initializable {
+    private String playerNumber;
     private HandCards hand;
     private EventManager events;
 
@@ -28,10 +32,12 @@ public class HandController implements Initializable {
     @FXML private Pane card9;
     @FXML private Pane card10;
 
-    public HandController(HandCards hand) throws Exception {
+    public HandController(HandCards hand, String playerNumber) throws Exception {
+        this.playerNumber = playerNumber;
         this.hand = hand;
-        events = new EventManager(Event.CHANGE_CARD_VIEW);
+        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
+        events.subscribe(Event.TAKE_HAND_CARD, GameController.getInstance());
     }
 
     @Override
@@ -53,60 +59,17 @@ public class HandController implements Initializable {
         }
     }
 
-
-
     @FXML
-    public void showCard0() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(0));
+    public Card getCard(javafx.event.Event evt) throws Exception {
+        String id = evt.getSource().toString().replaceAll("[^0-9]","");
+        Card takenCard = hand.take(Integer.parseInt(id));
+        events.notify(Event.TAKE_HAND_CARD, playerNumber);
+        return takenCard;
     }
 
     @FXML
-    public void showCard1() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(1));
-    }
-
-    @FXML
-    public void showCard2() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(2));
-    }
-
-    @FXML
-    public void showCard3() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(3));
-    }
-
-    @FXML
-    public void showCard4() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(4));
-    }
-
-    @FXML
-    public void showCard5() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(5));
-    }
-
-    @FXML
-    public void showCard6() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(6));
-    }
-
-    @FXML
-    public void showCard7() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(7));
-    }
-
-    @FXML
-    public void showCard8() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(8));
-    }
-
-    @FXML
-    public void showCard9() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(9));
-    }
-
-    @FXML
-    public void showCard10() throws Exception {
-        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(10));
+    public void showCard(javafx.event.Event evt) throws Exception {
+        String id = evt.getSource().toString().replaceAll("[^0-9]","");
+        events.notify(Event.CHANGE_CARD_VIEW, hand.peek(Integer.parseInt(id)));
     }
 }
