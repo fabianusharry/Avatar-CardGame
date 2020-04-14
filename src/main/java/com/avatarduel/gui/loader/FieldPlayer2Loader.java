@@ -22,7 +22,7 @@ public class FieldPlayer2Loader implements Loader{
 
     public FieldPlayer2Loader(CardField cards) throws Exception {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/FieldPlayer1.fxml"));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/FieldPlayer2.fxml"));
 
         FieldPlayer2Controller controller = new FieldPlayer2Controller(cards);
         loader.setController(controller);
