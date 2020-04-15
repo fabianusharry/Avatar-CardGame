@@ -90,7 +90,7 @@ public class GameController implements Initializable, EventListener {
     public void initializeP1() throws Exception {
         HandLoader p1hand = new HandLoader(P1);
         p1HandController = p1hand.getController();
-        FieldPlayer1Loader p1field = new FieldPlayer1Loader(P1.field);
+        FieldLoader p1field = new FieldLoader(P1.field, 1);
         P1Field.getChildren().add(p1field.getPane());
         cardView.getChildren().add(new CardLoader(P1.getHandCards().peek(0)).getPane());
         P1Element.getChildren().add(new PowerLoader(P1).getPane());
@@ -100,7 +100,7 @@ public class GameController implements Initializable, EventListener {
     public void initializeP2() throws Exception {
         HandLoader p2hand = new HandLoader(P2);
         p2HandController = p2hand.getController();
-        FieldPlayer2Loader p2field = new FieldPlayer2Loader(P2.field);
+        FieldLoader p2field = new FieldLoader(P2.field, 2);
         P2Field.getChildren().add(p2field.getPane());
         P2Element.getChildren().add(new PowerLoader(P2).getPane());
         P2HandCards.getChildren().add(p2hand.getPane());

@@ -15,7 +15,7 @@ public class Turn {
         this.playerOpponent = opponent;
         createEventManager();
         initializeTurn();
-        new DrawPhase(playerNow);
+        new DrawPhase(playerNow).run();
     }
 
     void createEventManager() throws Exception {

@@ -1,21 +1,26 @@
 package com.avatarduel.gui.loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.controller.FieldPlayer1Controller;
+import com.avatarduel.gui.controller.FieldController;
 import com.avatarduel.model.field.CardField;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class FieldPlayer1Loader implements Loader{
+public class FieldLoader implements Loader{
     Pane field;
 
-    public FieldPlayer1Loader(CardField cards) throws Exception {
+    public FieldLoader(CardField cards, int playerNumber) throws Exception {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/fieldPlayer1.fxml"));
+        FXMLLoader loader;
+        if (playerNumber == 1) {
+            loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/fieldPlayer1.fxml"));
+        } else {
+            loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/fieldPlayer2.fxml"));
+        }
 
-        FieldPlayer1Controller controller = new FieldPlayer1Controller(cards);
+        FieldController controller = new FieldController(cards);
         loader.setController(controller);
         // make stage
         this.field = loader.load();

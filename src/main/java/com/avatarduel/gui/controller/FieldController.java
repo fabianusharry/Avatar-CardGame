@@ -17,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 
-public class FieldPlayer1Controller implements Initializable{
+public class FieldController implements Initializable{
     @FXML private Pane Character1;
     @FXML private Pane Character2;
     @FXML private Pane Character3;
@@ -35,7 +35,7 @@ public class FieldPlayer1Controller implements Initializable{
     public CardField cards;
 
 
-    public FieldPlayer1Controller(CardField cards) throws Exception{
+    public FieldController(CardField cards) throws Exception{
         this.cards = cards;
     }
     
