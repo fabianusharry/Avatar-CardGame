@@ -1,6 +1,6 @@
 package com.avatarduel.gui.controller;
 
-import com.avatarduel.game.InitializeTurn;
+import com.avatarduel.game.Turn;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
 import javafx.scene.effect.DropShadow;
@@ -78,43 +78,33 @@ public class GameController implements Initializable, EventListener {
     public void initialize(URL location, ResourceBundle resources) {
         P1Name.setText("Player 1 - " + P1.getName());
         P2Name.setText("Player 2 - " + P2.getName());
-        // TEST
         try {
-            //Awal-awal
-            P1.field.getCharacterField().placeCard(1, P1.takeCard(0));
-            CardLoader p1card = new CardLoader(P1.getHandCards().peek(0));
-            PowerLoader p1power = new PowerLoader(P1);
-            HandLoader p1hand = new HandLoader(P1);
-
-            p1HandController = p1hand.getController();
-
-
-            FieldPlayer1Loader p1field = new FieldPlayer1Loader(P1.field);
-            P1Field.getChildren().add(p1field.getPane());
-            cardView.getChildren().add(p1card.getPane());
-            P1Element.getChildren().add(p1power.getPane());
-            P1HandCards.getChildren().add(p1hand.getPane());
-
-
-            P2.field.getCharacterField().placeCard(1, P2.takeCard(0));
-//            CardLoader p2card = new CardLoader(P2.getHandCards().peek(0));
-            PowerLoader p2power = new PowerLoader(P2);
-            HandLoader p2hand = new HandLoader(P2);
-
-            p2HandController = p2hand.getController();
-
-            FieldPlayer2Loader p2field = new FieldPlayer2Loader(P2.field);
-            P2Field.getChildren().add(p2field.getPane());
-//            cardView.getChildren().add(p2card.getPane());
-            P2Element.getChildren().add(p2power.getPane());
-            P2HandCards.getChildren().add(p2hand.getPane());
-            Draw();
-            
+            initializeP1();
+            initializeP2();
+            startGame();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void initializeP1() throws Exception {
+        HandLoader p1hand = new HandLoader(P1);
+        p1HandController = p1hand.getController();
+        FieldPlayer1Loader p1field = new FieldPlayer1Loader(P1.field);
+        P1Field.getChildren().add(p1field.getPane());
+        cardView.getChildren().add(new CardLoader(P1.getHandCards().peek(0)).getPane());
+        P1Element.getChildren().add(new PowerLoader(P1).getPane());
+        P1HandCards.getChildren().add(p1hand.getPane());
+    }
+
+    public void initializeP2() throws Exception {
+        HandLoader p2hand = new HandLoader(P2);
+        p2HandController = p2hand.getController();
+        FieldPlayer2Loader p2field = new FieldPlayer2Loader(P2.field);
+        P2Field.getChildren().add(p2field.getPane());
+        P2Element.getChildren().add(new PowerLoader(P2).getPane());
+        P2HandCards.getChildren().add(p2hand.getPane());
+    }
 
     public void setEnableP1(Boolean isEnabled) throws Exception {
         HandLoader hand = new HandLoader(P1);
@@ -178,7 +168,7 @@ public class GameController implements Initializable, EventListener {
     public void EndPhase() throws Exception{
         System.out.println("ENDPHASEss");
         EndTurn();
-        Draw();
+        startGame();
     }
 
     public void setStageTextP1(String value) {
@@ -239,13 +229,13 @@ public class GameController implements Initializable, EventListener {
         pane.setDisable(value);
     }
     
-    public void Draw() throws Exception{
+    public void startGame() throws Exception{
         if(turn%2==1){
-            new InitializeTurn(P1, P2);
+            new Turn(P1, P2);
             System.out.println("Draw phase P1");
         }
         else{
-            new InitializeTurn(P2, P1);
+            new Turn(P2, P1);
             System.out.println("Draw phase P2");
         }
     }
@@ -271,20 +261,32 @@ public class GameController implements Initializable, EventListener {
                 setEnableP1(false);
                 P1gameStage.setEffect(null);
                 setStageTextP1("");
+                P1Turn.setProgress(0);
             } else{
                 setEnableP2(false);
                 P2gameStage.setEffect(null);
                 setStageTextP2("");
+                P2Turn.setProgress(0);
             }
         } else if(eventType.equals(Event.ENABLEPLAYER)){
             if(value.equals(P1.getName())){
                 setEnableP1(true);
                 initializePhase(P1gameStage);
                 setStageTextP1("draw");
+                P1Turn.setProgress(-1);
             } else{
                 setEnableP2(true);
                 initializePhase(P2gameStage);
                 setStageTextP2("draw");
+                P2Turn.setProgress(-1);
+            }
+        } else if (eventType.equals(Event.DRAW_PHASE)) {
+            if (value.equals(P1.getName())) {
+                P1Field.setDisable(true);
+                p1HandController.enable(false);
+            } else {
+                P2Field.setDisable(true);
+                p2HandController.enable(false);
             }
         }
     }
