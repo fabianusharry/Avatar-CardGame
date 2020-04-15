@@ -11,7 +11,4 @@ public interface SummonedCard {
     Card getCharacter();
     void setAttackMode(boolean attackMode);
     void attachSkill(Skill skill);
-
-    // menggambar kartu ke layar
-//    void render();
 }

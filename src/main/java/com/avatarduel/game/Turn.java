@@ -5,17 +5,26 @@ import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.model.Player;
 
-public class InitializeTurn {
+public class Turn {
     Player playerNow;
     Player playerOpponent;
     EventManager events;
 
-    public InitializeTurn(Player now, Player opponent) throws Exception {
+    public Turn(Player now, Player opponent) throws Exception {
         this.playerNow = now;
         this.playerOpponent = opponent;
+        createEventManager();
+        initializeTurn();
+        new DrawPhase(playerNow).run();
+    }
+
+    void createEventManager() throws Exception {
         events = new EventManager(Event.DISABLEPLAYER, Event.ENABLEPLAYER);
         events.subscribe(Event.DISABLEPLAYER, GameController.getInstance());
         events.subscribe(Event.ENABLEPLAYER, GameController.getInstance());
+    }
+
+    public void initializeTurn() throws Exception {
         disableOpponent();
         enablePlayerNow();
     }
