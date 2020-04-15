@@ -37,6 +37,10 @@ public class Player {
         return handCards;
     }
 
+    public Deck getDeck() {
+        return deck;
+    }
+
     public String getName() {
         return name;
     }

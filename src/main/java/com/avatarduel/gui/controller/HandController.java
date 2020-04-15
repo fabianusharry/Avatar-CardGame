@@ -29,9 +29,10 @@ public class HandController implements Initializable {
         this.player = player;
         this.playerId = playerId;
         viewEnabled = true;
-        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD);
+        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD, Event.UPDATE_POWER);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
         events.subscribe(Event.TAKE_HAND_CARD, GameController.getInstance());
+        events.subscribe(Event.UPDATE_POWER, GameController.getInstance());
     }
 
     @Override
@@ -49,6 +50,9 @@ public class HandController implements Initializable {
     public Card getCard(javafx.event.Event evt) throws Exception {
         String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
         Card takenCard = player.takeCard(Integer.parseInt(id));
+        if (takenCard instanceof com.avatarduel.model.card.Land) {
+            events.notify(Event.UPDATE_POWER, playerId);
+        }
         events.notify(Event.TAKE_HAND_CARD, playerId);
         return takenCard;
     }

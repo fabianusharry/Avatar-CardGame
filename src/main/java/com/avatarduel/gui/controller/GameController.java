@@ -84,6 +84,7 @@ public class GameController implements Initializable, EventListener {
             cardView.getChildren().add(p1card.getPane());
             P1Element.getChildren().add(p1power.getPane());
             P1HandCards.getChildren().add(p1hand.getPane());
+            P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
 //            setEnableP2(true);
 //            setEnableP1(false);
         } catch (Exception e) {
@@ -112,6 +113,7 @@ public class GameController implements Initializable, EventListener {
     public void p1Draw() throws Exception {
         P1.draw();
         reload(P1HandCards, new HandLoader(P1, "P1").getPane());
+        P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
     }
 
     @FXML
@@ -140,6 +142,10 @@ public class GameController implements Initializable, EventListener {
         } else if (eventType.equals(Event.TAKE_HAND_CARD)) {
             if (value.equals("P1")) {
                 reload(P1HandCards, new HandLoader(P1, "P1").getPane());
+            }
+        } else if (eventType.equals((Event.UPDATE_POWER))) {
+            if (value.equals("P1")) {
+                reload(P1Element, new PowerLoader(P1).getPane());
             }
         }
     }
