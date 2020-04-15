@@ -36,10 +36,11 @@ public class Player {
     public HandCards getHandCards() {
         return handCards;
     }
-    
-    public Deck getDecks(){
+
+    public Deck getDeck() {
         return deck;
     }
+
     public String getName() {
         return name;
     }
@@ -81,4 +82,7 @@ public class Player {
         return takenCard;
     }
 
+    public void resetPowerNow() {
+        powerNow = new Power(maxPower);
+    }
 }
