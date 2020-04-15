@@ -11,7 +11,9 @@ public abstract class Skill extends Card {
         this.power = power;
     }
 
+    public String getName() { return name; }
     public int getPower() { return power; }
+
     public abstract void activate(Player destination, int index);
 
     @Override

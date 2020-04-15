@@ -16,5 +16,7 @@ public class PowerUp extends Skill {
         if (!isAttackMode) {
             destination.field.getCharacterField().changeCardPosition(index);
         }
+
+        destination.field.getCharacterField().attachSkill(index, this);
     }
 }

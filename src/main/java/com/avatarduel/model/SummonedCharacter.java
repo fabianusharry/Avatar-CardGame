@@ -2,10 +2,12 @@ package com.avatarduel.model;
 
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Skill;
 
 public class SummonedCharacter implements SummonedCard {
     Card character;
     private boolean isAttackMode;
+    private Skill skillAttached;
 
     public SummonedCharacter(Card character, boolean isAttackMode) {
         this.character = character;
@@ -14,6 +16,10 @@ public class SummonedCharacter implements SummonedCard {
 
     public boolean isAttackMode() {
         return isAttackMode;
+    }
+
+    public String nameOfSkillAttached(){
+        return skillAttached.getName();
     }
 
     public void rotate() {
@@ -27,6 +33,7 @@ public class SummonedCharacter implements SummonedCard {
          } else {
              value = character.getAttribute(Attribute.DEFENSE);
          }
+
          return value;
      }
 
@@ -36,5 +43,9 @@ public class SummonedCharacter implements SummonedCard {
 
     public void setAttackMode(boolean attackMode) {
         isAttackMode = attackMode;
+    }
+    
+    public void attachSkill(Skill skill){
+        skillAttached = skill;
     }
 }

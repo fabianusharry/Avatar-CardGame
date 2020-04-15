@@ -41,4 +41,9 @@ public class CharacterField {
     public boolean isAttackMode(int index) {
         return field[index].isAttackMode();
     }
+    
+    public void attachSkill(int index, Skill skill){
+        field[index].attachSkill(skill);
+    }
+    
 }
