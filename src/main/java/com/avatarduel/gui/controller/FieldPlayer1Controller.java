@@ -90,7 +90,7 @@ public class FieldPlayer1Controller implements Initializable{
         if (value) {
             //
         } else {
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < 6; i++) {
                 CharacterFields.get(i).setOnMouseClicked(null);
                 SkillFields.get(i).setOnMouseClicked(null);
             }

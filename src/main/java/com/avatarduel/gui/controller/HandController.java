@@ -77,7 +77,7 @@ public class HandController implements Initializable {
                         getCard(e);
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                    }
+                    }   
                 });
             }
         } else {
