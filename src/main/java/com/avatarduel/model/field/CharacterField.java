@@ -3,6 +3,7 @@ package com.avatarduel.model.field;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
+import com.avatarduel.model.card.Skill;
 
 public class CharacterField {
     private SummonedCard[] field;

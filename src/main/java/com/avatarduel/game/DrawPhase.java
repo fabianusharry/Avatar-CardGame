@@ -11,11 +11,12 @@ public class DrawPhase implements Phase {
 
     DrawPhase(Player player, GameController controller) {
         this.player = player;
-        events = new EventManager(Event.DISABLEPLAYER);
+//        events = new EventManager(Event.DISABLEPLAYERHANDS, Event.);
     }
 
     @Override
     public void run() {
         player.resetPowerNow();
+
     }
 }

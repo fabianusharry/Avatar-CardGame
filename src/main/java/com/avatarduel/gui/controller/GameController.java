@@ -3,7 +3,7 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.game.InitializeTurn;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
-import com.avatarduel.gui.event.EventManager;
+import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -62,7 +63,6 @@ public class GameController implements Initializable, EventListener {
     @FXML private Text mainPhaseP1;
     @FXML private Text battlePhaseP1;
     @FXML private Text endPhaseP1;
-    @FXML private Pane P1Blocker;
     @FXML private Pane P2Element;
     @FXML private Pane P2gameStage;
     @FXML private ImageView P2deck;
@@ -73,7 +73,6 @@ public class GameController implements Initializable, EventListener {
     @FXML private Text mainPhaseP2;
     @FXML private Text battlePhaseP2;
     @FXML private Text endPhaseP2;
-    @FXML private Pane P2Blocker;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -117,19 +116,29 @@ public class GameController implements Initializable, EventListener {
     }
 
 
-    public void setEnableP1(Boolean isEnabled) {
+    public void setEnableP1(Boolean isEnabled) throws Exception {
+        HandLoader hand = new HandLoader(P1);
+        p1HandController = hand.getController();
+        reload(P1HandCards, hand.getPane());
         if (isEnabled) {
-            P1Blocker.setDisable(false); //blocker dilepas
+            P1deck.setDisable(false);
         } else {
-            P1Blocker.setDisable(true); //pasang blocker
+            P1deck.setDisable(true);
+            p1HandController.enable(false);
+            p1HandController.flipCards();
         }
     }
 
-    public void setEnableP2(Boolean isEnabled) {
+    public void setEnableP2(Boolean isEnabled) throws Exception {
+        HandLoader hand = new HandLoader(P2);
+        p2HandController = hand.getController();
+        reload(P2HandCards, hand.getPane());
         if (isEnabled) {
-            P2Blocker.setDisable(false); //blocker dilepas
+            P2deck.setDisable(false);
         } else {
-            P2Blocker.setDisable(true); //pasang blocker
+            P2deck.setDisable(true);
+            p2HandController.enable(false);
+            p2HandController.flipCards();
         }
     }
     
@@ -172,6 +181,45 @@ public class GameController implements Initializable, EventListener {
         Draw();
     }
 
+    public void setStageTextP1(String value) {
+        setPhaseText(value, drawPhaseP1, mainPhaseP1, battlePhaseP1, endPhaseP1);
+    }
+
+    public void setStageTextP2(String value) {
+        setPhaseText(value, drawPhaseP2, mainPhaseP2, battlePhaseP2, endPhaseP2);
+    }
+
+    public void initializePhase(Pane playerPane) {
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.colorProperty().setValue(Color.RED);
+        playerPane.setEffect(dropShadow);
+    }
+
+    private void setPhaseText(String value, Text drawPhaseP1, Text mainPhaseP1, Text battlePhaseP1, Text endPhaseP1) {
+        switch (value) {
+            case "draw":
+                drawPhaseP1.setStyle("-fx-fill: red;");
+                break;
+            case "main":
+                drawPhaseP1.setStyle("-fx-fill: black;");
+                mainPhaseP1.setStyle("-fx-fill: red;");
+                break;
+            case "battle":
+                mainPhaseP1.setStyle("-fx-fill: black;");
+                battlePhaseP1.setStyle("-fx-fill: red;");
+                break;
+            case "end":
+                battlePhaseP1.setStyle("-fx-fill: black;");
+                endPhaseP1.setStyle("-fx-fill: red;");
+                break;
+            default:
+                drawPhaseP1.setStyle("-fx-fill: black;");
+                mainPhaseP1.setStyle("-fx-fill: black;");
+                battlePhaseP1.setStyle("-fx-fill: black;");
+                endPhaseP1.setStyle("-fx-fill: black;");
+                break;
+        }
+    }
 
     public Pane getCardView() {
         return cardView;
@@ -200,7 +248,6 @@ public class GameController implements Initializable, EventListener {
             new InitializeTurn(P2, P1);
             System.out.println("Draw phase P2");
         }
-        
     }
 
     @Override
@@ -221,31 +268,23 @@ public class GameController implements Initializable, EventListener {
             }
         } else if(eventType.equals(Event.DISABLEPLAYER)){
             if(value.equals(P1.getName())){
-                P1deck.setDisable(true);
-                HandLoader hand = new HandLoader(P1);
-                reload(P1HandCards, hand.getPane());
-                p1HandController = hand.getController();
-                p1HandController.enable(false);
-                p1HandController.flipCards();
+                setEnableP1(false);
+                P1gameStage.setEffect(null);
+                setStageTextP1("");
             } else{
-                P2deck.setDisable(true);
-                HandLoader hand = new HandLoader(P2);
-                reload(P2HandCards, hand.getPane());
-                p2HandController = hand.getController();
-                p2HandController.enable(false);
-                p2HandController.flipCards();
+                setEnableP2(false);
+                P2gameStage.setEffect(null);
+                setStageTextP2("");
             }
         } else if(eventType.equals(Event.ENABLEPLAYER)){
             if(value.equals(P1.getName())){
-                P1deck.setDisable(false);
-                HandLoader hand = new HandLoader(P1);
-                reload(P1HandCards, hand.getPane());
-                p1HandController = hand.getController();
+                setEnableP1(true);
+                initializePhase(P1gameStage);
+                setStageTextP1("draw");
             } else{
-                P2deck.setDisable(false);
-                HandLoader hand = new HandLoader(P2);
-                reload(P2HandCards, hand.getPane());
-                p2HandController = hand.getController();
+                setEnableP2(true);
+                initializePhase(P2gameStage);
+                setStageTextP2("draw");
             }
         }
     }
