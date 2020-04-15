@@ -20,14 +20,12 @@ import java.util.ResourceBundle;
 public class HandController implements Initializable {
     private Player player;
     private EventManager events;
-    private String playerId;
     private boolean viewEnabled;
 
     @FXML private List<Pane> cards;
 
-    public HandController(Player player, String playerId) throws Exception {
+    public HandController(Player player) throws Exception {
         this.player = player;
-        this.playerId = playerId;
         viewEnabled = true;
         events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD, Event.UPDATE_POWER);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
@@ -51,9 +49,9 @@ public class HandController implements Initializable {
         String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
         Card takenCard = player.takeCard(Integer.parseInt(id));
         if (takenCard instanceof com.avatarduel.model.card.Land) {
-            events.notify(Event.UPDATE_POWER, playerId);
+            events.notify(Event.UPDATE_POWER, player.getName());
         }
-        events.notify(Event.TAKE_HAND_CARD, playerId);
+        events.notify(Event.TAKE_HAND_CARD, player.getName());
         return takenCard;
     }
 

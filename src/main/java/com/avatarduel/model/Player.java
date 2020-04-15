@@ -81,4 +81,8 @@ public class Player {
         }
         return takenCard;
     }
+
+    public void resetPowerNow() {
+        powerNow = new Power(maxPower);
+    }
 }

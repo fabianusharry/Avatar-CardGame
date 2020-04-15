@@ -14,11 +14,12 @@ import java.io.IOException;
 
 public class HandLoader implements Loader {
     Pane mainMenu;
+    HandController controller;
 
-    public HandLoader(Player player, String playerId) throws Exception {
+    public HandLoader(Player player) throws Exception {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/hand.fxml"));
-        HandController controller = new HandController(player, playerId);
+        controller = new HandController(player);
         loader.setController(controller);
         // make stage
         this.mainMenu = loader.load();
@@ -36,5 +37,9 @@ public class HandLoader implements Loader {
         stage.setScene(scene);
         stage.setTitle("Avatar Card Game");
         stage.show();
+    }
+
+    public HandController getController() {
+        return controller;
     }
 }
