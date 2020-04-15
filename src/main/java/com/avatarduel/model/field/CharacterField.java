@@ -3,6 +3,7 @@ package com.avatarduel.model.field;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
+import com.avatarduel.model.card.Skill;
 
 public class CharacterField {
     private SummonedCard[] field;
@@ -41,7 +42,7 @@ public class CharacterField {
     public boolean isAttackMode(int index) {
         return field[index].isAttackMode();
     }
-    
+
     public void attachSkill(int index, Skill skill){
         field[index].attachSkill(skill);
     }

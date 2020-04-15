@@ -30,6 +30,7 @@ public class CardController extends AvatarDuel implements Initializable {
     @FXML private Text attr1;
     @FXML private Text attr2;
     @FXML private Text attr3;
+    @FXML private Text attr4;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,6 +50,7 @@ public class CardController extends AvatarDuel implements Initializable {
             attr2.setText("DEF: " + card.getAttribute(Attribute.DEFENSE));
             attr3.setText("POW: " + card.getAttribute(Attribute.POWER));
             imgPath = "card/image/template/characterCard.png";
+            attr4.setText("Skill Attached : None");
         } else if (card instanceof com.avatarduel.model.card.Skill) {
             attr1.setText("SKILL");
             if (card instanceof com.avatarduel.model.card.effect.Aura) {

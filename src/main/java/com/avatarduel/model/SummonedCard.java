@@ -1,6 +1,7 @@
 package com.avatarduel.model;
 
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Skill;
 
 public interface SummonedCard {
 
@@ -9,6 +10,7 @@ public interface SummonedCard {
     int getPositionValue();
     Card getCharacter();
     void setAttackMode(boolean attackMode);
+    void attachSkill(Skill skill);
 
     // menggambar kartu ke layar
 //    void render();
