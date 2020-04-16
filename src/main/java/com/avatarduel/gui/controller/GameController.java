@@ -3,7 +3,6 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.game.TurnManager;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
-import javafx.event.EventHandler;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
@@ -13,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -50,36 +48,36 @@ public class GameController implements Initializable, EventListener {
         this.placing = null;
     }
 
-    @FXML private Pane cardPane;
-    @FXML private ProgressBar P1HPBar;
-    @FXML private ProgressBar P2HPBar;
-    @FXML private Label P1Name;
-    @FXML private Label P2Name;
-    @FXML private Pane cardView;
-    @FXML private ProgressBar P1Turn;
-    @FXML private ProgressBar P2Turn;
-    @FXML private Label P1HP;
-    @FXML private Label P2HP;
-    @FXML private Pane P1Element;
-    @FXML private Pane P1gameStage;
-    @FXML private ImageView P1deck;
-    @FXML private Text P1DeckSize;
-    @FXML private Pane P1HandCards;
-    @FXML private Pane P1Field;
-    @FXML private Text drawPhaseP1;
-    @FXML private Text mainPhaseP1;
-    @FXML private Text battlePhaseP1;
-    @FXML private Text endPhaseP1;
-    @FXML private Pane P2Element;
-    @FXML private Pane P2gameStage;
-    @FXML private ImageView P2deck;
-    @FXML private Text P2DeckSize;
-    @FXML private Pane P2HandCards;
-    @FXML private Pane P2Field;
-    @FXML private Text drawPhaseP2;
-    @FXML private Text mainPhaseP2;
-    @FXML private Text battlePhaseP2;
-    @FXML private Text endPhaseP2;
+    @FXML public Pane cardPane;
+    @FXML public ProgressBar P1HPBar;
+    @FXML public ProgressBar P2HPBar;
+    @FXML public Label P1Name;
+    @FXML public Label P2Name;
+    @FXML public Pane cardView;
+    @FXML public ProgressBar P1Turn;
+    @FXML public ProgressBar P2Turn;
+    @FXML public Label P1HP;
+    @FXML public Label P2HP;
+    @FXML public Pane P1Element;
+    @FXML public Pane P1gameStage;
+    @FXML public ImageView P1deck;
+    @FXML public Text P1DeckSize;
+    @FXML public Pane P1HandCards;
+    @FXML public Pane P1Field;
+    @FXML public Text drawPhaseP1;
+    @FXML public Text mainPhaseP1;
+    @FXML public Text battlePhaseP1;
+    @FXML public Text endPhaseP1;
+    @FXML public Pane P2Element;
+    @FXML public Pane P2gameStage;
+    @FXML public ImageView P2deck;
+    @FXML public Text P2DeckSize;
+    @FXML public Pane P2HandCards;
+    @FXML public Pane P2Field;
+    @FXML public Text drawPhaseP2;
+    @FXML public Text mainPhaseP2;
+    @FXML public Text battlePhaseP2;
+    @FXML public Text endPhaseP2;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -206,6 +204,18 @@ public class GameController implements Initializable, EventListener {
         return cardView;
     }
 
+    public Player getP1() {
+        return P1;
+    }
+
+    public HandController getP1HandController() {
+        return p1HandController;
+    }
+
+    public HandController getP2HandController() {
+        return p2HandController;
+    }
+
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
         cardView.getChildren().add(newCardView.getPane());
@@ -286,16 +296,6 @@ public class GameController implements Initializable, EventListener {
                 initializePhase(P2gameStage);
                 setStageTextP2("draw");
                 P2Turn.setProgress(-1);
-            }
-        } else if (eventType.equals(Event.DRAW_PHASE)) {
-            if (value.equals(P1.getName())) {
-                P1Field.setDisable(true);
-                p1HandController.setEnableClick(false);
-                p1HandController.setDisableLand(false);
-            } else {
-                P2Field.setDisable(true);
-                p2HandController.setEnableClick(false);
-                p2HandController.setDisableLand(false);
             }
         } else if (eventType.equals(Event.MAIN_PHASE)) {
             if (value.equals(P1.getName())) {

@@ -8,11 +8,13 @@ import com.avatarduel.model.Player;
 public abstract class Phase {
     protected Player playerNow;
     protected EventManager events;
+    protected GameController controller;
 
     public Phase(Player playerNow) throws Exception {
         this.playerNow = playerNow;
         events = new EventManager(Event.NEXT_PHASE);
         events.subscribe(Event.NEXT_PHASE, GameController.getInstance());
+        this.controller = GameController.getInstance();
     }
 
     public void next() throws Exception {
