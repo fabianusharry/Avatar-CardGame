@@ -334,13 +334,6 @@ public class GameController implements Initializable, EventListener {
                 setStageTextP2("battle");
                 p2HandController.enable(false);
             }
-        } else if(eventType.equals(Event.DISABLE_LAND_CARDS)){
-            if(value.equals(P1.getName())){
-                System.out.println("disable");
-                p1HandController.disableLandCards(true);
-            } else{
-                p2HandController.disableLandCards(true);
-            }
         } else if(eventType.equals(Event.GOT_CARD)){
             if(value.equals(P1.getName())){
                 System.out.println("UDA ADA KARTU READY DITARUH");

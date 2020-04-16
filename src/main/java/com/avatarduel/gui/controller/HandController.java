@@ -51,27 +51,37 @@ public class HandController implements Initializable {
     public Card getCard(javafx.event.Event evt) throws Exception {
         String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
         Card takenCard = player.takeCard(Integer.parseInt(id));
-        events.notify(Event.UPDATE_POWER, player.getName());
-        events.notify(Event.TAKE_HAND_CARD, player.getName());
-        events.notify(Event.PASS_CARD,takenCard);
-        if(takenCard instanceof com.avatarduel.model.card.Land){
-            System.out.println("MASUK SINI");
-            events.notify(Event.DISABLE_LAND_CARDS,player.getName());
-        } else {
-            events.notify(Event.GOT_CARD,player.getName());
-        }
+        if (takenCard != null) {
+            reloadCardsPane();
+            events.notify(Event.UPDATE_POWER, player.getName());
+            events.notify(Event.PASS_CARD,takenCard);
+            if (takenCard instanceof com.avatarduel.model.card.Land) {
+                disableLandCards(true);
+            } else {
+                events.notify(Event.GOT_CARD,player.getName());
+            }
+        } //ELSE KASIH NOTIF ERROR
         return takenCard;
     }
 
+    public void reloadCardsPane() throws IOException {
+        for (int i = 0; i < 11; i++) {
+            cards.get(i).getChildren().clear();
+            if (i < player.getHandCards().size()) {
+                cards.get(i).getChildren().add(new MiniCardLoader(player.getHandCards().peek(i)).getPane());
+            }
+        }
+    }
+
     public void disableLandCards(boolean value){
-        if(value){
+        if(value) {
             for(int i = 0;i < player.getHandCards().size();i++){
                 if(player.getHandCards().getCards().get(i) instanceof com.avatarduel.model.card.Land){
                     System.out.println(player.getHandCards().getCards().get(i).getClass());
                     cards.get(i).setOnMouseClicked(null);
                 }
             }
-        } else{
+        } else {
             for(int i = 0;i < player.getHandCards().size();i++){
                 if(player.getHandCards().getCards().get(i) instanceof com.avatarduel.model.card.Land){
                     cards.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
