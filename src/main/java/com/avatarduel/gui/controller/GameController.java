@@ -3,6 +3,7 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.game.TurnManager;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
+import javafx.event.EventHandler;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
@@ -215,41 +216,34 @@ public class GameController implements Initializable, EventListener {
         pane.getChildren().add(newNode);
     }
 
-    public void disable(Text text,boolean value){
-        if(value){
-            text.setOnMouseClicked(null);
-            System.out.println(text.getId());
-            System.out.println("Berhaisl atur mouse clicked JADI FALSE");
-        }
-        else{
-            text.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                try {
-                    manager.getTurn().nextPhase().run();
-                    System.out.println(text.getId());
-                    System.out.println("Berhasil atur mouse clicked jadi bisa");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            });
+    public void disable(Text text,boolean value) {
+        if(value) {
+            text.setDisable(true);
+            System.out.println("Berhaisl atur mouse clicked JADI FALSE " + text.getId());
+        } else {
+            text.setDisable(false);
+            System.out.println("Berhasil atur mouse clicked jadi bisa " + text.getId());
         }
     }
 
     public void disableAllTextClickP1() {
-        drawPhaseP1.setDisable(true);
         mainPhaseP1.setDisable(true);
         battlePhaseP1.setDisable(true);
         endPhaseP1.setDisable(true);
     }
 
     public void disableAllTextClickP2() {
-        drawPhaseP2.setDisable(true);
         mainPhaseP2.setDisable(true);
         battlePhaseP2.setDisable(true);
         endPhaseP2.setDisable(true);
     }
 
-    public void nextPhase(javafx.event.Event evt) throws Exception {
+    public void nextPhase() throws Exception {
         manager.getTurn().nextPhase().run();
+    }
+
+    public void changeTurn() throws Exception {
+        manager.changeTurn();
     }
 
     public void disable(Pane pane, boolean value) {

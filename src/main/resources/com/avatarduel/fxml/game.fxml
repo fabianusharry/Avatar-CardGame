@@ -48,9 +48,9 @@
                   <Pane fx:id="P2gameStage" layoutX="192.0" layoutY="3.0" prefHeight="38.0" prefWidth="648.0" style="-fx-background-color: #c6c6c6;">
                      <children>
                         <Text fx:id="drawPhaseP2" layoutX="21.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Draw Phase" />
-                        <Text fx:id="mainPhaseP2" layoutX="197.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Main Phase" />
-                        <Text fx:id="battlePhaseP2" layoutX="371.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Battle Phase" />
-                        <Text fx:id="endPhaseP2" layoutX="542.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="End Phase" />
+                        <Text fx:id="mainPhaseP2" layoutX="197.0" layoutY="26.0" onMouseClicked="#nextPhase" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Main Phase" />
+                        <Text fx:id="battlePhaseP2" layoutX="371.0" layoutY="26.0" onMouseClicked="#nextPhase" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Battle Phase" />
+                        <Text fx:id="endPhaseP2" layoutX="542.0" layoutY="25.0" onMouseClicked="#changeTurn" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="End Phase" />
                      </children></Pane>
                   <Pane fx:id="P2Element" layoutX="14.0" layoutY="10.0" prefHeight="310.0" prefWidth="99.0" />
                   <ImageView fx:id="P2deck" fitHeight="85.0" fitWidth="70.0" layoutX="123.0" layoutY="49.0" onMousePressed="#p2Draw" pickOnBounds="true" preserveRatio="true">
@@ -74,9 +74,9 @@
                   <Pane fx:id="P1gameStage" layoutX="192.0" layoutY="294.0" prefHeight="38.0" prefWidth="648.0" style="-fx-background-color: #c6c6c6;">
                      <children>
                         <Text fx:id="drawPhaseP1" fill="RED" layoutX="21.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Draw Phase" />
-                        <Text fx:id="mainPhaseP1" layoutX="197.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Main Phase" />
-                        <Text fx:id="battlePhaseP1" layoutX="371.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Battle Phase" />
-                        <Text fx:id="endPhaseP1" layoutX="542.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="End Phase" />
+                        <Text fx:id="mainPhaseP1" layoutX="197.0" layoutY="25.0" onMouseClicked="#nextPhase" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Main Phase" />
+                        <Text fx:id="battlePhaseP1" layoutX="371.0" layoutY="25.0" onMouseClicked="#nextPhase" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="Battle Phase" />
+                        <Text fx:id="endPhaseP1" layoutX="542.0" layoutY="24.0" onMouseClicked="#changeTurn" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stateFont" text="End Phase" />
                      </children>
                      <effect>
                         <DropShadow blurType="GAUSSIAN" color="#d71c1c" height="30.13" radius="14.587499999999999" width="30.22" />
