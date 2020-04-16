@@ -36,14 +36,22 @@ public class FieldController implements Initializable{
     @FXML private Pane Skill6; 
     @FXML private List<Pane> CharacterFields;
     @FXML private List<Pane> SkillFields;
-    public Player player;
+    private String onClickArgs;
+    private Player player;
     private EventManager events;
 
 
     public FieldController(Player player) throws Exception{
         this.player = player;
-        events = new EventManager(Event.CARD_PLACED);
+        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW);
         events.subscribe(Event.CARD_PLACED,GameController.getInstance());
+        events.subscribe(Event.CHANGE_CARD_VIEW,GameController.getInstance());
+        onClickArgs = "";
+    }
+    
+    public void setOnClick(String args){
+        //Ada 3 opsi, placeCard, useCard, AttackCard
+        this.onClickArgs = args;
     }
     
     public Card getCardAt(String args,int index){
@@ -93,7 +101,36 @@ public class FieldController implements Initializable{
         }
     }
     
+    public void disable(){
+        this.onClickArgs = "";
+    }
+    
     @FXML
+    public void onClick(javafx.event.Event evt) throws Exception{
+       if(onClickArgs.equals("placeCard")){
+           placeCard(evt);
+       }
+       else{
+           System.out.println("");
+       }
+    }
+    
+    @FXML
+    public void onHover(javafx.event.Event evt) throws Exception{
+        String id = evt.getSource().toString().replaceAll("[^0-9]","");
+        if(evt.getSource().toString().contains("Character")){
+            if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
+                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+            }
+        }
+        else{
+            if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
+                events.notify(Event.CHANGE_CARD_VIEW,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
+            }
+        }
+        
+    }
+    
     public void placeCard(javafx.event.Event evt) throws Exception{
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         Card placing = GameController.getInstance().getCardPlacing();
@@ -104,7 +141,7 @@ public class FieldController implements Initializable{
                     player.field.getCharacterField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
                     System.out.println("KETARUH");
-                    enable(false);
+                    disable();
                 }
             }
         }
@@ -114,42 +151,9 @@ public class FieldController implements Initializable{
                     player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
                     System.out.println("KETARUH");
-                    enable(false);
+                    disable();
                 }
             }
-        }
-    }
-
-    void enable(boolean value) {
-        if (value) {
-            System.out.println("WEH BISA LAH INI UDA");
-            for(int i = 0; i < 6 ; i++){
-                CharacterFields.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                    try {
-                        
-                        placeCard(e);
-                        
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-
-                    }
-                });
-                SkillFields.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
-                    try{
-                        placeCard(e);
-                    }
-                    catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-                });
-            }
-        } else {
-            System.out.println("GW DISABLE SATU SATU ");
-            for (int i = 0; i < 6; i++) {
-                CharacterFields.get(i).setOnMouseClicked(null);
-                SkillFields.get(i).setOnMouseClicked(null);
-            }
-            System.out.println(Character2.getOnMouseClicked().toString());
         }
     }
 }

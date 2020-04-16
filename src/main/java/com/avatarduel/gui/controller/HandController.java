@@ -48,7 +48,6 @@ public class HandController implements Initializable {
 
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
-        System.out.println(evt.getSource().toString());
         String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
         Card takenCard = player.takeCard(Integer.parseInt(id));
         if (takenCard != null) {

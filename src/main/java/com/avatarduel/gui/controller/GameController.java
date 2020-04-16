@@ -331,22 +331,22 @@ public class GameController implements Initializable, EventListener {
                 System.out.println(this.placing.getClass());
                 
                 p1HandController.enable(false);
-                p1FieldController.enable(true);
-                p2FieldController.enable(false);
+                p1FieldController.setOnClick("placeCard");
+                p2FieldController.disable();
             } else {
                 p2HandController.enable(false);
-                p2FieldController.enable(true);
-                p1FieldController.enable(false);
+                p2FieldController.setOnClick("placeCard");
+                p1FieldController.disable();
             }
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
                p1HandController.enable(true);
-               p1FieldController.enable(false);
+               p1FieldController.disable();
             }
             else{
                 p2HandController.enable(true);
-                p2FieldController.enable(false);
+                p2FieldController.disable();
             }
         }
     }
