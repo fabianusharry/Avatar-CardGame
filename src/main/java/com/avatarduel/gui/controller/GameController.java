@@ -117,9 +117,7 @@ public class GameController implements Initializable, EventListener {
     }
 
     public void setEnableP1(Boolean isEnabled) throws Exception {
-        HandLoader hand = new HandLoader(P1);
-        p1HandController = hand.getController();
-        reload(P1HandCards, hand.getPane());
+        p1HandController.reloadCardsPane();
         if (isEnabled) {
             P1deck.setDisable(false);
         } else {
@@ -130,9 +128,7 @@ public class GameController implements Initializable, EventListener {
     }
 
     public void setEnableP2(Boolean isEnabled) throws Exception {
-        HandLoader hand = new HandLoader(P2);
-        p2HandController = hand.getController();
-        reload(P2HandCards, hand.getPane());
+        p2HandController.reloadCardsPane();
         if (isEnabled) {
             P2deck.setDisable(false);
         } else {
@@ -145,7 +141,7 @@ public class GameController implements Initializable, EventListener {
     @FXML
     public void p1Draw() throws Exception {
         P1.draw();
-        reload(P1HandCards, new HandLoader(P1).getPane());
+        p1HandController.reloadCardsPane();
         P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
         manager.getTurn().nextPhase().run();
     }
@@ -265,13 +261,8 @@ public class GameController implements Initializable, EventListener {
     public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
             setCardView((Card) value);
-        } else if (eventType.equals(Event.TAKE_HAND_CARD)) {
-            if (value.equals(P1.getName())) {
-                reload(P1HandCards, new HandLoader(P1).getPane());
-            } else {
-                reload(P2HandCards, new HandLoader(P2).getPane());
-            }
-        } else if (eventType.equals(Event.PASS_CARD)) {
+        } 
+        else if (eventType.equals(Event.PASS_CARD)) {
             this.placing = (Card) value;
         }
         else if (eventType.equals((Event.UPDATE_POWER))) {
@@ -338,17 +329,24 @@ public class GameController implements Initializable, EventListener {
             if(value.equals(P1.getName())){
                 System.out.println("UDA ADA KARTU READY DITARUH");
                 System.out.println(this.placing.getClass());
+                
                 p1HandController.enable(false);
                 p1FieldController.enable(true);
+                p2FieldController.enable(false);
             } else {
                 p2HandController.enable(false);
                 p2FieldController.enable(true);
+                p1FieldController.enable(false);
             }
-        } else if(eventType.equals(Event.CARD_PLACED_TO_FIELD)){
+        } 
+        else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
-                reload(P1Field, new FieldLoader(P1,1).getPane());
-            } else {
-                reload(P2Field, new FieldLoader(P2,2).getPane());
+               p1HandController.enable(true);
+               p1FieldController.enable(false);
+            }
+            else{
+                p2HandController.enable(true);
+                p2FieldController.enable(false);
             }
         }
     }

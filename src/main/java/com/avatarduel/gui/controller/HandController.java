@@ -27,9 +27,8 @@ public class HandController implements Initializable {
     public HandController(Player player) throws Exception {
         this.player = player;
         viewEnabled = true;
-        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD, Event.UPDATE_POWER, Event.GOT_CARD, Event.DISABLE_LAND_CARDS, Event.PASS_CARD);
+        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.UPDATE_POWER, Event.GOT_CARD, Event.DISABLE_LAND_CARDS, Event.PASS_CARD);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
-        events.subscribe(Event.TAKE_HAND_CARD, GameController.getInstance());
         events.subscribe(Event.UPDATE_POWER, GameController.getInstance());
         events.subscribe(Event.DISABLE_LAND_CARDS,GameController.getInstance());
         events.subscribe(Event.GOT_CARD,GameController.getInstance());
@@ -49,6 +48,7 @@ public class HandController implements Initializable {
 
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
+        System.out.println(evt.getSource().toString());
         String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
         Card takenCard = player.takeCard(Integer.parseInt(id));
         if (takenCard != null) {
@@ -77,7 +77,7 @@ public class HandController implements Initializable {
         if(value) {
             for(int i = 0;i < player.getHandCards().size();i++){
                 if(player.getHandCards().getCards().get(i) instanceof com.avatarduel.model.card.Land){
-                    System.out.println(player.getHandCards().getCards().get(i).getClass());
+                    System.out.println(i);
                     cards.get(i).setOnMouseClicked(null);
                 }
             }

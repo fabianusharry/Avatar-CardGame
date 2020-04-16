@@ -42,8 +42,8 @@ public class FieldController implements Initializable{
 
     public FieldController(Player player) throws Exception{
         this.player = player;
-        events = new EventManager(Event.CARD_PLACED_TO_FIELD);
-        events.subscribe(Event.CARD_PLACED_TO_FIELD,GameController.getInstance());
+        events = new EventManager(Event.CARD_PLACED);
+        events.subscribe(Event.CARD_PLACED,GameController.getInstance());
     }
     
     public Card getCardAt(String args,int index){
@@ -77,7 +77,22 @@ public class FieldController implements Initializable{
             e.printStackTrace();
         }
     }
-
+    
+    public void reloadFieldPane() throws Exception {
+        for (int i = 0; i < 6; i++) {
+            CharacterFields.get(i).getChildren().clear();
+            if (player.field.getCharacterField().getCard(i)!=null) {
+                CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i)).getPane());
+                events.notify(Event.CARD_PLACED,player.getName());
+            }
+            SkillFields.get(i).getChildren().clear();
+            if(player.field.getSkillField().getCard(i)!=null){
+                SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
+                events.notify(Event.CARD_PLACED,player.getName());
+            }
+        }
+    }
+    
     @FXML
     public void placeCard(javafx.event.Event evt) throws Exception{
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
@@ -85,17 +100,21 @@ public class FieldController implements Initializable{
         if(evt.getSource().toString().contains("Character")){
             //Berarti yang bisa dimasukkan adalah kartu KARAKTER
             if(placing instanceof com.avatarduel.model.card.Character){
-                if(player.field.getCharacterField().getCard(Integer.parseInt(id))==null){
-                    CharacterFields.get(Integer.parseInt(id)-1).getChildren().add(new MiniCardLoader(placing).getPane());
-                    events.notify(Event.CARD_PLACED_TO_FIELD,player.getName());
+                if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)==null){
+                    player.field.getCharacterField().placeCard(Integer.parseInt(id)-1,placing);
+                    reloadFieldPane();
+                    System.out.println("KETARUH");
+                    enable(false);
                 }
             }
         }
         else{
             if(placing instanceof com.avatarduel.model.card.Skill){
-                if(player.field.getSkillField().getCard(Integer.parseInt(id))==null){
-                    SkillFields.get(Integer.parseInt(id)-1).getChildren().add(new MiniCardLoader(placing).getPane());
-                    events.notify(Event.CARD_PLACED_TO_FIELD,player.getName());
+                if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)==null){
+                    player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
+                    reloadFieldPane();
+                    System.out.println("KETARUH");
+                    enable(false);
                 }
             }
         }
@@ -103,10 +122,13 @@ public class FieldController implements Initializable{
 
     void enable(boolean value) {
         if (value) {
+            System.out.println("WEH BISA LAH INI UDA");
             for(int i = 0; i < 6 ; i++){
                 CharacterFields.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                     try {
+                        
                         placeCard(e);
+                        
                     } catch (Exception ex) {
                         ex.printStackTrace();
 
@@ -114,7 +136,7 @@ public class FieldController implements Initializable{
                 });
                 SkillFields.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e-> {
                     try{
-
+                        placeCard(e);
                     }
                     catch(Exception ex){
                         ex.printStackTrace();
@@ -122,10 +144,12 @@ public class FieldController implements Initializable{
                 });
             }
         } else {
+            System.out.println("GW DISABLE SATU SATU ");
             for (int i = 0; i < 6; i++) {
                 CharacterFields.get(i).setOnMouseClicked(null);
                 SkillFields.get(i).setOnMouseClicked(null);
             }
+            System.out.println(Character2.getOnMouseClicked().toString());
         }
     }
 }
