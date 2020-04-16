@@ -8,13 +8,19 @@ public class DrawPhase extends Phase {
 
     public DrawPhase(Player playerNow) throws Exception {
         super(playerNow);
-        events.addEvent(Event.DRAW_PHASE);
-        events.subscribe(Event.DRAW_PHASE, GameController.getInstance());
     }
 
     @Override
     public void run() throws Exception {
         playerNow.resetPowerNow();
-        events.notify(Event.DRAW_PHASE, playerNow.getName());
+        if (playerNow.equals(controller.getP1())) {
+            controller.P1Field.setDisable(true);
+            controller.getP1HandController().setEnableClick(false);
+            controller.getP1HandController().setDisableLand(false);
+        } else {
+            controller.P2Field.setDisable(true);
+            controller.getP2HandController().setEnableClick(false);
+            controller.getP2HandController().setDisableLand(false);
+        }
     }
 }
