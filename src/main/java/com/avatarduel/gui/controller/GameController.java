@@ -26,6 +26,8 @@ public class GameController implements Initializable, EventListener {
     private Player P1;
     private Player P2;
     private Card placing;
+    private Card selecting;
+    private String selectingId;
     private TurnManager manager;
 
     private HandController p1HandController;
@@ -46,6 +48,8 @@ public class GameController implements Initializable, EventListener {
         this.P2 = new Player(MainMenuLoader.getInstance().getP2Name());
         this.manager = new TurnManager(P1, P2);
         this.placing = null;
+        this.selecting = null;
+        this.selectingId = null;
     }
 
     @FXML public Pane cardPane;
@@ -199,7 +203,15 @@ public class GameController implements Initializable, EventListener {
     public Card getCardPlacing(){
         return this.placing;
     }
-
+    
+    public Card getCardSelected(){
+        return this.placing;
+    }
+    
+    public String getSelectedPaneID(){
+        return this.selectingId;
+    }
+    
     public Pane getCardView() {
         return cardView;
     }
@@ -269,6 +281,7 @@ public class GameController implements Initializable, EventListener {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
             setCardView((Card) value);
         } else if (eventType.equals(Event.PASS_CARD)) {
+            
             this.placing = (Card) value;
         }
         else if (eventType.equals((Event.UPDATE_POWER))) {
@@ -322,23 +335,86 @@ public class GameController implements Initializable, EventListener {
                 System.out.println("UDA ADA KARTU READY DITARUH");
                 System.out.println(this.placing.getClass());
                 p1HandController.setEnableClick(false);
+                p1FieldController.setEnableClick(true);
                 p1FieldController.setOnClick("placeCard");
-                p2FieldController.disable();
+                p2FieldController.setEnableClick(false);
+                //Disable semua label
             } else {
                 p2HandController.setEnableClick(false);
+                p2FieldController.setEnableClick(true);
                 p2FieldController.setOnClick("placeCard");
-                p1FieldController.disable();
+                p1FieldController.setEnableClick(false);
+                //Disable semua label
             }
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
                p1HandController.setEnableClick(true);
-               p1FieldController.disable();
+               p1FieldController.setEnableClick(false);
             }
             else{
                 p2HandController.setEnableClick(true);
-                p2FieldController.disable();
+                p2FieldController.setEnableClick(false);
             }
         }
+        else if(eventType.equals(Event.PASS_SELECTED_CARD)){
+            this.selecting = (Card) value;
+        }
+        else if(eventType.equals(Event.PASS_SELECTED_PANEID)){
+            this.selectingId = (String) value;
+        }
+        else if(eventType.equals(Event.SELECTEDCARD)){
+            if(value.equals(P1.getName())){
+                p1FieldController.setOnClick("useCard");
+                if(selecting instanceof com.avatarduel.model.card.Character){
+                    //Disable seluruh p1FieldController disable skill p2FieldController
+                    p1FieldController.setEnableClick(false);
+                    p2FieldController.setEnableClick(true);
+                    p2FieldController.disableSkill();
+                    p1FieldController.enableSpecific(selectingId);
+
+                }
+                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
+                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
+                    p1FieldController.setEnableClick(true);
+                    p2FieldController.setEnableClick(true);
+                }
+                else if(selecting instanceof com.avatarduel.model.card.Skill){
+                    //Enable semua kecuali skill p1FieldController
+                    p1FieldController.setEnableClick(true);
+                    p2FieldController.setEnableClick(false);
+                    p1FieldController.disableSkill();
+                    p2FieldController.disableSkill();
+                    p1FieldController.enableSpecific(selectingId);
+                }
+            }
+            else{
+                p2FieldController.setOnClick("useCard");
+                if(selecting instanceof com.avatarduel.model.card.Character){
+                    //Disable seluruh p1FieldController disable skill p2FieldController
+                    p2FieldController.setEnableClick(false);
+                    p1FieldController.setEnableClick(true);
+                    p1FieldController.disableSkill();
+                    p2FieldController.enableSpecific(selectingId);
+
+                }
+                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
+                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
+                    p2FieldController.setEnableClick(true);
+                    p1FieldController.setEnableClick(true);
+                }
+                else if(selecting instanceof com.avatarduel.model.card.Skill){
+                    //Enable semua kecuali skill p1FieldController
+                    p2FieldController.setEnableClick(true);
+                    p1FieldController.setEnableClick(false);
+                    p2FieldController.disableSkill();
+                    p1FieldController.disableSkill();
+                    p2FieldController.enableSpecific(selectingId);
+                }
+            }
+            
+            
+        }
+        
     }
 }

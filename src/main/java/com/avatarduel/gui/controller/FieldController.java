@@ -36,6 +36,7 @@ public class FieldController implements Initializable{
     @FXML private Pane Skill6; 
     @FXML private List<Pane> CharacterFields;
     @FXML private List<Pane> SkillFields;
+    private List<String> Enabled;
     private String onClickArgs;
     private Player player;
     private EventManager events;
@@ -43,9 +44,13 @@ public class FieldController implements Initializable{
 
     public FieldController(Player player) throws Exception{
         this.player = player;
-        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW);
+        Enabled = new ArrayList<>();
+        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW,Event.PASS_SELECTED_CARD,Event.PASS_SELECTED_PANEID,Event.SELECTEDCARD);
         events.subscribe(Event.CARD_PLACED,GameController.getInstance());
         events.subscribe(Event.CHANGE_CARD_VIEW,GameController.getInstance());
+        events.subscribe(Event.PASS_SELECTED_CARD,GameController.getInstance());
+        events.subscribe(Event.PASS_SELECTED_PANEID,GameController.getInstance());
+        events.subscribe(Event.SELECTEDCARD,GameController.getInstance());
         onClickArgs = "";
     }
     
@@ -67,6 +72,14 @@ public class FieldController implements Initializable{
         return this.player.field;
     }
     
+    public void setEnableClick(boolean b){
+        if(b){
+            enableAll();
+        }
+        else{
+            disableAll();
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources){
         try {
@@ -91,28 +104,72 @@ public class FieldController implements Initializable{
             CharacterFields.get(i).getChildren().clear();
             if (player.field.getCharacterField().getCard(i)!=null) {
                 CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i)).getPane());
-                events.notify(Event.CARD_PLACED,player.getName());
+               
             }
             SkillFields.get(i).getChildren().clear();
             if(player.field.getSkillField().getCard(i)!=null){
                 SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
-                events.notify(Event.CARD_PLACED,player.getName());
+                
             }
         }
     }
     
-    public void disable(){
-        this.onClickArgs = "";
+    public void enableSkill(){
+        for(int i=0; i < 6 ;i++){
+            Enabled.add(SkillFields.get(i).getId());
+        }
+    }
+    
+    public void enableAll(){
+        disableAll();
+        enableCharacter();
+        enableSkill();
+    }
+    
+    public void enableCharacter(){
+        for(int i=0; i < 6 ; i++){
+            Enabled.add(CharacterFields.get(i).getId());
+        }
+    }
+    
+    public void enableSpecific(String paneId){
+        System.out.println("Berhasil ditambah");
+        Enabled.add(paneId);
+        System.out.println(Enabled);
+    }
+    
+    public void disableSkill(){
+        for(int i=0; i < 6 ;i++){
+            Enabled.remove(SkillFields.get(i).getId());
+        }
+    }
+    
+    public void disableCharacter(){
+        for(int i=0; i < 6 ; i++){
+            Enabled.remove(CharacterFields.get(i).getId());
+        }
+    }
+    
+    public void disableAll(){
+        Enabled = new ArrayList<>();
     }
     
     @FXML
     public void onClick(javafx.event.Event evt) throws Exception{
-       if(onClickArgs.equals("placeCard")){
-           placeCard(evt);
-       }
-       else{
-           System.out.println("");
-       }
+       System.out.println(Enabled);
+       Pane p = (Pane) evt.getSource();
+        if(Enabled.contains(p.getId())){
+            
+           if(onClickArgs.equals("placeCard")){
+               placeCard(evt);
+           }
+           else if(onClickArgs.equals("selectCard")){
+               selectCard(evt);
+           }
+           else if(onClickArgs.equals("useCard")){
+               useCard(evt);
+           }
+        }
     }
     
     @FXML
@@ -141,7 +198,8 @@ public class FieldController implements Initializable{
                     player.field.getCharacterField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
                     System.out.println("KETARUH");
-                    disable();
+                    disableAll();
+                    events.notify(Event.CARD_PLACED,player.getName());
                 }
             }
         }
@@ -151,8 +209,55 @@ public class FieldController implements Initializable{
                     player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
                     System.out.println("KETARUH");
-                    disable();
+                    disableAll();
+                    events.notify(Event.CARD_PLACED,player.getName());
                 }
+            }
+        }
+    }
+    
+    public void selectCard(javafx.event.Event evt) throws Exception{
+        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+        if(evt.getSource().toString().contains("Character")){
+            //Berarti yang bisa dimasukkan adalah kartu KARAKTER
+            if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
+                events.notify(Event.PASS_SELECTED_CARD,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+                Pane p = (Pane) evt.getSource();
+                events.notify(Event.PASS_SELECTED_PANEID,p.getId());
+                events.notify(Event.SELECTEDCARD,player.getName());
+                System.out.println("Keubah jadi kuning");
+                CharacterFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
+                reloadFieldPane();
+                events.notify(Event.SELECTEDCARD,player.getName());
+            }
+        }
+        else{
+            if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
+                events.notify(Event.PASS_SELECTED_CARD,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
+                Pane p = (Pane) evt.getSource();
+                events.notify(Event.PASS_SELECTED_PANEID,p.getId());
+                System.out.println("Keubah jadi kuning");
+                SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
+                reloadFieldPane();
+                events.notify(Event.SELECTEDCARD,player.getName());
+            }
+            
+            
+        }
+    }
+    
+    public void useCard(javafx.event.Event evt) throws Exception{
+        //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
+        GameController g = GameController.getInstance();
+        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+        Pane p = (Pane) evt.getSource();
+        if(g.getSelectedPaneID().equals(p.getId())){
+            //Set Border ilang (unselect) setOnClick selectCard
+            if(evt.getSource().toString().contains("Character")){
+                CharacterFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: black;");
+            }
+            else{
+                SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: black;");
             }
         }
     }
