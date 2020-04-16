@@ -2,6 +2,7 @@ package com.avatarduel.game.phase;
 
 import com.avatarduel.gui.controller.GameController;
 import com.avatarduel.gui.event.Event;
+import com.avatarduel.gui.loader.PowerLoader;
 import com.avatarduel.model.Player;
 
 public class DrawPhase extends Phase {
@@ -14,6 +15,7 @@ public class DrawPhase extends Phase {
     public void run() throws Exception {
         playerNow.resetPowerNow();
         if (playerNow.equals(controller.getP1())) {
+            controller.reload(controller.P1Element, new PowerLoader(playerNow).getPane());
             controller.P1Field.setDisable(true);
             controller.getP1HandController().setEnableClick(false);
             controller.getP1HandController().setDisableLand(false);

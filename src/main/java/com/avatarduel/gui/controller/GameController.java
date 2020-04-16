@@ -220,6 +220,10 @@ public class GameController implements Initializable, EventListener {
         return P1;
     }
 
+    public TurnManager getManager() {
+        return manager;
+    }
+
     public HandController getP1HandController() {
         return p1HandController;
     }
@@ -326,28 +330,6 @@ public class GameController implements Initializable, EventListener {
                 disable(mainPhaseP2, true);
                 disable(battlePhaseP2, false);
             }
-        } else if (eventType.equals(Event.BATTLE_PHASE)) {
-            if (value.equals(P1.getName())) {
-                setStageTextP1("battle");
-                p1HandController.setEnableClick(false);
-                p1HandController.setViewEnabled(false);
-                p1FieldController.setEnableClick(true);
-                p2FieldController.setEnableClick(false);
-                disable(battlePhaseP1, true);
-                disable(endPhaseP1, false);
-                p1FieldController.setOnClick("selectCard");
-            } else {
-                setStageTextP2("battle");
-                p2HandController.setEnableClick(false);
-                p2HandController.setViewEnabled(false);
-                p2FieldController.setEnableClick(true);
-                p1FieldController.setEnableClick(false);
-                disable(battlePhaseP2, true);
-                disable(endPhaseP2, false);
-                p2FieldController.setOnClick("selectCard");
-            }
-        } else if (eventType.equals(Event.END_PHASE)) {
-            manager.changeTurn();
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
                 System.out.println("UDA ADA KARTU READY DITARUH");
