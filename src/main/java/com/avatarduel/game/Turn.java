@@ -17,7 +17,6 @@ public class Turn {
         this.playerOpponent = opponent;
         createEventManager();
         initializeTurn();
-        System.out.println("MASUK");
         phaseNow = new DrawPhase(playerNow);
     }
 

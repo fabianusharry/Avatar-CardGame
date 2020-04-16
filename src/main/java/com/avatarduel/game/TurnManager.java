@@ -7,7 +7,6 @@ public class TurnManager {
     private Turn turn;
     private Player P1;
     private Player P2;
-    Phase phaseNow;
 
     public TurnManager(Player P1, Player P2) {
         this.P1 = P1;
