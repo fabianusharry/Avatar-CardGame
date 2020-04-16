@@ -8,14 +8,12 @@ public class EndPhase extends Phase {
 
     public EndPhase(Player playerNow) throws Exception {
         super(playerNow);
-        events.addEvent(Event.END_PHASE);
-        events.subscribe(Event.END_PHASE, GameController.getInstance());
     }
 
     @Override
     public void run() throws Exception {
         System.out.println(playerNow.getName() + " END PHASE");
-        events.notify(Event.END_PHASE, playerNow.getName());
+        controller.getManager().changeTurn();
     }
 
 }
