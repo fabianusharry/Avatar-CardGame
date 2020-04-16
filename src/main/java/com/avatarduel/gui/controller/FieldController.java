@@ -43,9 +43,12 @@ public class FieldController implements Initializable{
 
     public FieldController(Player player) throws Exception{
         this.player = player;
-        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW);
+        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW,Event.PASS_SELECTED_CARD,Event.PASS_SELECTED_PANEID,Event.SELECTEDCARD);
         events.subscribe(Event.CARD_PLACED,GameController.getInstance());
         events.subscribe(Event.CHANGE_CARD_VIEW,GameController.getInstance());
+        events.subscribe(Event.PASS_SELECTED_CARD,GameController.getInstance());
+        events.subscribe(Event.PASS_SELECTED_PANEID,GameController.getInstance());
+        events.subscribe(Event.SELECTEDCARD,GameController.getInstance());
         onClickArgs = "";
     }
     
@@ -110,8 +113,9 @@ public class FieldController implements Initializable{
        if(onClickArgs.equals("placeCard")){
            placeCard(evt);
        }
-       else{
-           System.out.println("");
+       else if(onClickArgs.equals("selectCard")){
+           selectCard(evt);
+       
        }
     }
     
@@ -154,6 +158,30 @@ public class FieldController implements Initializable{
                     disable();
                 }
             }
+        }
+    }
+    
+    public void selectCard(javafx.event.Event evt) throws Exception{
+        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+        if(evt.getSource().toString().contains("Character")){
+            //Berarti yang bisa dimasukkan adalah kartu KARAKTER
+            if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
+                events.notify(Event.PASS_SELECTED_CARD,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+                events.notify(Event.PASS_SELECTED_PANEID,evt.getSource().toString());
+                events.notify(Event.SELECTEDCARD,player.getName());
+                CharacterFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
+                reloadFieldPane();
+            }
+        }
+        else{
+            if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
+                events.notify(Event.PASS_SELECTED_CARD,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
+                events.notify(Event.PASS_SELECTED_PANEID,evt.getSource().toString());
+                events.notify(Event.SELECTEDCARD,player.getName());
+                SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
+                reloadFieldPane();     
+            }
+            
         }
     }
 }
