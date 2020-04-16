@@ -1,6 +1,6 @@
 package com.avatarduel.gui.controller;
 
-import com.avatarduel.game.Turn;
+import com.avatarduel.game.TurnManager;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
 import javafx.scene.effect.DropShadow;
@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -25,11 +26,15 @@ public class GameController implements Initializable, EventListener {
  
     private Player P1;
     private Player P2;
+    private Card placing;
+    private TurnManager manager;
 
     private HandController p1HandController;
     private HandController p2HandController;
 
-    private int turn;
+    private FieldController p1FieldController;
+    private FieldController p2FieldController;
+
     public static GameController getInstance() throws Exception {
         if (instance == null) {
             instance = new GameController();
@@ -40,7 +45,8 @@ public class GameController implements Initializable, EventListener {
     private GameController() throws Exception {
         this.P1 = new Player(MainMenuLoader.getInstance().getP1Name());
         this.P2 = new Player(MainMenuLoader.getInstance().getP2Name());
-        this.turn = 1;
+        this.manager = new TurnManager(P1, P2);
+        this.placing = null;
     }
 
     @FXML private Pane cardPane;
@@ -81,7 +87,7 @@ public class GameController implements Initializable, EventListener {
         try {
             initializeP1();
             initializeP2();
-            startGame();
+            manager.startTurn();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,20 +96,24 @@ public class GameController implements Initializable, EventListener {
     public void initializeP1() throws Exception {
         HandLoader p1hand = new HandLoader(P1);
         p1HandController = p1hand.getController();
-        FieldLoader p1field = new FieldLoader(P1.field, 1);
+        FieldLoader p1field = new FieldLoader(P1, 1);
+        p1FieldController = p1field.getController();
         P1Field.getChildren().add(p1field.getPane());
         cardView.getChildren().add(new CardLoader(P1.getHandCards().peek(0)).getPane());
         P1Element.getChildren().add(new PowerLoader(P1).getPane());
         P1HandCards.getChildren().add(p1hand.getPane());
+        P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
     }
 
     public void initializeP2() throws Exception {
         HandLoader p2hand = new HandLoader(P2);
         p2HandController = p2hand.getController();
-        FieldLoader p2field = new FieldLoader(P2.field, 2);
+        FieldLoader p2field = new FieldLoader(P2, 2);
+        p2FieldController = p2field.getController();
         P2Field.getChildren().add(p2field.getPane());
         P2Element.getChildren().add(new PowerLoader(P2).getPane());
         P2HandCards.getChildren().add(p2hand.getPane());
+        P2DeckSize.setText(String.valueOf(P2.getDeck().size()));
     }
 
     public void setEnableP1(Boolean isEnabled) throws Exception {
@@ -132,17 +142,12 @@ public class GameController implements Initializable, EventListener {
         }
     }
     
-    public void EndTurn(){
-        this.turn++;
-    }
-    
     @FXML
     public void p1Draw() throws Exception {
         P1.draw();
         reload(P1HandCards, new HandLoader(P1).getPane());
         P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
-        //notify PhaseController kalau drawPhase uda dilakukan
-        BattlePhase();
+        manager.getTurn().nextPhase().run();
     }
 
     @FXML
@@ -150,26 +155,25 @@ public class GameController implements Initializable, EventListener {
         P2.draw();
         reload(P2HandCards, new HandLoader(P2).getPane());
         P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
-        //notify PhaseController kalau drawPhase uda dilakukan
-        BattlePhase();
+        manager.getTurn().nextPhase().run();
     }
 
-    public void BattlePhase() throws Exception{
-        if(turn%2==1){
-            System.out.println("Berhaisl memasuki battle phase player 1");
-        }
-        else{
-            System.out.println("Berhasil memasuki battle phase player 2");
-        }
-        EndPhase();
-        
-    }
+//    public void BattlePhase() throws Exception{
+//        if(turn%2==1){
+//            System.out.println("Berhaisl memasuki battle phase player 1");
+//        }
+//        else{
+//            System.out.println("Berhasil memasuki battle phase player 2");
+//        }
+//        EndPhase();
+
+//    }
     
-    public void EndPhase() throws Exception{
-        System.out.println("ENDPHASEss");
-        EndTurn();
-        startGame();
-    }
+//    public void EndPhase() throws Exception{
+//        System.out.println("ENDPHASEss");
+//        EndTurn();
+//        startGame();
+//    }
 
     public void setStageTextP1(String value) {
         setPhaseText(value, drawPhaseP1, mainPhaseP1, battlePhaseP1, endPhaseP1);
@@ -211,6 +215,10 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    public Card getCardPlacing(){
+        return this.placing;
+    }
+
     public Pane getCardView() {
         return cardView;
     }
@@ -225,19 +233,32 @@ public class GameController implements Initializable, EventListener {
         pane.getChildren().add(newNode);
     }
 
-    public void disable(Pane pane, boolean value) {
-        pane.setDisable(value);
-    }
-    
-    public void startGame() throws Exception{
-        if(turn%2==1){
-            new Turn(P1, P2);
-            System.out.println("Draw phase P1");
+    public void disable(Text text,boolean value){
+        if(value){
+            text.setOnMouseClicked(null);
+            System.out.println(text.getId());
+            System.out.println("Berhaisl atur mouse clicked JADI FALSE");
         }
         else{
-            new Turn(P2, P1);
-            System.out.println("Draw phase P2");
+            text.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                try {
+                    manager.getTurn().nextPhase().run();
+                    System.out.println(text.getId());
+                    System.out.println("Berhasil atur mouse clicked jadi bisa");
+//                    battlePhase();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
         }
+    }
+
+    public void nextPhase(javafx.event.Event evt) throws Exception {
+        manager.getTurn().nextPhase().run();
+    }
+
+    public void disable(Pane pane, boolean value) {
+        pane.setDisable(value);
     }
 
     @Override
@@ -250,7 +271,10 @@ public class GameController implements Initializable, EventListener {
             } else {
                 reload(P2HandCards, new HandLoader(P2).getPane());
             }
-        } else if (eventType.equals((Event.UPDATE_POWER))) {
+        } else if (eventType.equals(Event.PASS_CARD)) {
+            this.placing = (Card) value;
+        }
+        else if (eventType.equals((Event.UPDATE_POWER))) {
             if (value.equals(P1.getName())) {
                 reload(P1Element, new PowerLoader(P1).getPane());
             } else {
@@ -287,6 +311,51 @@ public class GameController implements Initializable, EventListener {
             } else {
                 P2Field.setDisable(true);
                 p2HandController.enable(false);
+            }
+        } else if (eventType.equals(Event.MAIN_PHASE)) {
+            if (value.equals(P1.getName())) {
+                setStageTextP1("main");
+                P1deck.setDisable(true);
+                P1Field.setDisable(false);
+                p1HandController.enable(true);
+                disable(battlePhaseP1, false);
+            } else {
+                setStageTextP2("main");
+                P2deck.setDisable(true);
+                P2Field.setDisable(false);
+                p2HandController.enable(true);
+                disable(battlePhaseP2, false);
+            }
+        } else if (eventType.equals(Event.BATTLE_PHASE)) {
+            if (value.equals(P1.getName())) {
+                setStageTextP1("battle");
+                p1HandController.enable(false);
+            } else {
+                setStageTextP2("battle");
+                p2HandController.enable(false);
+            }
+        } else if(eventType.equals(Event.DISABLE_LAND_CARDS)){
+            if(value.equals(P1.getName())){
+                System.out.println("disable");
+                p1HandController.disableLandCards(true);
+            } else{
+                p2HandController.disableLandCards(true);
+            }
+        } else if(eventType.equals(Event.GOT_CARD)){
+            if(value.equals(P1.getName())){
+                System.out.println("UDA ADA KARTU READY DITARUH");
+                System.out.println(this.placing.getClass());
+                p1HandController.enable(false);
+                p1FieldController.enable(true);
+            } else {
+                p2HandController.enable(false);
+                p2FieldController.enable(true);
+            }
+        } else if(eventType.equals(Event.CARD_PLACED_TO_FIELD)){
+            if(value.equals(P1.getName())){
+                reload(P1Field, new FieldLoader(P1,1).getPane());
+            } else {
+                reload(P2Field, new FieldLoader(P2,2).getPane());
             }
         }
     }
