@@ -12,6 +12,7 @@ public enum Event {
     DRAW_PHASE,
     MAIN_PHASE,
     BATTLE_PHASE,
+    END_PHASE,
     NEXT_PHASE,
     GOT_CARD,
     PASS_CARD,

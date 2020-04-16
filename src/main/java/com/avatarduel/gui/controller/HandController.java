@@ -50,6 +50,8 @@ public class HandController implements Initializable {
         this.viewEnabled = viewEnabled;
     }
 
+    public void setDisableLand(boolean disableLand) { this.disableLand = disableLand; }
+
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
         Card takenCard = null;

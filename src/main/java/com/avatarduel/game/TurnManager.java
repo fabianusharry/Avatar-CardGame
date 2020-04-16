@@ -25,8 +25,9 @@ public class TurnManager {
         turn.startPhase();
     }
 
-    public void endTurn(){
+    public void changeTurn() throws Exception {
         this.counter++;
+        startTurn();
     }
 
     public Turn getTurn() {

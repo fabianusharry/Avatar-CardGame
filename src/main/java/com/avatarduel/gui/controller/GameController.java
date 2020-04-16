@@ -120,10 +120,14 @@ public class GameController implements Initializable, EventListener {
         p1HandController.reloadCardsPane();
         if (isEnabled) {
             P1deck.setDisable(false);
+            p1HandController.setViewEnabled(true);
+            P1gameStage.setDisable(false);
         } else {
             P1deck.setDisable(true);
             p1HandController.setEnableClick(false);
             p1HandController.flipCards();
+            P1gameStage.setDisable(true);
+            disableAllTextClickP1();
         }
     }
 
@@ -131,10 +135,14 @@ public class GameController implements Initializable, EventListener {
         p2HandController.reloadCardsPane();
         if (isEnabled) {
             P2deck.setDisable(false);
+            p2HandController.setViewEnabled(true);
+            P2gameStage.setDisable(false);
         } else {
             P2deck.setDisable(true);
             p2HandController.setEnableClick(false);
             p2HandController.flipCards();
+            P2gameStage.setDisable(true);
+            disableAllTextClickP2();
         }
     }
     
@@ -153,23 +161,6 @@ public class GameController implements Initializable, EventListener {
         P2DeckSize.setText(String.valueOf(P2.getDeck().size()));
         manager.getTurn().nextPhase().run();
     }
-
-//    public void BattlePhase() throws Exception{
-//        if(turn%2==1){
-//            System.out.println("Berhaisl memasuki battle phase player 1");
-//        }
-//        else{
-//            System.out.println("Berhasil memasuki battle phase player 2");
-//        }
-//        EndPhase();
-
-//    }
-    
-//    public void EndPhase() throws Exception{
-//        System.out.println("ENDPHASEss");
-//        EndTurn();
-//        startGame();
-//    }
 
     public void setStageTextP1(String value) {
         setPhaseText(value, drawPhaseP1, mainPhaseP1, battlePhaseP1, endPhaseP1);
@@ -198,15 +189,10 @@ public class GameController implements Initializable, EventListener {
                 mainPhaseP1.setStyle("-fx-fill: black;");
                 battlePhaseP1.setStyle("-fx-fill: red;");
                 break;
-            case "end":
-                battlePhaseP1.setStyle("-fx-fill: black;");
-                endPhaseP1.setStyle("-fx-fill: red;");
-                break;
             default:
                 drawPhaseP1.setStyle("-fx-fill: black;");
                 mainPhaseP1.setStyle("-fx-fill: black;");
                 battlePhaseP1.setStyle("-fx-fill: black;");
-                endPhaseP1.setStyle("-fx-fill: black;");
                 break;
         }
     }
@@ -241,12 +227,25 @@ public class GameController implements Initializable, EventListener {
                     manager.getTurn().nextPhase().run();
                     System.out.println(text.getId());
                     System.out.println("Berhasil atur mouse clicked jadi bisa");
-//                    battlePhase();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             });
         }
+    }
+
+    public void disableAllTextClickP1() {
+        drawPhaseP1.setDisable(true);
+        mainPhaseP1.setDisable(true);
+        battlePhaseP1.setDisable(true);
+        endPhaseP1.setDisable(true);
+    }
+
+    public void disableAllTextClickP2() {
+        drawPhaseP2.setDisable(true);
+        mainPhaseP2.setDisable(true);
+        battlePhaseP2.setDisable(true);
+        endPhaseP2.setDisable(true);
     }
 
     public void nextPhase(javafx.event.Event evt) throws Exception {
@@ -298,9 +297,11 @@ public class GameController implements Initializable, EventListener {
             if (value.equals(P1.getName())) {
                 P1Field.setDisable(true);
                 p1HandController.setEnableClick(false);
+                p1HandController.setDisableLand(false);
             } else {
                 P2Field.setDisable(true);
                 p2HandController.setEnableClick(false);
+                p2HandController.setDisableLand(false);
             }
         } else if (eventType.equals(Event.MAIN_PHASE)) {
             if (value.equals(P1.getName())) {
@@ -308,12 +309,14 @@ public class GameController implements Initializable, EventListener {
                 P1deck.setDisable(true);
                 P1Field.setDisable(false);
                 p1HandController.setEnableClick(true);
+                disable(mainPhaseP1, true);
                 disable(battlePhaseP1, false);
             } else {
                 setStageTextP2("main");
                 P2deck.setDisable(true);
                 P2Field.setDisable(false);
                 p2HandController.setEnableClick(true);
+                disable(mainPhaseP2, true);
                 disable(battlePhaseP2, false);
             }
         } else if (eventType.equals(Event.BATTLE_PHASE)) {
@@ -321,11 +324,18 @@ public class GameController implements Initializable, EventListener {
                 setStageTextP1("battle");
                 p1HandController.setEnableClick(false);
                 p1HandController.setViewEnabled(false);
+                disable(battlePhaseP1, true);
+                disable(endPhaseP1, false);
             } else {
                 setStageTextP2("battle");
                 p2HandController.setEnableClick(false);
+                p2HandController.setViewEnabled(false);
+                disable(battlePhaseP2, true);
+                disable(endPhaseP2, false);
             }
-        } else if(eventType.equals(Event.GOT_CARD)){
+        } else if (eventType.equals(Event.END_PHASE)) {
+            manager.changeTurn();
+        } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
                 System.out.println("UDA ADA KARTU READY DITARUH");
                 System.out.println(this.placing.getClass());
@@ -340,11 +350,11 @@ public class GameController implements Initializable, EventListener {
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
-               p1HandController.enable(true);
+               p1HandController.setEnableClick(true);
                p1FieldController.disable();
             }
             else{
-                p2HandController.enable(true);
+                p2HandController.setEnableClick(true);
                 p2FieldController.disable();
             }
         }

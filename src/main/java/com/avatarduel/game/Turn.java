@@ -1,8 +1,8 @@
 package com.avatarduel.game;
 
+import com.avatarduel.game.phase.*;
 import com.avatarduel.gui.controller.GameController;
 import com.avatarduel.gui.event.Event;
-import com.avatarduel.gui.event.EventListener;
 import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.model.Player;
 
@@ -44,10 +44,12 @@ public class Turn {
     }
 
     public Phase nextPhase() throws Exception {
-        if (phaseNow instanceof com.avatarduel.game.DrawPhase) {
+        if (phaseNow instanceof DrawPhase) {
             phaseNow = new MainPhase(playerNow);
-        } else if (phaseNow instanceof  com.avatarduel.game.MainPhase) {
+        } else if (phaseNow instanceof MainPhase) {
             phaseNow = new BattlePhase(playerNow, playerOpponent);
+        } else if (phaseNow instanceof BattlePhase) {
+            phaseNow = new EndPhase(playerNow);
         }
         return phaseNow;
     }
