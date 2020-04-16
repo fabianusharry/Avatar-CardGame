@@ -93,6 +93,7 @@ public class FieldController implements Initializable{
                     SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
                 }
             }
+            reloadBorder();
         }
         catch(IOException e){
             e.printStackTrace();
@@ -111,6 +112,13 @@ public class FieldController implements Initializable{
                 SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
                 
             }
+        }
+    }
+    
+    public void reloadBorder(){
+        for(int i = 0; i < 6;i++){
+           CharacterFields.get(i).setStyle("-fx-border-color:black;");
+           SkillFields.get(i).setStyle("-fx-border-color:black;");
         }
     }
     
@@ -260,5 +268,6 @@ public class FieldController implements Initializable{
                 SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: black;");
             }
         }
+        setOnClick("selectCard");
     }
 }
