@@ -330,16 +330,22 @@ public class GameController implements Initializable, EventListener {
                 System.out.println("UDA ADA KARTU READY DITARUH");
                 System.out.println(this.placing.getClass());
                 p1HandController.setEnableClick(false);
-                p1FieldController.enable(true);
+                p1FieldController.setOnClick("placeCard");
+                p2FieldController.disable();
             } else {
                 p2HandController.setEnableClick(false);
-                p2FieldController.enable(true);
+                p2FieldController.setOnClick("placeCard");
+                p1FieldController.disable();
             }
-        } else if(eventType.equals(Event.CARD_PLACED_TO_FIELD)){
+        } 
+        else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
-                reload(P1Field, new FieldLoader(P1,1).getPane());
-            } else {
-                reload(P2Field, new FieldLoader(P2,2).getPane());
+               p1HandController.enable(true);
+               p1FieldController.disable();
+            }
+            else{
+                p2HandController.enable(true);
+                p2FieldController.disable();
             }
         }
     }

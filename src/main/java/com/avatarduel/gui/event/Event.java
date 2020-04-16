@@ -13,8 +13,8 @@ public enum Event {
     MAIN_PHASE,
     BATTLE_PHASE,
     NEXT_PHASE,
-    CARD_PLACED_TO_FIELD,
     GOT_CARD,
     PASS_CARD,
+    CARD_PLACED,
     DISABLE_LAND_CARDS
 }

@@ -28,7 +28,7 @@ public class HandController implements Initializable {
         this.player = player;
         viewEnabled = true;
         disableLand = false;
-        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.UPDATE_POWER, Event.GOT_CARD, Event.DISABLE_LAND_CARDS, Event.PASS_CARD);
+        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.UPDATE_POWER, Event.GOT_CARD, Event.PASS_CARD);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
         events.subscribe(Event.UPDATE_POWER, GameController.getInstance());
         events.subscribe(Event.GOT_CARD,GameController.getInstance());
