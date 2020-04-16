@@ -10,13 +10,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import com.avatarduel.util.Constants;
 
 public class MiniCardLoader implements Loader {
     Pane card;
 
     public MiniCardLoader(Card card) throws IOException {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/miniCard.fxml"));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.miniCardFxml));
         MiniCardController controller = new MiniCardController(card);
         loader.setController(controller);
         // make stage

@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import com.avatarduel.util.Constants;
 
 public class MainMenuLoader implements Loader {
     private static MainMenuLoader instance = null; //Singleton attribute
@@ -25,7 +26,7 @@ public class MainMenuLoader implements Loader {
 
     private MainMenuLoader() throws IOException {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.menuFmxl));
         controller = new MainMenuController();
         loader.setController(controller);
         // make stage

@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import com.avatarduel.util.Constants;
 
 public class HandLoader implements Loader {
     Pane mainMenu;
@@ -18,7 +19,7 @@ public class HandLoader implements Loader {
 
     public HandLoader(Player player) throws Exception {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/hand.fxml"));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.handFxml));
         controller = new HandController(player);
         loader.setController(controller);
         // make stage

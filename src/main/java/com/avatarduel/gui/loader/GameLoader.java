@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import com.avatarduel.util.Constants;
 
 public class GameLoader {
     private static GameLoader instance = null; //Singleton attribute
@@ -31,7 +32,7 @@ public class GameLoader {
 
     private GameLoader() throws Exception {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/game.fxml"));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.gameFxml));
         loader.setController(GameController.getInstance());
         // make stage
         this.game = loader.load();

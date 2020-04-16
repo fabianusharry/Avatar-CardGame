@@ -12,13 +12,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import com.avatarduel.util.Constants;
 
 public class PowerLoader implements Loader {
     Pane power;
 
     public PowerLoader(Player player) throws IOException {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/power.fxml"));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.powerFxml));
         PowerController controller = new PowerController(player.getPowerNow(), player.getMaxPower());
         loader.setController(controller);
         // make stage

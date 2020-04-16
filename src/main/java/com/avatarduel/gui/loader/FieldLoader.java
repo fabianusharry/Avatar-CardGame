@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import com.avatarduel.util.Constants;
 
 public class FieldLoader implements Loader{
     Pane field;
@@ -15,9 +16,9 @@ public class FieldLoader implements Loader{
         // init loader
         FXMLLoader loader;
         if (playerNumber == 1) {
-            loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/fieldPlayer1.fxml"));
+            loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.fieldPlayer1Fxml));
         } else {
-            loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/fieldPlayer2.fxml"));
+            loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.fieldPlayer2Fxml));
         }
 
         FieldController controller = new FieldController(cards);
