@@ -5,7 +5,7 @@ import java.lang.Exception;
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.loader.GameLoader;
 import com.avatarduel.gui.loader.MainMenuLoader;
-import com.avatarduel.exceptions.PlayerNameEmptyException;
+import com.avatarduel.exceptions.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -41,6 +41,13 @@ public class MainMenuController extends AvatarDuel implements Initializable {
             playerName2.requestFocus();
             throw new PlayerNameEmptyException();
         }
+
+        // throw if player' name same
+        if (playerName1.getText().equals(playerName2.getText())) {
+            playerName1.requestFocus();
+            throw new PlayerNameSameException();
+        }
+
         nameOfPlayer1 = playerName1.getText();
         nameOfPlayer2 = playerName2.getText();
         MainMenuLoader.getInstance().closeStage();
