@@ -3,6 +3,7 @@ import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
@@ -245,9 +246,14 @@ public class FieldController implements Initializable{
     
     public void changeAttackMode(javafx.event.Event evt) throws Exception{
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
-        if(evt.getSource().toString().contains("Character") && player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){ 
-            player.field.getCharacterField().getCard(Integer.parseInt(id)-1).rotate();
-            CharacterFields.get(Integer.parseInt(id)-1).getTransforms().add(new Rotate(90, 35, 42.5));
+        if(evt.getSource().toString().contains("Character") && player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
+            SummonedCard dest = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
+            int constFactor = 1;
+            dest.rotate();
+            if (dest.isAttackMode()) {
+                constFactor = -1;
+            }
+            CharacterFields.get(Integer.parseInt(id)-1).getTransforms().add(new Rotate(constFactor*90, 35, 42.5));
         }      
     }
     
