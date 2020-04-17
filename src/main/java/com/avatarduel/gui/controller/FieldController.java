@@ -301,7 +301,14 @@ public class FieldController implements Initializable{
             if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
                 events.notify(Event.PASS_SELECTED_CARD,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
                 Pane p = (Pane) evt.getSource();
-                events.notify(Event.PASS_SELECTED_PANEID,p.getId());
+                GameController g = GameController.getInstance();
+                    if(player.equals(g.getP1())){
+                        events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P1");
+                    }
+                    else{
+                        events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P2");
+                    }
+                
                 events.notify(Event.SELECTEDCARD,player.getName());
                 System.out.println("Keubah jadi kuning");
                 CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: yellow;");
