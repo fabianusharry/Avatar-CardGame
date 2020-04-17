@@ -19,10 +19,10 @@ public class CharacterField {
         } // else throw exception (?)
     }
 
-    public Card removeCard(int index) {
+    public SummonedCard removeCard(int index) {
         SummonedCard result = field[index];
         field[index] = null;
-        return result.getCharacter();
+        return result;
     }
 
     public SummonedCard getCard(int index) {

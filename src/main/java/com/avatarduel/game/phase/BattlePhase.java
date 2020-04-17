@@ -19,9 +19,6 @@ public class BattlePhase extends Phase {
         System.out.println(playerNow.getName() + "BATTLE PHASE");
         initPhase();
         List<String> test = controller.getP1FieldController().getDisabledInBattle();
-        for (String o : test) {
-            System.out.println(o);
-        }
     }
 
 
