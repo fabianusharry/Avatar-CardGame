@@ -12,6 +12,7 @@ public interface SummonedCard {
     int getPositionValue();
     Card getCharacter();
     List<Skill> getSkillAttached();
+    List<String> getSkillLocation();
     void setAttackMode(boolean attackMode);
     void attachSkill(Skill skill,String location);
 }

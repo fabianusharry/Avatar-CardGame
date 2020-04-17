@@ -13,8 +13,10 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CardController extends AvatarDuel implements Initializable {
     private Card card;
@@ -86,10 +88,8 @@ public class CardController extends AvatarDuel implements Initializable {
         if (skillAttached.size() == 0) {
             value.append("None");
         } else {
-            for (Skill skill : skillAttached) {
-                value.append(skill.getName()).append(", ");
-            }
-            value.append("\b\b");
+            String skills = skillAttached.stream().map(Card::getName).collect(Collectors.joining(", "));
+            value.append(skills);
         }
         attr4.setText(String.valueOf(value));
     }
