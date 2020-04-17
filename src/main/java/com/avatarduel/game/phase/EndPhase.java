@@ -13,6 +13,14 @@ public class EndPhase extends Phase {
     @Override
     public void run() throws Exception {
         System.out.println(playerNow.getName() + " END PHASE");
+        if (playerNow.getHandCards().size() == 11) {
+            playerNow.getHandCards().take(10); // buang kartu index terakhir
+            if (playerNow.equals(controller.getP1())) {
+                controller.disable(controller.endPhaseP1, true);
+            } else {
+                controller.disable(controller.endPhaseP2, true);
+            }
+        }
         controller.getManager().changeTurn();
     }
 

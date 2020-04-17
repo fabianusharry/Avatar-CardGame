@@ -3,6 +3,7 @@ import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
@@ -198,7 +199,7 @@ public class FieldController implements Initializable{
         String id = evt.getSource().toString().replaceAll("[^0-9]","");
         if(evt.getSource().toString().contains("Character")){
             if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
-                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1).getCharacter());
+                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
             }
         }
         else{
