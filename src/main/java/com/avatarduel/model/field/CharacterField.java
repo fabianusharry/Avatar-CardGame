@@ -43,8 +43,8 @@ public class CharacterField {
         return field[index].isAttackMode();
     }
     
-    public void attachSkill(int index, Skill skill){
-        field[index].attachSkill(skill);
+    public void attachSkill(int index, Skill skill,String location){
+        field[index].attachSkill(skill,location);
     }
     
 }

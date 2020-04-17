@@ -11,12 +11,12 @@ public class PowerUp extends Skill {
     }
 
     @Override
-    public void activate(Player destination, int index) {
+    public void activate(Player destination, int index, String location) {
         boolean isAttackMode = destination.field.getCharacterField().isAttackMode(index);
         if (!isAttackMode) {
             destination.field.getCharacterField().changeCardPosition(index);
         }
 
-        destination.field.getCharacterField().attachSkill(index, this);
+        destination.field.getCharacterField().attachSkill(index, this,location);
     }
 }

@@ -46,9 +46,11 @@ public class SummonedCharacter implements SummonedCard {
         isAttackMode = attackMode;
     }
     
-    public void attachSkill(Skill skill){
+    public void attachSkill(Skill skill,String location){
         skillAttached.add(skill);
+        skillLocation.add(location);
     }
-
+    
     public List<Skill> getSkillAttached() { return skillAttached; }
+
 }

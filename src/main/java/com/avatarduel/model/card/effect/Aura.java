@@ -22,13 +22,13 @@ public class Aura extends Skill {
 
 
     @Override
-    public void activate(Player destination, int index) {
+    public void activate(Player destination, int index,String location) {
         Card destinationCard = destination.field.getCharacterField().getCard(index).getCharacter();
         int newAttack = destinationCard.getAttribute(Attribute.ATTACK)+this.attack;
         int newDefense = destinationCard.getAttribute(Attribute.DEFENSE)+this.defense;
         destinationCard.setAttribute(Attribute.ATTACK, newAttack);
         destinationCard.setAttribute(Attribute.DEFENSE, newDefense);
         
-        destination.field.getCharacterField().attachSkill(index, this);
+        destination.field.getCharacterField().attachSkill(index, this,location);
     }
 }

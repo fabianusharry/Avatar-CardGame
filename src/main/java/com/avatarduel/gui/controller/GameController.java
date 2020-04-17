@@ -7,8 +7,10 @@ import com.avatarduel.model.SummonedCard;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Skill;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -28,7 +30,9 @@ public class GameController implements Initializable, EventListener {
     private Player P1;
     private Player P2;
     private Card placing;
-    private SummonedCharacter selecting;
+    private Skill skillAttaching;
+    private String skillLocation;
+    private SummonedCard selecting;
     private String selectingId;
     private TurnManager manager;
 
@@ -214,12 +218,24 @@ public class GameController implements Initializable, EventListener {
         return this.selectingId;
     }
     
+    public String getSkillLocation(){
+        return this.skillLocation;
+    }
+    
+    public Skill getSkillPlacing(){
+        return this.skillAttaching;
+    }
+    
     public Pane getCardView() {
         return cardView;
     }
 
     public Player getP1() {
         return P1;
+    }
+    
+    public Player getP2(){
+        return P2;
     }
 
     public Player getP2() {
@@ -342,7 +358,7 @@ public class GameController implements Initializable, EventListener {
                 disable(mainPhaseP1, true);
                 disable(battlePhaseP1, false);
                 p1FieldController.setEnableClick(true);
-                p1FieldController.setOnClick("changeAttackMode");
+                p1FieldController.setOnClick("modify");
             } else {
                 setStageTextP2("main");
                 P2deck.setDisable(true);
@@ -351,7 +367,7 @@ public class GameController implements Initializable, EventListener {
                 disable(mainPhaseP2, true);
                 disable(battlePhaseP2, false);
                 p2FieldController.setEnableClick(true);
-                p2FieldController.setOnClick("changeAttackMode");
+                p2FieldController.setOnClick("modify");
             }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
@@ -411,6 +427,21 @@ public class GameController implements Initializable, EventListener {
             } else {
                 GameController.getInstance().getP1FieldController().setEnableClick(false);
                 GameController.getInstance().getP2FieldController().setEnableClick(true);
+            }
+        }
+        else if(eventType.equals(Event.SKILL_LOCATION)){
+            skillLocation = (String) value;
+        }
+        else if(eventType.equals(Event.SKILL_PLACING)){
+            skillAttaching = (Skill) value;
+        }
+        else if(eventType.equals(Event.ATTACHING_SKILL)){
+            if(value.equals(P1.getName())){
+                p1FieldController.setEnableClick(false);
+                p2FieldController.setEnableClick(false);
+                p1FieldController.enableCharacter();
+                p2FieldController.enableCharacter();
+                p1FieldController.setOnClick("attachSkill");
             }
         }
             

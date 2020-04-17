@@ -13,5 +13,5 @@ public interface SummonedCard {
     Card getCharacter();
     List<Skill> getSkillAttached();
     void setAttackMode(boolean attackMode);
-    void attachSkill(Skill skill);
+    void attachSkill(Skill skill,String location);
 }
