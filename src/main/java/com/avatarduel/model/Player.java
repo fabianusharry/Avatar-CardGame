@@ -68,16 +68,18 @@ public class Player {
 
     public Card takeCard(int index) {
         Card takenCard = null;
-        if (handCards.peek(index) instanceof com.avatarduel.model.card.Land) {
-            takenCard = handCards.take(index);
-            powerNow.add(takenCard.getElement());
-            maxPower.add(takenCard.getElement());
-        } else {
-            if (powerNow.get(handCards.peek(index).getElement()) >= handCards.peek(index).getAttribute(Attribute.POWER)) {
+        if (index >= 0 && index < handCards.size()) {
+            if (handCards.peek(index) instanceof com.avatarduel.model.card.Land) {
                 takenCard = handCards.take(index);
-                Element takenCardElement = takenCard.getElement();
-                powerNow.set(takenCardElement, powerNow.get(takenCardElement) - takenCard.getAttribute(Attribute.POWER));
-            } //else ga berhasil
+                powerNow.add(takenCard.getElement());
+                maxPower.add(takenCard.getElement());
+            } else {
+                if (powerNow.get(handCards.peek(index).getElement()) >= handCards.peek(index).getAttribute(Attribute.POWER)) {
+                    takenCard = handCards.take(index);
+                    Element takenCardElement = takenCard.getElement();
+                    powerNow.set(takenCardElement, powerNow.get(takenCardElement) - takenCard.getAttribute(Attribute.POWER));
+                } //else ga berhasil
+            }
         }
         return takenCard;
     }

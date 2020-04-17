@@ -5,12 +5,18 @@ import java.lang.Exception;
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.loader.GameLoader;
 import com.avatarduel.gui.loader.MainMenuLoader;
+import com.avatarduel.exceptions.*;
+import com.avatarduel.gui.loader.MessageBoxLoader;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,20 +37,31 @@ public class MainMenuController extends AvatarDuel implements Initializable {
 
     @FXML
     private void startGame() throws Exception {
-        if (!playerName1.getText().equals(TEMPLATE) && !playerName1.getText().equals("")) {
-            nameOfPlayer1 = playerName1.getText();
-        } else {
-            playerName1.requestFocus();
-            return;
-        }
-        if (!playerName2.getText().equals(TEMPLATE)&& !playerName2.getText().equals("")) {
-            nameOfPlayer2 = playerName2.getText();
-        } else {
+        // throw exception if player name empty
+        try {
+            if (playerName1.getText().equals(TEMPLATE) || playerName1.getText().equals("")) {
+                playerName1.requestFocus();
+                throw new PlayerNameEmptyException();
+            }
+            if (playerName2.getText().equals(TEMPLATE) || playerName2.getText().equals("")) {
             playerName2.requestFocus();
-            return;
+                throw new PlayerNameEmptyException();
+            }
+
+            // throw if player' name same
+            if (playerName1.getText().equals(playerName2.getText())) {
+            playerName1.requestFocus();
+                throw new PlayerNameSameException();
+            }
+
+            nameOfPlayer1 = playerName1.getText();
+            nameOfPlayer2 = playerName2.getText();
+            MainMenuLoader.getInstance().closeStage();
+            GameLoader.getInstance().render();
+
+        } catch (Exception ex) {
+            new MessageBoxLoader(ex.getMessage()).render();
         }
-        MainMenuLoader.getInstance().closeStage();
-        GameLoader.getInstance().render();
     }
 
     @FXML
