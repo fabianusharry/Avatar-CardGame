@@ -381,14 +381,6 @@ public class GameController implements Initializable, EventListener {
                     p2FieldController.setEnableClick(false);
                     p2FieldController.enableCharacter();
                     p1FieldController.enableSpecific(selectingId);
-
-                }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.enableCharacter();
-                    p2FieldController.enableCharacter();
                 }
             }
             else{
@@ -400,13 +392,6 @@ public class GameController implements Initializable, EventListener {
                     p1FieldController.enableCharacter();
                     p2FieldController.enableSpecific(selectingId);
 
-                }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.enableCharacter();
-                    p1FieldController.enableCharacter();
                 }
             }
             

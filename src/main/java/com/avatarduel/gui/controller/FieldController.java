@@ -250,17 +250,7 @@ public class FieldController implements Initializable{
             }
         }
         else{
-            if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
-                events.notify(Event.PASS_SELECTED_CARD,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
-                Pane p = (Pane) evt.getSource();
-                events.notify(Event.PASS_SELECTED_PANEID,p.getId());
-                System.out.println("Keubah jadi kuning");
-                SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
-                reloadFieldPane();
-                events.notify(Event.SELECTEDCARD,player.getName());
-            }
-            
-            
+            System.out.println("GBS SELECT SKILL DI BATTLE PHASE");
         }
     }
     
