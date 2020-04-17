@@ -3,6 +3,7 @@ import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.Character;
@@ -186,9 +187,9 @@ public class FieldController implements Initializable{
                 useCard(evt);
                 break;
                 //TODOLIST
-//               case "changeAttackMode":
-//                changeAttackMode(evt);
-//                break;
+               case "changeAttackMode":
+                changeAttackMode(evt);
+                break;
 //               case "AttachSkill":
 //                   AttachSkill(evt);
 //                   break;
@@ -203,7 +204,7 @@ public class FieldController implements Initializable{
         String id = evt.getSource().toString().replaceAll("[^0-9]","");
         if(evt.getSource().toString().contains("Character")){
             if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
-                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1).getCharacter());
             }
         }
         else{
@@ -226,9 +227,6 @@ public class FieldController implements Initializable{
                     System.out.println("KETARUH");
                     disableAll();
                     events.notify(Event.CARD_PLACED,player.getName());
-                } else {
-                    player.field.getCharacterField().getCard(Integer.parseInt(id)-1).rotate();
-                    CharacterFields.get(Integer.parseInt(id)).getTransforms().add(new Rotate(90, 35, 42.5));
                 }
             }
         }
@@ -244,7 +242,15 @@ public class FieldController implements Initializable{
             }
             System.out.println("MASUKNYA KE SINI");
         }
-//        setOnClick("changeAttackMode");
+        setOnClick("changeAttackMode");
+    }
+    
+    public void changeAttackMode(javafx.event.Event evt) throws Exception{
+        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+        if(evt.getSource().toString().contains("Character") && player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){ 
+            player.field.getCharacterField().getCard(Integer.parseInt(id)-1).rotate();
+            CharacterFields.get(Integer.parseInt(id)).getTransforms().add(new Rotate(90, 35, 42.5));
+        }      
     }
     
     public void selectCard(javafx.event.Event evt) throws Exception{
@@ -277,28 +283,22 @@ public class FieldController implements Initializable{
             //Tidak melakukan apa apa , hanya menghilangkan border kuning
         }
         else{
-            Card used = g.getCardSelected();
-            if(used instanceof com.avatarduel.model.card.effect.Destroy){
-                //Destroy karakter lawan atau karakter sendiri
-               player.field.getSkillField().removeCard(idUsed);
-               player.field.getCharacterField().removeCard(idDestination);
-            }
-            else if(used instanceof com.avatarduel.model.card.Character){
-               //Cek kondisi menyerang atau ga.
-               //Kalau kondisi menyerang , cek yang diserang player.field.getCharacterField.get(i)
-               //YANG DISERANG DALAM POSISI APA
-               //KALAU SERANG JUGA POSISINYA
-               //Attack dari karakter lawan tidak boleh lebih dari atau sama dengan kartu Used
-               //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
-               //playerlawan.setHP(Attack kartu used - attack kartu Destination)
-               //REMOVE KARTU USED DARI LIST OF ENABLED
-               
-               //Kalau DEFEND POSISINYA
-               //Defense dari karakter lawan tidak boleh lebih dari atau sama dengan attack karakter pemain.
-               //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
-               //TIDAK ADA SET HP LAWAN(TIDAK ADA PENGURANGAN)
-               //REMOVE KARTU USED dari LIST Of enabled
-            }
+            SummonedCharacter used = g.getCardSelected();
+            //Cek kondisi menyerang atau ga.
+            //Kalau kondisi menyerang , cek yang diserang player.field.getCharacterField.get(i)
+            //YANG DISERANG DALAM POSISI APA
+            //KALAU SERANG JUGA POSISINYA
+            //Attack dari karakter lawan tidak boleh lebih dari atau sama dengan kartu Used
+            //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
+            //playerlawan.setHP(Attack kartu used - attack kartu Destination)
+            //REMOVE KARTU USED DARI LIST OF ENABLED
+
+            //Kalau DEFEND POSISINYA
+            //Defense dari karakter lawan tidak boleh lebih dari atau sama dengan attack karakter pemain.
+            //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
+            //TIDAK ADA SET HP LAWAN(TIDAK ADA PENGURANGAN)
+            //REMOVE KARTU USED dari LIST Of enabled
+            
         }
         //Set Border ilang (unselect) setOnClick selectCard
         if(evt.getSource().toString().contains("Character")){

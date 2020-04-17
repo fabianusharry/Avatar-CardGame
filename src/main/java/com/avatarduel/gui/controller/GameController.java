@@ -6,6 +6,7 @@ import com.avatarduel.gui.event.EventListener;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +27,7 @@ public class GameController implements Initializable, EventListener {
     private Player P1;
     private Player P2;
     private Card placing;
-    private Card selecting;
+    private SummonedCharacter selecting;
     private String selectingId;
     private TurnManager manager;
 
@@ -204,8 +205,8 @@ public class GameController implements Initializable, EventListener {
         return this.placing;
     }
     
-    public Card getCardSelected(){
-        return this.placing;
+    public SummonedCharacter getCardSelected(){
+        return this.selecting;
     }
     
     public String getSelectedPaneID(){
@@ -329,6 +330,8 @@ public class GameController implements Initializable, EventListener {
                 p1HandController.setEnableClick(true);
                 disable(mainPhaseP1, true);
                 disable(battlePhaseP1, false);
+                p1FieldController.setEnableClick(true);
+                p1FieldController.setOnClick("changeAttackMode");
             } else {
                 setStageTextP2("main");
                 P2deck.setDisable(true);
@@ -336,6 +339,8 @@ public class GameController implements Initializable, EventListener {
                 p2HandController.setEnableClick(true);
                 disable(mainPhaseP2, true);
                 disable(battlePhaseP2, false);
+                p2FieldController.setEnableClick(true);
+                p2FieldController.setOnClick("changeAttackMode");
             }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
@@ -367,7 +372,7 @@ public class GameController implements Initializable, EventListener {
             }
         }
         else if(eventType.equals(Event.PASS_SELECTED_CARD)){
-            this.selecting = (Card) value;
+            this.selecting = (SummonedCharacter) value;
         }
         else if(eventType.equals(Event.PASS_SELECTED_PANEID)){
             this.selectingId = (String) value;
@@ -375,28 +380,25 @@ public class GameController implements Initializable, EventListener {
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
                 p1FieldController.setOnClick("useCard");
-                if(selecting instanceof com.avatarduel.model.card.Character){
-                    //Disable seluruh p1FieldController disable skill p2FieldController
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.setEnableClick(false);
-                    p2FieldController.enableCharacter();
-                    p1FieldController.enableSpecific(selectingId);
-                }
+                //Disable seluruh p1FieldController disable skill p2FieldController
+                p1FieldController.setEnableClick(false);
+                p2FieldController.setEnableClick(false);
+                p2FieldController.enableCharacter();
+                p1FieldController.enableSpecific(selectingId);
+                
             }
             else{
                 p2FieldController.setOnClick("useCard");
-                if(selecting instanceof com.avatarduel.model.card.Character){
-                    //Disable seluruh p1FieldController disable skill p2FieldController
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.setEnableClick(false);
-                    p1FieldController.enableCharacter();
-                    p2FieldController.enableSpecific(selectingId);
+                p2FieldController.setEnableClick(false);
+                p1FieldController.setEnableClick(false);
+                p1FieldController.enableCharacter();
+                p2FieldController.enableSpecific(selectingId);
 
                 }
-            }
-            
-            
         }
-        
+            
+            
     }
+        
+    
 }
