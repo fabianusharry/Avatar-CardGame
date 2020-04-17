@@ -3,7 +3,6 @@ package com.avatarduel.gui.loader;
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.controller.MessageBoxController;
 import com.avatarduel.util.Constants;
-import com.sun.org.apache.bcel.internal.Const;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
