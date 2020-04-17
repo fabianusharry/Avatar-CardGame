@@ -3,9 +3,11 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.game.TurnManager;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
+import com.avatarduel.model.SummonedCard;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +28,7 @@ public class GameController implements Initializable, EventListener {
     private Player P1;
     private Player P2;
     private Card placing;
-    private Card selecting;
+    private SummonedCharacter selecting;
     private String selectingId;
     private TurnManager manager;
 
@@ -205,8 +207,8 @@ public class GameController implements Initializable, EventListener {
         return this.placing;
     }
     
-    public Card getCardSelected(){
-        return this.placing;
+    public SummonedCharacter getCardSelected(){
+        return this.selecting;
     }
     
     public String getSelectedPaneID(){
@@ -232,9 +234,22 @@ public class GameController implements Initializable, EventListener {
     public HandController getP2HandController() {
         return p2HandController;
     }
-
+    
+    public FieldController getP1FieldController(){
+        return p1FieldController;
+    }
+    
+    public FieldController getP2FieldController(){
+        return p2FieldController;
+    }
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
+        cardView.getChildren().add(newCardView.getPane());
+    }
+
+    public void setCardView(SummonedCard summonedCard) throws IOException {
+        CardLoader newCardView = new CardLoader(summonedCard.getCharacter());
+        newCardView.setSkillAttached(summonedCard.getSkillAttached());
         cardView.getChildren().add(newCardView.getPane());
     }
 
@@ -269,10 +284,6 @@ public class GameController implements Initializable, EventListener {
         manager.getTurn().nextPhase().run();
     }
 
-    public void changeTurn() throws Exception {
-        manager.changeTurn();
-    }
-
     public void disable(Pane pane, boolean value) {
         pane.setDisable(value);
     }
@@ -280,7 +291,11 @@ public class GameController implements Initializable, EventListener {
     @Override
     public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
-            setCardView((Card) value);
+            if (value instanceof com.avatarduel.model.card.Card) {
+                setCardView((Card) value);
+            } else {
+                setCardView((SummonedCard) value);
+            }
         } else if (eventType.equals(Event.PASS_CARD)) {
             
             this.placing = (Card) value;
@@ -323,6 +338,8 @@ public class GameController implements Initializable, EventListener {
                 p1HandController.setEnableClick(true);
                 disable(mainPhaseP1, true);
                 disable(battlePhaseP1, false);
+                p1FieldController.setEnableClick(true);
+                p1FieldController.setOnClick("changeAttackMode");
             } else {
                 setStageTextP2("main");
                 P2deck.setDisable(true);
@@ -330,6 +347,8 @@ public class GameController implements Initializable, EventListener {
                 p2HandController.setEnableClick(true);
                 disable(mainPhaseP2, true);
                 disable(battlePhaseP2, false);
+                p2FieldController.setEnableClick(true);
+                p2FieldController.setOnClick("changeAttackMode");
             }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
@@ -351,15 +370,13 @@ public class GameController implements Initializable, EventListener {
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
                p1HandController.setEnableClick(true);
-               p1FieldController.setEnableClick(false);
             }
             else{
                 p2HandController.setEnableClick(true);
-                p2FieldController.setEnableClick(false);
             }
         }
         else if(eventType.equals(Event.PASS_SELECTED_CARD)){
-            this.selecting = (Card) value;
+            this.selecting = (SummonedCharacter) value;
         }
         else if(eventType.equals(Event.PASS_SELECTED_PANEID)){
             this.selectingId = (String) value;
@@ -367,55 +384,25 @@ public class GameController implements Initializable, EventListener {
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
                 p1FieldController.setOnClick("useCard");
-                if(selecting instanceof com.avatarduel.model.card.Character){
-                    //Disable seluruh p1FieldController disable skill p2FieldController
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.setEnableClick(true);
-                    p2FieldController.disableSkill();
-                    p1FieldController.enableSpecific(selectingId);
-
-                }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p1FieldController.setEnableClick(true);
-                    p2FieldController.setEnableClick(true);
-                }
-                else if(selecting instanceof com.avatarduel.model.card.Skill){
-                    //Enable semua kecuali skill p1FieldController
-                    p1FieldController.setEnableClick(true);
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.disableSkill();
-                    p2FieldController.disableSkill();
-                    p1FieldController.enableSpecific(selectingId);
-                }
+                //Disable seluruh p1FieldController disable skill p2FieldController
+                p1FieldController.setEnableClick(false);
+                p2FieldController.setEnableClick(false);
+                p2FieldController.enableCharacter();
+                p1FieldController.enableSpecific(selectingId);
+                
             }
             else{
                 p2FieldController.setOnClick("useCard");
-                if(selecting instanceof com.avatarduel.model.card.Character){
-                    //Disable seluruh p1FieldController disable skill p2FieldController
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.setEnableClick(true);
-                    p1FieldController.disableSkill();
-                    p2FieldController.enableSpecific(selectingId);
+                p2FieldController.setEnableClick(false);
+                p1FieldController.setEnableClick(false);
+                p1FieldController.enableCharacter();
+                p2FieldController.enableSpecific(selectingId);
 
                 }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p2FieldController.setEnableClick(true);
-                    p1FieldController.setEnableClick(true);
-                }
-                else if(selecting instanceof com.avatarduel.model.card.Skill){
-                    //Enable semua kecuali skill p1FieldController
-                    p2FieldController.setEnableClick(true);
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.disableSkill();
-                    p1FieldController.disableSkill();
-                    p2FieldController.enableSpecific(selectingId);
-                }
-            }
-            
-            
         }
-        
+            
+            
     }
+        
+    
 }

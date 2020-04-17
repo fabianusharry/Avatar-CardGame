@@ -26,10 +26,10 @@ public class CharacterField {
         return result.getCharacter();
     }
 
-    public Card getCard(int index) {
-        Card c = null;
+    public SummonedCard getCard(int index) {
+        SummonedCard c = null;
         if (field[index] != null) {
-            c = field[index].getCharacter();
+            c = field[index];
         }
         return c;
     }

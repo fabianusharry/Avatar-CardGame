@@ -4,6 +4,7 @@ import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.util.Constants;
+import com.avatarduel.model.card.Skill;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -13,10 +14,10 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CardController extends AvatarDuel implements Initializable {
-
     private Card card;
 
     public CardController(Card card) {
@@ -80,5 +81,18 @@ public class CardController extends AvatarDuel implements Initializable {
 
         Background background = new Background(backgroundImage);
         cardPane.setBackground(background);
+    }
+
+    public void addSkillAttached(List<Skill> skillAttached) {
+        StringBuilder value = new StringBuilder("Skill Attached: ");
+        if (skillAttached.size() == 0) {
+            value.append("None");
+        } else {
+            for (Skill skill : skillAttached) {
+                value.append(skill.getName()).append(", ");
+            }
+            value.append("\b\b");
+        }
+        attr4.setText(String.valueOf(value));
     }
 }
