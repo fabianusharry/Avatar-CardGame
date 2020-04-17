@@ -225,7 +225,6 @@ public class FieldController implements Initializable{
                     player.field.getCharacterField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
                     System.out.println("KETARUH");
-                    disableAll();
                     events.notify(Event.CARD_PLACED,player.getName());
                 }
             }
@@ -236,7 +235,6 @@ public class FieldController implements Initializable{
                     player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
                     System.out.println("KETARUH");
-                    disableAll();
                     events.notify(Event.CARD_PLACED,player.getName());
                 }
             }
@@ -249,7 +247,7 @@ public class FieldController implements Initializable{
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         if(evt.getSource().toString().contains("Character") && player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){ 
             player.field.getCharacterField().getCard(Integer.parseInt(id)-1).rotate();
-            CharacterFields.get(Integer.parseInt(id)).getTransforms().add(new Rotate(90, 35, 42.5));
+            CharacterFields.get(Integer.parseInt(id)-1).getTransforms().add(new Rotate(90, 35, 42.5));
         }      
     }
     
@@ -263,7 +261,7 @@ public class FieldController implements Initializable{
                 events.notify(Event.PASS_SELECTED_PANEID,p.getId());
                 events.notify(Event.SELECTEDCARD,player.getName());
                 System.out.println("Keubah jadi kuning");
-                CharacterFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
+                CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: yellow;");
                 reloadFieldPane();
                 events.notify(Event.SELECTEDCARD,player.getName());
             }
@@ -302,10 +300,10 @@ public class FieldController implements Initializable{
         }
         //Set Border ilang (unselect) setOnClick selectCard
         if(evt.getSource().toString().contains("Character")){
-            CharacterFields.get(idUsed).setStyle("-fx-border-color: black;");
+            CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
         }
         else{
-            SkillFields.get(idDestination).setStyle("-fx-border-color: black;");
+            SkillFields.get(idDestination-1).setStyle("-fx-border-color: black;");
         }
         setOnClick("selectCard");
     }

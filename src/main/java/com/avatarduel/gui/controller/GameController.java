@@ -361,14 +361,10 @@ public class GameController implements Initializable, EventListener {
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
-               p1HandController.setEnableClick(true);{
-                  
-                }
-               p1FieldController.setEnableClick(false);
+               p1HandController.setEnableClick(true);
             }
             else{
                 p2HandController.setEnableClick(true);
-                p2FieldController.setEnableClick(false);
             }
         }
         else if(eventType.equals(Event.PASS_SELECTED_CARD)){
