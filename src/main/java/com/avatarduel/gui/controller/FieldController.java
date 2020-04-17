@@ -189,6 +189,9 @@ public class FieldController implements Initializable{
                case "attachSkill":
                 attachSkill(evt);
                 break;
+               case "deleteCard:":
+                deleteCard(evt);
+                break;
                default:
                 break;
            }
