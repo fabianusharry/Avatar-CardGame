@@ -3,6 +3,7 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.game.TurnManager;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
+import com.avatarduel.model.SummonedCard;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
@@ -245,6 +246,12 @@ public class GameController implements Initializable, EventListener {
         cardView.getChildren().add(newCardView.getPane());
     }
 
+    public void setCardView(SummonedCard summonedCard) throws IOException {
+        CardLoader newCardView = new CardLoader(summonedCard.getCharacter());
+        newCardView.setSkillAttached(summonedCard.getSkillAttached());
+        cardView.getChildren().add(newCardView.getPane());
+    }
+
     public void reload(Pane pane, Pane newNode) {
         pane.getChildren().clear();
         pane.getChildren().add(newNode);
@@ -276,10 +283,6 @@ public class GameController implements Initializable, EventListener {
         manager.getTurn().nextPhase().run();
     }
 
-    public void changeTurn() throws Exception {
-        manager.changeTurn();
-    }
-
     public void disable(Pane pane, boolean value) {
         pane.setDisable(value);
     }
@@ -287,7 +290,11 @@ public class GameController implements Initializable, EventListener {
     @Override
     public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
-            setCardView((Card) value);
+            if (value instanceof com.avatarduel.model.card.Card) {
+                setCardView((Card) value);
+            } else {
+                setCardView((SummonedCard) value);
+            }
         } else if (eventType.equals(Event.PASS_CARD)) {
             
             this.placing = (Card) value;

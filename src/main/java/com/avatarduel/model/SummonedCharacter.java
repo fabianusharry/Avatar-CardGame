@@ -49,4 +49,6 @@ public class SummonedCharacter implements SummonedCard {
     public void attachSkill(Skill skill){
         skillAttached.add(skill);
     }
+
+    public List<Skill> getSkillAttached() { return skillAttached; }
 }

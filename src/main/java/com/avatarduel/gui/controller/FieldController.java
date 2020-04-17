@@ -205,7 +205,7 @@ public class FieldController implements Initializable{
         String id = evt.getSource().toString().replaceAll("[^0-9]","");
         if(evt.getSource().toString().contains("Character")){
             if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){
-                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1).getCharacter());
+                events.notify(Event.CHANGE_CARD_VIEW, player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
             }
         }
         else{
