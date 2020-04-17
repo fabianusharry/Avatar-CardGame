@@ -31,6 +31,7 @@ public class BattlePhase extends Phase {
             controller.disable(controller.endPhaseP1, false);
             controller.getP1FieldController().setEnableClick(true);
             controller.getP2FieldController().setEnableClick(false);
+            controller.getP2FieldController().setDelete(false);
             controller.getP1FieldController().setOnClick("selectCard");
            
         } else {
@@ -41,6 +42,7 @@ public class BattlePhase extends Phase {
             controller.disable(controller.endPhaseP2, false);
             controller.getP2FieldController().setEnableClick(true);
             controller.getP1FieldController().setEnableClick(false);
+            controller.getP1FieldController().setDelete(false);
             controller.getP2FieldController().setOnClick("selectCard");
         }
     }

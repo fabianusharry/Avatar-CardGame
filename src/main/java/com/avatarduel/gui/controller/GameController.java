@@ -23,6 +23,8 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class GameController implements Initializable, EventListener {
     private static GameController instance = null; //Singleton attribute
@@ -32,6 +34,8 @@ public class GameController implements Initializable, EventListener {
     private Card placing;
     private Skill skillAttaching;
     private String skillLocation;
+    private String modifyType;
+    private String modifyLocation;
     private SummonedCard selecting;
     private String selectingId;
     private TurnManager manager;
@@ -226,6 +230,14 @@ public class GameController implements Initializable, EventListener {
         return this.skillAttaching;
     }
     
+    public String getModifyLocation(){
+        return modifyLocation;
+    }
+    
+    public String getModifyType(){
+        return modifyType;
+    }
+    
     public Pane getCardView() {
         return cardView;
     }
@@ -257,6 +269,18 @@ public class GameController implements Initializable, EventListener {
     public FieldController getP2FieldController(){
         return p2FieldController;
     }
+    
+    @FXML
+    public void handleOnKeyPressed(KeyEvent event) throws Exception{
+        if(event.getCode().equals(KeyCode.SHIFT)){
+            if(p1FieldController.delete()){
+                p1FieldController.deleteCard();
+            } else if (p2FieldController.delete()){
+                p2FieldController.deleteCard();
+            }
+        }
+    }
+    
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
         cardView.getChildren().add(newCardView.getPane());
@@ -436,8 +460,15 @@ public class GameController implements Initializable, EventListener {
                 p2FieldController.enableCharacter();
                 p1FieldController.setOnClick("attachSkill");
             }
+        } else if(eventType.equals(Event.MODIFYING)){
+            this.modifyType = (String) value;
+        } else if(eventType.equals(Event.MODIFY_LOCATION)){
+            this.modifyLocation = (String) value;
         }
+    
+    
     }
+    
         
     
 }

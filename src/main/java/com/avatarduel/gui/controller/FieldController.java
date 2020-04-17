@@ -4,9 +4,12 @@ import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.SummonedCard;
+import com.avatarduel.model.SummonedCharacter;
+import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.Character;
+import com.avatarduel.model.card.effect.Aura;
 import com.avatarduel.model.field.CardField;
 
 import java.net.URL;
@@ -16,6 +19,8 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 
@@ -39,6 +44,7 @@ public class FieldController implements Initializable{
     private String onClickArgs;
     private Player player;
     private EventManager events;
+    private boolean delete;
 
 
     public FieldController(Player player) throws Exception{
@@ -46,7 +52,7 @@ public class FieldController implements Initializable{
         Enabled = new ArrayList<>();
         disabledInBattle = new ArrayList<>();
         events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW,Event.PASS_SELECTED_CARD,Event.PASS_SELECTED_PANEID,Event.SELECTEDCARD, Event.RESET_SELECT_CARD,
-        Event.ATTACHING_SKILL,Event.MODIFYING_CHARACTER,Event.MODIFYING_SKILL,Event.MODIFYING_TYPE,Event.SKILL_LOCATION);
+        Event.ATTACHING_SKILL,Event.MODIFYING,Event.MODIFY_LOCATION,Event.SKILL_LOCATION);
         events.subscribe(Event.CARD_PLACED,GameController.getInstance());
         events.subscribe(Event.CHANGE_CARD_VIEW,GameController.getInstance());
         events.subscribe(Event.PASS_SELECTED_CARD,GameController.getInstance());
@@ -54,10 +60,10 @@ public class FieldController implements Initializable{
         events.subscribe(Event.SELECTEDCARD,GameController.getInstance());
         events.subscribe(Event.RESET_SELECT_CARD,GameController.getInstance());
         events.subscribe(Event.ATTACHING_SKILL,GameController.getInstance());
-        events.subscribe(Event.MODIFYING_CHARACTER,GameController.getInstance());
-        events.subscribe(Event.MODIFYING_SKILL,GameController.getInstance());
-        events.subscribe(Event.MODIFYING_TYPE,GameController.getInstance());
+        events.subscribe(Event.MODIFYING,GameController.getInstance());
+        events.subscribe(Event.MODIFY_LOCATION,GameController.getInstance());
         events.subscribe(Event.SKILL_LOCATION,GameController.getInstance());
+        delete = false;
         onClickArgs = "";
     }
     
@@ -76,6 +82,10 @@ public class FieldController implements Initializable{
     
     public CardField getCardField(){
         return this.player.field;
+    }
+    
+    public void setDelete(boolean b){
+        this.delete = b;
     }
     
     public void setEnableClick(boolean b){
@@ -165,7 +175,11 @@ public class FieldController implements Initializable{
     public void clearDisabledInBattle() {
         disabledInBattle.clear();
     }
-
+    
+    public boolean delete(){
+        return this.delete;
+    }
+    
     @FXML
     public void onClick(javafx.event.Event evt) throws Exception{
         System.out.println(Enabled);
@@ -188,9 +202,6 @@ public class FieldController implements Initializable{
                 break;
                case "attachSkill":
                 attachSkill(evt);
-                break;
-               case "deleteCard:":
-                deleteCard(evt);
                 break;
                default:
                 break;
@@ -217,26 +228,36 @@ public class FieldController implements Initializable{
     public void attachSkill(javafx.event.Event evt) throws Exception{
         GameController g = GameController.getInstance();
         Player opponent;
+        String playerNow;
+        String opponents;
         boolean SkillFromHere=true;
         if(g.getSkillLocation().contains("P1")){
             if(player.equals(g.getP1())){
                 //Berarti dari kartu sendiri
                 opponent = g.getP2();
+                playerNow = "P1";
+                opponents = "P2";
             }else{
                 //Berarti dari lawan
                 opponent = g.getP1();
                 SkillFromHere=false;
+                playerNow = "P2";
+                opponents = "P1";
             }
         }else{
             //Letak Skill dari P2
             if(player.equals(g.getP2())){
                 //Berati dari kartu sendiri
                 opponent = g.getP1();
+                playerNow = "P2";
+                opponents = "P1";
             }else{
                 //Berarti dari lawan
                 opponent = g.getP2();
-                SkillFromHere=false;
+                playerNow = "P1";
+                opponents = "P2";
             }
+                SkillFromHere=false;
         }
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         Skill skill = GameController.getInstance().getSkillPlacing();
@@ -244,8 +265,13 @@ public class FieldController implements Initializable{
         if(SkillFromHere){
             SummonedCard s = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
             if(s!=null){
+                skill.setTargetLocation(location);
                 skill.activate(player, Integer.parseInt(id)-1, location);
+                if(skill instanceof com.avatarduel.model.card.effect.Destroy){
+                    player.field.getSkillField().removeCard(Integer.parseInt(id)-1);
+                }
                 reloadBorder();
+                reloadFieldPane();
                 events.notify(Event.CARD_PLACED,player.getName());
                 setOnClick("modify");
             }
@@ -253,8 +279,13 @@ public class FieldController implements Initializable{
         else{
             SummonedCard s = opponent.field.getCharacterField().getCard(Integer.parseInt(id)-1);
             if(s!=null){
+                skill.setTargetLocation(location);
                 skill.activate(player, Integer.parseInt(id)-1, location);
+                if(skill instanceof com.avatarduel.model.card.effect.Destroy){
+                    opponent.field.getSkillField().removeCard(Integer.parseInt(id)-1);
+                }
                 reloadBorder();
+                reloadFieldPane();
                 events.notify(Event.CARD_PLACED,player.getName());
                 setOnClick("modify");
             }
@@ -306,16 +337,24 @@ public class FieldController implements Initializable{
             if (dest.isAttackMode()) { rotateFactor = -1; }
             CharacterFields.get(Integer.parseInt(id)-1).getTransforms().add(new Rotate(rotateFactor*90, 35, 42.5));
             CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
-            events.notify(Event.MODIFYING_TYPE,"Character");
-            events.notify(Event.MODIFYING_CHARACTER,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+            events.notify(Event.MODIFYING,player.getName());
+            events.notify(Event.MODIFY_LOCATION,"Character"+(Integer.parseInt(id)-1));
+            delete = true;
         }        
         else if(evt.getSource().toString().contains("Skill") && player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
             SkillFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
-            events.notify(Event.MODIFYING_TYPE,"Skill");
-            events.notify(Event.MODIFYING_CHARACTER,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
+            events.notify(Event.MODIFYING,player.getName());
+            events.notify(Event.MODIFY_LOCATION,"Skill"+(Integer.parseInt(id)-1));
+            delete = true;
         }
     }
-
+    
+    public void removeCharacter(Player p,int id,List<String> location) throws Exception {
+        p.field.getCharacterField().removeCard(id-1);
+        removeSkillsFromPane(location);
+        reloadFieldPane();
+    }
+    
     public void removeSkillsFromPane(List<String> panesId) throws Exception {
         for (String panePlayer : panesId) {
             int paneNumber = Integer.parseInt(panePlayer.split("\\s+")[0].replaceAll("[^1-6]", ""));
@@ -326,6 +365,61 @@ public class FieldController implements Initializable{
                 GameController.getInstance().getP2FieldController().SkillFields.get(paneNumber).getChildren().clear();
             }
         }
+    }
+    
+    public void deleteCard() throws Exception {
+        GameController g = GameController.getInstance();
+        System.out.println(g.getModifyLocation());
+        String id = g.getModifyLocation().replaceAll("[^1-6]","");
+        if(g.getModifyLocation().contains("Character")){
+            List<String> location = player.field.getCharacterField().getCard(Integer.parseInt(id)).getSkillLocation();
+            this.removeCharacter(player, Integer.parseInt(id)+1, location);
+        }
+        else if(g.getModifyLocation().contains("Skill")){
+            Player target;
+            String i = g.getModifyLocation();
+            Skill s = (Skill) player.field.getSkillField().getCard(Integer.parseInt(id));
+            String characterLocation = s.getTargetLocation();//Lokasi kartu karakter yang harus di deaktifasi
+            SummonedCard c;
+            if(characterLocation.contains("P1")){
+                target = g.getP1();
+                if(g.getP1().equals(player)){
+                    c = (SummonedCharacter) player.field.getCharacterField().getCard(Integer.parseInt(id));
+                }
+                else{
+                    c = (SummonedCharacter) g.getP1().field.getCharacterField().getCard(Integer.parseInt(id));
+                }
+            }
+            else{
+                target = g.getP2();
+                if(g.getP1().equals(player)){
+                    c = (SummonedCharacter) g.getP2().field.getCharacterField().getCard(Integer.parseInt(id));
+                }
+                else{
+                    c = (SummonedCharacter) player.field.getCharacterField().getCard(Integer.parseInt(id));
+                }
+            }
+            //(SummonedCharacter) player.field.getCharacterField().getCard(Integer.parseInt(id));
+            c.removeSkillAttached(s);
+            c.removeSkillLocation(i+" "+g.getModifyType());
+            if(s instanceof com.avatarduel.model.card.effect.Aura){
+                //Deactivate Aura
+                int newAttack = c.getCharacter().getAttribute(Attribute.ATTACK) - ((Aura) s).getAttack();
+                int newDefense = c.getCharacter().getAttribute(Attribute.DEFENSE) - ((Aura) s).getDefense();
+                c.getCharacter().setAttribute(Attribute.ATTACK, newAttack);
+                c.getCharacter().setAttribute(Attribute.DEFENSE, newDefense);
+                player.field.getSkillField().removeCard(Integer.parseInt(id));
+            }
+            else if(s instanceof com.avatarduel.model.card.effect.PowerUp){
+                //Deactivate Powerup
+                boolean isAttackMode = c.isAttackMode();
+                if(isAttackMode){
+                    target.field.getCharacterField().changeCardPosition(Integer.parseInt(characterLocation.substring(0,characterLocation.indexOf(' '))));
+                }
+                player.field.getSkillField().removeCard(Integer.parseInt(id));
+            }
+        }
+        delete = false;
     }
     
     public void selectCard(javafx.event.Event evt) throws Exception {
@@ -404,10 +498,9 @@ public class FieldController implements Initializable{
             SummonedCard destination = opponent.field.getCharacterField().getCard(idDestination-1);
             if (used.getPositionValue() > destination.getPositionValue()) {
                 // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
-                opponent.field.getCharacterField().removeCard(idDestination-1);
-                removeSkillsFromPane(destination.getSkillLocation());
+                removeCharacter(opponent,idDestination,destination.getSkillLocation());
                 //
-                if (destination.isAttackMode()) {
+                if (destination.isAttackMode() || destination.havePowerUp()) {
                     int diff = used.getPositionValue() - destination.getPositionValue();
                     opponent.reduceHP(diff);
                     if (opponentId.equals("P1")) {
