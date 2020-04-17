@@ -2,7 +2,7 @@ package com.avatarduel.gui.loader;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.controller.FieldController;
-import com.avatarduel.model.field.CardField;
+import com.avatarduel.model.Player;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -10,8 +10,9 @@ import javafx.stage.Stage;
 
 public class FieldLoader implements Loader{
     Pane field;
+    FieldController controller;
 
-    public FieldLoader(CardField cards, int playerNumber) throws Exception {
+    public FieldLoader(Player player, int playerNumber) throws Exception {
         // init loader
         FXMLLoader loader;
         if (playerNumber == 1) {
@@ -20,7 +21,7 @@ public class FieldLoader implements Loader{
             loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/fieldPlayer2.fxml"));
         }
 
-        FieldController controller = new FieldController(cards);
+        controller = new FieldController(player);
         loader.setController(controller);
         // make stage
         this.field = loader.load();
@@ -30,6 +31,8 @@ public class FieldLoader implements Loader{
     public Pane getPane() {
         return field;
     }
+
+    public FieldController getController(){ return controller; }
 
     public void render() {
         Stage stage = new Stage();

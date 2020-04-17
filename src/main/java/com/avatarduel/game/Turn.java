@@ -1,5 +1,6 @@
 package com.avatarduel.game;
 
+import com.avatarduel.game.phase.*;
 import com.avatarduel.gui.controller.GameController;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventManager;
@@ -9,13 +10,14 @@ public class Turn {
     Player playerNow;
     Player playerOpponent;
     EventManager events;
+    Phase phaseNow;
 
     public Turn(Player now, Player opponent) throws Exception {
         this.playerNow = now;
         this.playerOpponent = opponent;
         createEventManager();
         initializeTurn();
-        new DrawPhase(playerNow).run();
+        phaseNow = new DrawPhase(playerNow);
     }
 
     void createEventManager() throws Exception {
@@ -35,5 +37,20 @@ public class Turn {
 
     public void enablePlayerNow() throws Exception {
         events.notify(Event.ENABLEPLAYER, playerNow.getName());
+    }
+
+    public void startPhase() throws Exception {
+        phaseNow.run();
+    }
+
+    public Phase nextPhase() throws Exception {
+        if (phaseNow instanceof DrawPhase) {
+            phaseNow = new MainPhase(playerNow);
+        } else if (phaseNow instanceof MainPhase) {
+            phaseNow = new BattlePhase(playerNow, playerOpponent);
+        } else if (phaseNow instanceof BattlePhase) {
+            phaseNow = new EndPhase(playerNow);
+        }
+        return phaseNow;
     }
 }

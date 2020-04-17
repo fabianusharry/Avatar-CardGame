@@ -6,10 +6,8 @@ import com.avatarduel.gui.loader.BackCardLoader;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -21,22 +19,26 @@ public class HandController implements Initializable {
     private Player player;
     private EventManager events;
     private boolean viewEnabled;
+    private boolean disableLand;
+    private boolean enableClick;
 
     @FXML private List<Pane> cards;
 
     public HandController(Player player) throws Exception {
         this.player = player;
         viewEnabled = true;
-        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.TAKE_HAND_CARD, Event.UPDATE_POWER);
+        disableLand = false;
+        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.UPDATE_POWER, Event.GOT_CARD, Event.PASS_CARD);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
-        events.subscribe(Event.TAKE_HAND_CARD, GameController.getInstance());
         events.subscribe(Event.UPDATE_POWER, GameController.getInstance());
+        events.subscribe(Event.GOT_CARD,GameController.getInstance());
+        events.subscribe(Event.PASS_CARD, GameController.getInstance());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            for (int i = 0; i < player.getHandCards().size(); i++) {
+            for (int i = 0; i < 11; i++) {
                 cards.get(i).getChildren().add(new MiniCardLoader(player.getHandCards().peek(i)).getPane());
             }
         } catch (IOException e) {
@@ -44,15 +46,46 @@ public class HandController implements Initializable {
         }
     }
 
+    public void setViewEnabled(boolean viewEnabled) {
+        this.viewEnabled = viewEnabled;
+    }
+
+    public void setDisableLand(boolean disableLand) { this.disableLand = disableLand; }
+
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
-        String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
-        Card takenCard = player.takeCard(Integer.parseInt(id));
-        if (takenCard instanceof com.avatarduel.model.card.Land) {
-            events.notify(Event.UPDATE_POWER, player.getName());
+        Card takenCard = null;
+        if (enableClick) {
+            boolean canTake = true;
+            System.out.println("click");
+            String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
+            if ((player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Land && disableLand)) {
+                canTake = false;
+            }
+            if (canTake) {
+                takenCard = player.takeCard(Integer.parseInt(id));
+                if (takenCard != null) {
+                    reloadCardsPane();
+                    events.notify(Event.UPDATE_POWER, player.getName());
+                    events.notify(Event.PASS_CARD,takenCard);
+                    if (takenCard instanceof com.avatarduel.model.card.Land) {
+                        disableLand = true;
+                    } else {
+                        events.notify(Event.GOT_CARD,player.getName());
+                    }
+                } //ELSE KASIH NOTIF ERROR
+            }
         }
-        events.notify(Event.TAKE_HAND_CARD, player.getName());
         return takenCard;
+    }
+
+    public void reloadCardsPane() throws IOException {
+        for (int i = 0; i < 11; i++) {
+            cards.get(i).getChildren().clear();
+            if (i < player.getHandCards().size()) {
+                cards.get(i).getChildren().add(new MiniCardLoader(player.getHandCards().peek(i)).getPane());
+            }
+        }
     }
 
     @FXML
@@ -71,21 +104,7 @@ public class HandController implements Initializable {
         this.viewEnabled = false;
     }
 
-    public void enable(boolean value) {
-        if (value) {
-            for (int i = 0; i < player.getHandCards().size(); i++) {
-                cards.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                    try {
-                        getCard(e);
-                    } catch (Exception ex) {
-                        // ex.printStackTrace();
-                    }   
-                });
-            }
-        } else {
-            for (int i = 0; i < player.getHandCards().size(); i++) {
-                cards.get(i).setOnMouseClicked(null);
-            }
-        }
+    public void setEnableClick(boolean value) {
+        enableClick = value;
     }
 }

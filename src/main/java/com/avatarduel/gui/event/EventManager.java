@@ -8,6 +8,14 @@ public class EventManager {
 
     public EventManager(Event... operations) {
         for (Event operation : operations) {
+            if (!this.listeners.containsKey(operation)) {
+                this.listeners.put(operation, new ArrayList<>());
+            }
+        }
+    }
+
+    public void addEvent(Event operation) {
+        if (!this.listeners.containsKey(operation)) {
             this.listeners.put(operation, new ArrayList<>());
         }
     }
