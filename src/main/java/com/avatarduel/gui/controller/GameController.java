@@ -1,5 +1,7 @@
 package com.avatarduel.gui.controller;
 
+import com.avatarduel.exceptions.PlayerNameEmptyException;
+import com.avatarduel.exceptions.PlayerNameSameException;
 import com.avatarduel.game.Turn;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
@@ -83,8 +85,9 @@ public class GameController implements Initializable, EventListener {
             initializeP2();
             startGame();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
+
     }
 
     public void initializeP1() throws Exception {
@@ -229,7 +232,7 @@ public class GameController implements Initializable, EventListener {
         pane.setDisable(value);
     }
     
-    public void startGame() throws Exception{
+    public void startGame() throws Exception {
         if(turn%2==1){
             new Turn(P1, P2);
             System.out.println("Draw phase P1");

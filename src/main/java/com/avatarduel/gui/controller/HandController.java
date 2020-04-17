@@ -40,7 +40,7 @@ public class HandController implements Initializable {
                 cards.get(i).getChildren().add(new MiniCardLoader(player.getHandCards().peek(i)).getPane());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -78,7 +78,7 @@ public class HandController implements Initializable {
                     try {
                         getCard(e);
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        // ex.printStackTrace();
                     }   
                 });
             }

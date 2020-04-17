@@ -67,7 +67,7 @@ public class FieldController implements Initializable{
             }
         }
         catch(IOException e){
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
     
