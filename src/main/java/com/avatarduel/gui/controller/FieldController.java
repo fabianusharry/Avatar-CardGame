@@ -4,28 +4,18 @@ import com.avatarduel.gui.event.EventManager;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.SummonedCard;
-import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.Character;
 import com.avatarduel.model.field.CardField;
-import com.avatarduel.model.field.CharacterField;
-import com.avatarduel.model.field.SkillField;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 
@@ -352,19 +342,25 @@ public class FieldController implements Initializable{
     
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
-        GameController g = GameController.getInstance();
         Player opponent;
-        boolean CardFromHere=true;
-        if(g.getSelectedPaneID().contains("P1")){
+        String opponendId;
+        GameController g = GameController.getInstance();
+        int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""));
+        int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
+        Pane p = (Pane) evt.getSource();
+        boolean cardFromHere =true;
+        if(g.getSelectedPaneID().contains("P1")) {
             if(player.equals(g.getP1())){
                 //Berarti dari kartu sendiri
                 opponent = g.getP2();
+                opponendId = "P2";
             }else{
                 //Berarti dari lawan
                 opponent = g.getP1();
-                CardFromHere=false;
+                opponendId = "P1";
+                cardFromHere =false;
             }
-        }else{
+        } else {
             //Letak Kartu dari P2
             if(player.equals(g.getP2())){
                 //Berati dari kartu sendiri
@@ -372,23 +368,18 @@ public class FieldController implements Initializable{
             }else{
                 //Berarti dari lawan
                 opponent = g.getP2();
-                CardFromHere=false;
+                cardFromHere =false;
             }
         }
-        int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""));
-        int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
-        Pane p = (Pane) evt.getSource();
-        if (g.getSelectedPaneID().equals(p.getId())) { // <-- MASIH SALAH
+        if (g.getSelectedPaneID().equals(p.getId()) && cardFromHere) {
             //Tidak melakukan apa apa, hanya menghilangkan border kuning
         } else {
-            Player opponent;
-            String opponendId;
             if (player.equals(g.getP1())) {
                 opponent = g.getP2();
-                opponendId = "P2";
+
             } else {
                 opponent = g.getP1();
-                opponendId = "P1";
+
             }
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = opponent.field.getCharacterField().getCard(idDestination-1);
