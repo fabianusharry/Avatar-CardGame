@@ -144,7 +144,6 @@ public class FieldController implements Initializable{
     public void enableSpecific(String paneId){
         System.out.println("Berhasil ditambah");
         Enabled.add(paneId);
-        System.out.println(Enabled);
     }
     
     public void disableSkill(){
@@ -159,6 +158,12 @@ public class FieldController implements Initializable{
         }
     }
     
+    public void disableSpecific(String paneId){
+        System.out.println("Berhasil ditambah");
+        Enabled.remove(paneId);
+        System.out.println(Enabled);
+    }
+    
     public void disableAll(){
         Enabled = new ArrayList<>();
     }
@@ -167,15 +172,28 @@ public class FieldController implements Initializable{
     public void onClick(javafx.event.Event evt) throws Exception{
        System.out.println(Enabled);
        Pane p = (Pane) evt.getSource();
+       int id;
+        id = Integer.parseInt(p.getId().replaceAll("[^1-6]",""));
         if(Enabled.contains(p.getId())){
-           if(onClickArgs.equals("placeCard")){
-               placeCard(evt);
-           }
-           else if(onClickArgs.equals("selectCard")){
-               selectCard(evt);
-           }
-           else if(onClickArgs.equals("useCard")){
-               useCard(evt);
+           switch (onClickArgs) {
+               case "placeCard":
+                placeCard(evt);
+                break;
+               case "selectCard":
+                selectCard(evt);
+                break;
+               case "useCard":
+                useCard(evt);
+                break;
+                //TODOLIST
+//               case "changeAttackMode":
+//                changeAttackMode(evt);
+//                break;
+//               case "AttachSkill":
+//                   AttachSkill(evt);
+//                   break;
+               default:
+                   break;
            }
         }
     }
@@ -226,6 +244,7 @@ public class FieldController implements Initializable{
             }
             System.out.println("MASUKNYA KE SINI");
         }
+//        setOnClick("changeAttackMode");
     }
     
     public void selectCard(javafx.event.Event evt) throws Exception{
@@ -244,33 +263,49 @@ public class FieldController implements Initializable{
             }
         }
         else{
-            if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
-                events.notify(Event.PASS_SELECTED_CARD,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
-                Pane p = (Pane) evt.getSource();
-                events.notify(Event.PASS_SELECTED_PANEID,p.getId());
-                System.out.println("Keubah jadi kuning");
-                SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: yellow;");
-                reloadFieldPane();
-                events.notify(Event.SELECTEDCARD,player.getName());
-            }
-            
-            
+            System.out.println("GBS SELECT SKILL DI BATTLE PHASE");
         }
     }
     
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
         GameController g = GameController.getInstance();
-        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+        int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""));
+        int idUsed = Integer.parseInt(g.getSelectedPaneID().replaceAll("[^1-6]", ""));
         Pane p = (Pane) evt.getSource();
         if(g.getSelectedPaneID().equals(p.getId())){
-            //Set Border ilang (unselect) setOnClick selectCard
-            if(evt.getSource().toString().contains("Character")){
-                CharacterFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: black;");
+            //Tidak melakukan apa apa , hanya menghilangkan border kuning
+        }
+        else{
+            Card used = g.getCardSelected();
+            if(used instanceof com.avatarduel.model.card.effect.Destroy){
+                //Destroy karakter lawan atau karakter sendiri
+               player.field.getSkillField().removeCard(idUsed);
+               player.field.getCharacterField().removeCard(idDestination);
             }
-            else{
-                SkillFields.get(Integer.parseInt(id)).setStyle("-fx-border-color: black;");
+            else if(used instanceof com.avatarduel.model.card.Character){
+               //Cek kondisi menyerang atau ga.
+               //Kalau kondisi menyerang , cek yang diserang player.field.getCharacterField.get(i)
+               //YANG DISERANG DALAM POSISI APA
+               //KALAU SERANG JUGA POSISINYA
+               //Attack dari karakter lawan tidak boleh lebih dari atau sama dengan kartu Used
+               //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
+               //playerlawan.setHP(Attack kartu used - attack kartu Destination)
+               //REMOVE KARTU USED DARI LIST OF ENABLED
+               
+               //Kalau DEFEND POSISINYA
+               //Defense dari karakter lawan tidak boleh lebih dari atau sama dengan attack karakter pemain.
+               //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
+               //TIDAK ADA SET HP LAWAN(TIDAK ADA PENGURANGAN)
+               //REMOVE KARTU USED dari LIST Of enabled
             }
+        }
+        //Set Border ilang (unselect) setOnClick selectCard
+        if(evt.getSource().toString().contains("Character")){
+            CharacterFields.get(idUsed).setStyle("-fx-border-color: black;");
+        }
+        else{
+            SkillFields.get(idDestination).setStyle("-fx-border-color: black;");
         }
         setOnClick("selectCard");
     }

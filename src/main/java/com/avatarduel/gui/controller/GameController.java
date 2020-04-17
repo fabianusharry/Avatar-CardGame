@@ -231,7 +231,14 @@ public class GameController implements Initializable, EventListener {
     public HandController getP2HandController() {
         return p2HandController;
     }
-
+    
+    public FieldController getP1FieldController(){
+        return p1FieldController;
+    }
+    
+    public FieldController getP2FieldController(){
+        return p2FieldController;
+    }
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
         cardView.getChildren().add(newCardView.getPane());
@@ -349,7 +356,9 @@ public class GameController implements Initializable, EventListener {
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
-               p1HandController.setEnableClick(true);
+               p1HandController.setEnableClick(true);{
+                  
+                }
                p1FieldController.setEnableClick(false);
             }
             else{
@@ -369,22 +378,8 @@ public class GameController implements Initializable, EventListener {
                 if(selecting instanceof com.avatarduel.model.card.Character){
                     //Disable seluruh p1FieldController disable skill p2FieldController
                     p1FieldController.setEnableClick(false);
-                    p2FieldController.setEnableClick(true);
-                    p2FieldController.disableSkill();
-                    p1FieldController.enableSpecific(selectingId);
-
-                }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p1FieldController.setEnableClick(true);
-                    p2FieldController.setEnableClick(true);
-                }
-                else if(selecting instanceof com.avatarduel.model.card.Skill){
-                    //Enable semua kecuali skill p1FieldController
-                    p1FieldController.setEnableClick(true);
                     p2FieldController.setEnableClick(false);
-                    p1FieldController.disableSkill();
-                    p2FieldController.disableSkill();
+                    p2FieldController.enableCharacter();
                     p1FieldController.enableSpecific(selectingId);
                 }
             }
@@ -393,23 +388,10 @@ public class GameController implements Initializable, EventListener {
                 if(selecting instanceof com.avatarduel.model.card.Character){
                     //Disable seluruh p1FieldController disable skill p2FieldController
                     p2FieldController.setEnableClick(false);
-                    p1FieldController.setEnableClick(true);
-                    p1FieldController.disableSkill();
+                    p1FieldController.setEnableClick(false);
+                    p1FieldController.enableCharacter();
                     p2FieldController.enableSpecific(selectingId);
 
-                }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p2FieldController.setEnableClick(true);
-                    p1FieldController.setEnableClick(true);
-                }
-                else if(selecting instanceof com.avatarduel.model.card.Skill){
-                    //Enable semua kecuali skill p1FieldController
-                    p2FieldController.setEnableClick(true);
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.disableSkill();
-                    p1FieldController.disableSkill();
-                    p2FieldController.enableSpecific(selectingId);
                 }
             }
             
