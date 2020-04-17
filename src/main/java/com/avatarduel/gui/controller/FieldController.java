@@ -343,7 +343,7 @@ public class FieldController implements Initializable{
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
         Player opponent;
-        String opponendId;
+        String opponentId = null;
         GameController g = GameController.getInstance();
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""));
         int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
@@ -353,11 +353,11 @@ public class FieldController implements Initializable{
             if(player.equals(g.getP1())){
                 //Berarti dari kartu sendiri
                 opponent = g.getP2();
-                opponendId = "P2";
+                opponentId = "P2";
             }else{
                 //Berarti dari lawan
                 opponent = g.getP1();
-                opponendId = "P1";
+                opponentId = "P1";
                 cardFromHere =false;
             }
         } else {
@@ -388,7 +388,7 @@ public class FieldController implements Initializable{
                 if (destination.isAttackMode()) {
                     int diff = used.getPositionValue() - destination.getPositionValue();
                     opponent.reduceHP(diff);
-                    if (opponendId.equals("P1")) {
+                    if (opponentId.equals("P1")) {
                         g.P1HP.setText("HP : " + opponent.getHP());
                     } else {
                         g.P2HP.setText("HP : " + opponent.getHP());
