@@ -262,7 +262,13 @@ public class FieldController implements Initializable{
                     reloadFieldPane();
                     SkillFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
                     GameController g = GameController.getInstance();
-                    events.notify(Event.SKILL_LOCATION,"Skill"+(Integer.parseInt(id)-1));
+                    if(player.equals(g.getP1())){
+                        events.notify(Event.SKILL_LOCATION,"Skill"+(Integer.parseInt(id)-1)+" P1");
+                    }
+                    else{
+                        events.notify(Event.SKILL_LOCATION,"Skill"+(Integer.parseInt(id)-1)+" P2");
+                    }
+                    
                     events.notify(Event.ATTACHING_SKILL,player.getName());
                 }
             }
