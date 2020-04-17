@@ -239,7 +239,7 @@ public class FieldController implements Initializable{
                 }
             }
         }
-        setOnClick("changeAttackMode");
+//        setOnClick("changeAttackMode");
     }
     
     public void selectCard(javafx.event.Event evt) throws Exception{
