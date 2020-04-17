@@ -345,8 +345,14 @@ public class FieldController implements Initializable{
             //Tidak melakukan apa apa, hanya menghilangkan border kuning
         } else {
             Player opponent;
-            if (player.equals(g.getP1())) { opponent = g.getP2(); }
-            else { opponent = g.getP1(); }
+            String opponendId;
+            if (player.equals(g.getP1())) {
+                opponent = g.getP2();
+                opponendId = "P2";
+            } else {
+                opponent = g.getP1();
+                opponendId = "P1";
+            }
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = opponent.field.getCharacterField().getCard(idDestination-1);
             if (used.getPositionValue() > destination.getPositionValue()) {
@@ -354,6 +360,11 @@ public class FieldController implements Initializable{
                 if (destination.isAttackMode()) {
                     int diff = used.getPositionValue() - destination.getPositionValue();
                     opponent.reduceHP(diff);
+                    if (opponendId.equals("P1")) {
+                        g.P1HP.setText("HP : " + opponent.getHP());
+                    } else {
+                        g.P2HP.setText("HP : " + opponent.getHP());
+                    }
                     if (opponent.getHP() <= 0) {
                         // g.endGame = true
                     }

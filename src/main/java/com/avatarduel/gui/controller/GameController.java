@@ -238,10 +238,6 @@ public class GameController implements Initializable, EventListener {
         return P2;
     }
 
-    public Player getP2() {
-        return P2;
-    }
-
     public TurnManager getManager() {
         return manager;
     }
@@ -310,7 +306,7 @@ public class GameController implements Initializable, EventListener {
     @Override
     public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
-            if (value instanceof com.avatarduel.model.card.Card) {
+            if (value instanceof Card) {
                 setCardView((Card) value);
             } else {
                 setCardView((SummonedCard) value);
@@ -428,14 +424,11 @@ public class GameController implements Initializable, EventListener {
                 GameController.getInstance().getP1FieldController().setEnableClick(false);
                 GameController.getInstance().getP2FieldController().setEnableClick(true);
             }
-        }
-        else if(eventType.equals(Event.SKILL_LOCATION)){
+        } else if(eventType.equals(Event.SKILL_LOCATION)){
             skillLocation = (String) value;
-        }
-        else if(eventType.equals(Event.SKILL_PLACING)){
+        } else if(eventType.equals(Event.SKILL_PLACING)){
             skillAttaching = (Skill) value;
-        }
-        else if(eventType.equals(Event.ATTACHING_SKILL)){
+        } else if(eventType.equals(Event.ATTACHING_SKILL)){
             if(value.equals(P1.getName())){
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
@@ -444,8 +437,6 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.setOnClick("attachSkill");
             }
         }
-            
-            
     }
         
     
