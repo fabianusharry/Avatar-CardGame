@@ -184,6 +184,13 @@ public class FieldController implements Initializable{
                case "useCard":
                 useCard(evt);
                 break;
+                //TODOLIST
+//               case "changeAttackMode":
+//                changeAttackMode(evt);
+//                break;
+//               case "AttachSkill":
+//                   AttachSkill(evt);
+//                   break;
                default:
                    break;
            }
@@ -232,6 +239,7 @@ public class FieldController implements Initializable{
                 }
             }
         }
+        setOnClick("changeAttackMode");
     }
     
     public void selectCard(javafx.event.Event evt) throws Exception{
