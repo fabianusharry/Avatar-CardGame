@@ -405,7 +405,7 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
                 p2FieldController.enableCharacter();
-                p1FieldController.enableSpecific(selectingId);
+                p1FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
                 
             }
             else{
@@ -413,7 +413,7 @@ public class GameController implements Initializable, EventListener {
                 p2FieldController.setEnableClick(false);
                 p1FieldController.setEnableClick(false);
                 p1FieldController.enableCharacter();
-                p2FieldController.enableSpecific(selectingId);
+                p1FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
 
                 }
         } else if (eventType.equals(Event.RESET_SELECT_CARD)) {
