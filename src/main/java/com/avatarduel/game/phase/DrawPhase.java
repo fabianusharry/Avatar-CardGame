@@ -22,6 +22,7 @@ public class DrawPhase extends Phase {
             controller.disable(controller.mainPhaseP1, true);
             controller.disable(controller.battlePhaseP1, true);
             controller.disable(controller.endPhaseP1, true);
+            controller.getP1FieldController().clearDisabledInBattle();
         } else {
             controller.P2Field.setDisable(true);
             controller.getP2HandController().setEnableClick(false);
@@ -29,6 +30,7 @@ public class DrawPhase extends Phase {
             controller.disable(controller.mainPhaseP2, true);
             controller.disable(controller.battlePhaseP2, true);
             controller.disable(controller.endPhaseP2, true);
+            controller.getP2FieldController().clearDisabledInBattle();
         }
     }
 }

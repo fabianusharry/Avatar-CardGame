@@ -60,6 +60,10 @@ public class Player {
         this.HP = HP;
     }
 
+    public void reduceHP(int value) {
+        setHP(HP-value);
+    }
+
     public void draw() {
         if (this.getHandCards().size() < 11) {
             handCards.add(deck.take());

@@ -206,7 +206,7 @@ public class GameController implements Initializable, EventListener {
         return this.placing;
     }
     
-    public SummonedCharacter getCardSelected(){
+    public SummonedCard getCardSelected(){
         return this.selecting;
     }
     
@@ -220,6 +220,10 @@ public class GameController implements Initializable, EventListener {
 
     public Player getP1() {
         return P1;
+    }
+
+    public Player getP2() {
+        return P2;
     }
 
     public TurnManager getManager() {
@@ -369,9 +373,11 @@ public class GameController implements Initializable, EventListener {
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
                p1HandController.setEnableClick(true);
+               p1FieldController.setOnClick("changeAttackMode");
             }
             else{
                 p2HandController.setEnableClick(true);
+                p2FieldController.setOnClick("changeAttackMode");
             }
         }
         else if(eventType.equals(Event.PASS_SELECTED_CARD)){
@@ -398,6 +404,14 @@ public class GameController implements Initializable, EventListener {
                 p2FieldController.enableSpecific(selectingId);
 
                 }
+        } else if (eventType.equals(Event.RESET_SELECT_CARD)) {
+            if (value.equals((P1.getName()))) {
+                GameController.getInstance().getP1FieldController().setEnableClick(true);
+                GameController.getInstance().getP2FieldController().setEnableClick(false);
+            } else {
+                GameController.getInstance().getP1FieldController().setEnableClick(false);
+                GameController.getInstance().getP2FieldController().setEnableClick(true);
+            }
         }
             
             

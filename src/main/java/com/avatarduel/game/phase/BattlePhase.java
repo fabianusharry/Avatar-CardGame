@@ -4,6 +4,8 @@ import com.avatarduel.gui.controller.GameController;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.model.Player;
 
+import java.util.List;
+
 public class BattlePhase extends Phase {
     Player opponent;
 
@@ -16,7 +18,10 @@ public class BattlePhase extends Phase {
     public void run() throws Exception {
         System.out.println(playerNow.getName() + "BATTLE PHASE");
         initPhase();
-
+        List<String> test = controller.getP1FieldController().getDisabledInBattle();
+        for (String o : test) {
+            System.out.println(o);
+        }
     }
 
 
