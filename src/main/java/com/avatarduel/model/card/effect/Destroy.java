@@ -12,7 +12,7 @@ public class Destroy extends Skill {
     }
     
     @Override
-    public void activate(Player destination, int index) {
+    public void activate(Player destination, int index,String location) {
         Card destinationCard = destination.field.getCharacterField().removeCard(index);
     }
 }

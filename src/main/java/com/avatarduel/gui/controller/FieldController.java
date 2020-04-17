@@ -17,8 +17,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
@@ -47,12 +50,18 @@ public class FieldController implements Initializable{
     public FieldController(Player player) throws Exception{
         this.player = player;
         Enabled = new ArrayList<>();
-        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW,Event.PASS_SELECTED_CARD,Event.PASS_SELECTED_PANEID,Event.SELECTEDCARD);
+        events = new EventManager(Event.CARD_PLACED,Event.CHANGE_CARD_VIEW,Event.PASS_SELECTED_CARD,Event.PASS_SELECTED_PANEID,Event.SELECTEDCARD,
+        Event.ATTACHING_SKILL,Event.MODIFYING_CHARACTER,Event.MODIFYING_SKILL,Event.MODIFYING_TYPE,Event.SKILL_LOCATION);
         events.subscribe(Event.CARD_PLACED,GameController.getInstance());
         events.subscribe(Event.CHANGE_CARD_VIEW,GameController.getInstance());
         events.subscribe(Event.PASS_SELECTED_CARD,GameController.getInstance());
         events.subscribe(Event.PASS_SELECTED_PANEID,GameController.getInstance());
         events.subscribe(Event.SELECTEDCARD,GameController.getInstance());
+        events.subscribe(Event.ATTACHING_SKILL,GameController.getInstance());
+        events.subscribe(Event.MODIFYING_CHARACTER,GameController.getInstance());
+        events.subscribe(Event.MODIFYING_SKILL,GameController.getInstance());
+        events.subscribe(Event.MODIFYING_TYPE,GameController.getInstance());
+        events.subscribe(Event.SKILL_LOCATION,GameController.getInstance());
         onClickArgs = "";
     }
     
@@ -84,22 +93,7 @@ public class FieldController implements Initializable{
     }
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        try {
-            CharacterField c = player.field.getCharacterField();
-            SkillField s = player.field.getSkillField();
-            for(int i=0;i<6;i++){
-                if(c.getCard(i)!=null){
-                    CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i).getCharacter()).getPane());
-                }
-                if(s.getCard(i)!=null){
-                    SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
-                }
-            }
-            reloadBorder();
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+        reloadBorder();       
     }
     
     public void reloadFieldPane() throws Exception {
@@ -168,10 +162,10 @@ public class FieldController implements Initializable{
     public void disableAll(){
         Enabled = new ArrayList<>();
     }
-    
+   
     @FXML
     public void onClick(javafx.event.Event evt) throws Exception{
-       System.out.println(Enabled);
+        System.out.println(Enabled);
        Pane p = (Pane) evt.getSource();
        int id;
         id = Integer.parseInt(p.getId().replaceAll("[^1-6]",""));
@@ -187,14 +181,14 @@ public class FieldController implements Initializable{
                 useCard(evt);
                 break;
                 //TODOLIST
-               case "changeAttackMode":
-                changeAttackMode(evt);
+               case "modify":
+                modify(evt);
                 break;
-//               case "AttachSkill":
-//                   AttachSkill(evt);
-//                   break;
+               case "attachSkill":
+                attachSkill(evt);
+                break;
                default:
-                   break;
+                break;
            }
         }
     }
@@ -215,7 +209,38 @@ public class FieldController implements Initializable{
         
     }
     
+    public void attachSkill(javafx.event.Event evt) throws Exception{
+//     if(skillFromHere){
+//         
+//     }
+//     else{
+//         GameController g = GameController.getInstance();
+//         Player opponent;
+//         if(player.equals(g.getP1())){
+//             opponent = g.getP2();
+//         } else{
+//            opponent = g.getP1();
+//         }
+         
+     
+//        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+//        Skill skill = GameController.getInstance().getSkillPlacing();
+//        String location = GameController.getInstance().getSkillLocation();
+//        SummonedCharacter s = (SummonedCharacter) player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
+//        if(s!=null){
+//            //ATTACH CHARACTERNYA DENGAN SKILL INI DAN PAKEIN EFEKNYA
+//            
+//            reloadBorder();
+//            events.notify(Event.CARD_PLACED,player.getName());
+//            
+//            setOnClick("modify");
+//        }
+//        
+        
+    }
+    
     public void placeCard(javafx.event.Event evt) throws Exception{
+        reloadBorder();
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         Card placing = GameController.getInstance().getCardPlacing();
         if(evt.getSource().toString().contains("Character")){
@@ -226,6 +251,7 @@ public class FieldController implements Initializable{
                     reloadFieldPane();
                     System.out.println("KETARUH");
                     events.notify(Event.CARD_PLACED,player.getName());
+                    setOnClick("modify");
                 }
             }
         }
@@ -234,23 +260,33 @@ public class FieldController implements Initializable{
                 if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)==null){
                     player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
                     reloadFieldPane();
-                    System.out.println("KETARUH");
-                    events.notify(Event.CARD_PLACED,player.getName());
+                    SkillFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
+                    GameController g = GameController.getInstance();
+                    events.notify(Event.SKILL_LOCATION,"Skill"+(Integer.parseInt(id)-1));
+                    events.notify(Event.ATTACHING_SKILL,player.getName());
                 }
             }
             System.out.println("MASUKNYA KE SINI");
         }
-        setOnClick("changeAttackMode");
     }
     
-    public void changeAttackMode(javafx.event.Event evt) throws Exception{
+    public void modify(javafx.event.Event evt) throws Exception{
+        reloadBorder();
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         if(evt.getSource().toString().contains("Character") && player.field.getCharacterField().getCard(Integer.parseInt(id)-1)!=null){ 
             player.field.getCharacterField().getCard(Integer.parseInt(id)-1).rotate();
             CharacterFields.get(Integer.parseInt(id)-1).getTransforms().add(new Rotate(90, 35, 42.5));
-        }      
+            CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
+            events.notify(Event.MODIFYING_TYPE,"Character");
+            events.notify(Event.MODIFYING_CHARACTER,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+        }        
+        else if(evt.getSource().toString().contains("Skill") && player.field.getSkillField().getCard(Integer.parseInt(id)-1)!=null){
+            SkillFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
+            events.notify(Event.MODIFYING_TYPE,"Skill");
+            events.notify(Event.MODIFYING_CHARACTER,player.field.getSkillField().getCard(Integer.parseInt(id)-1));
+        }
     }
-    
+        
     public void selectCard(javafx.event.Event evt) throws Exception{
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         if(evt.getSource().toString().contains("Character")){
@@ -281,7 +317,6 @@ public class FieldController implements Initializable{
             //Tidak melakukan apa apa , hanya menghilangkan border kuning
         }
         else{
-            SummonedCharacter used = g.getCardSelected();
             //Cek kondisi menyerang atau ga.
             //Kalau kondisi menyerang , cek yang diserang player.field.getCharacterField.get(i)
             //YANG DISERANG DALAM POSISI APA
@@ -305,6 +340,8 @@ public class FieldController implements Initializable{
         else{
             SkillFields.get(idDestination-1).setStyle("-fx-border-color: black;");
         }
+        GameController.getInstance().getP2FieldController().setEnableClick(true);
+        GameController.getInstance().getP1FieldController().setEnableClick(false);
         setOnClick("selectCard");
     }
 }

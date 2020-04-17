@@ -13,7 +13,7 @@ public abstract class Skill extends Card {
 
     public int getPower() { return power; }
 
-    public abstract void activate(Player destination, int index);
+    public abstract void activate(Player destination, int index,String location);
 
     @Override
     public int getAttribute(Attribute attribute) {
