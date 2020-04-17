@@ -361,7 +361,7 @@ public class FieldController implements Initializable{
             }
         }
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""));
-        int idUsed = Integer.parseInt(g.getSelectedPaneID().replaceAll("[^1-6]", ""));
+        int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
         Pane p = (Pane) evt.getSource();
         if(g.getSelectedPaneID().equals(p.getId()) && CardFromHere){
             //Tidak melakukan apa apa , hanya menghilangkan border kuning

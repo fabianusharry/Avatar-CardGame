@@ -30,6 +30,7 @@ public class BattlePhase extends Phase {
             controller.getP1FieldController().setEnableClick(true);
             controller.getP2FieldController().setEnableClick(false);
             controller.getP1FieldController().setOnClick("selectCard");
+           
         } else {
             controller.setStageTextP2("battle");
             controller.getP2HandController().setEnableClick(false);
