@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
 
 public class FieldController implements Initializable{
     @FXML private Pane Character1;
@@ -64,7 +65,7 @@ public class FieldController implements Initializable{
             return player.field.getSkillField().getCard(index);
         }
         else{
-            return player.field.getCharacterField().getCard(index);
+            return player.field.getCharacterField().getCard(index).getCharacter();
         }
     }
     
@@ -87,7 +88,7 @@ public class FieldController implements Initializable{
             SkillField s = player.field.getSkillField();
             for(int i=0;i<6;i++){
                 if(c.getCard(i)!=null){
-                    CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i)).getPane());
+                    CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i).getCharacter()).getPane());
                 }
                 if(s.getCard(i)!=null){
                     SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
@@ -104,7 +105,7 @@ public class FieldController implements Initializable{
         for (int i = 0; i < 6; i++) {
             CharacterFields.get(i).getChildren().clear();
             if (player.field.getCharacterField().getCard(i)!=null) {
-                CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i)).getPane());
+                CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i).getCharacter()).getPane());
                
             }
             SkillFields.get(i).getChildren().clear();
@@ -167,7 +168,6 @@ public class FieldController implements Initializable{
        System.out.println(Enabled);
        Pane p = (Pane) evt.getSource();
         if(Enabled.contains(p.getId())){
-            
            if(onClickArgs.equals("placeCard")){
                placeCard(evt);
            }
@@ -208,6 +208,9 @@ public class FieldController implements Initializable{
                     System.out.println("KETARUH");
                     disableAll();
                     events.notify(Event.CARD_PLACED,player.getName());
+                } else {
+                    player.field.getCharacterField().getCard(Integer.parseInt(id)-1).rotate();
+                    CharacterFields.get(Integer.parseInt(id)).getTransforms().add(new Rotate(90, 35, 42.5));
                 }
             }
         }
@@ -221,6 +224,7 @@ public class FieldController implements Initializable{
                     events.notify(Event.CARD_PLACED,player.getName());
                 }
             }
+            System.out.println("MASUKNYA KE SINI");
         }
     }
     

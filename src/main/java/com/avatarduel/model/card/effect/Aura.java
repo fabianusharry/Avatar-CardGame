@@ -23,7 +23,7 @@ public class Aura extends Skill {
 
     @Override
     public void activate(Player destination, int index) {
-        Card destinationCard = destination.field.getCharacterField().getCard(index);
+        Card destinationCard = destination.field.getCharacterField().getCard(index).getCharacter();
         int newAttack = destinationCard.getAttribute(Attribute.ATTACK)+this.attack;
         int newDefense = destinationCard.getAttribute(Attribute.DEFENSE)+this.defense;
         destinationCard.setAttribute(Attribute.ATTACK, newAttack);
