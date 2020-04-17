@@ -67,7 +67,6 @@ public class FieldController implements Initializable{
     }
     
     public void setOnClick(String args){
-        //Ada 3 opsi, placeCard, useCard, AttackCard
         this.onClickArgs = args;
     }
     
@@ -181,7 +180,6 @@ public class FieldController implements Initializable{
                case "useCard":
                 useCard(evt);
                 break;
-                //TODOLIST
                case "modify":
                 modify(evt);
                 break;
@@ -211,33 +209,50 @@ public class FieldController implements Initializable{
     }
     
     public void attachSkill(javafx.event.Event evt) throws Exception{
-//     if(skillFromHere){
-//         
-//     }
-//     else{
-//         GameController g = GameController.getInstance();
-//         Player opponent;
-//         if(player.equals(g.getP1())){
-//             opponent = g.getP2();
-//         } else{
-//            opponent = g.getP1();
-//         }
-         
-     
-//        String id = evt.getSource().toString().replaceAll("[^1-6]","");
-//        Skill skill = GameController.getInstance().getSkillPlacing();
-//        String location = GameController.getInstance().getSkillLocation();
-//        SummonedCharacter s = (SummonedCharacter) player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
-//        if(s!=null){
-//            //ATTACH CHARACTERNYA DENGAN SKILL INI DAN PAKEIN EFEKNYA
-//            
-//            reloadBorder();
-//            events.notify(Event.CARD_PLACED,player.getName());
-//            
-//            setOnClick("modify");
-//        }
-//        
-        
+        GameController g = GameController.getInstance();
+        Player opponent;
+        boolean SkillFromHere=true;
+        if(g.getSkillLocation().contains("P1")){
+            if(player.equals(g.getP1())){
+                //Berarti dari kartu sendiri
+                opponent = g.getP2();
+            }else{
+                //Berarti dari lawan
+                opponent = g.getP1();
+                SkillFromHere=false;
+            }
+        }else{
+            //Letak Skill dari P2
+            if(player.equals(g.getP2())){
+                //Berati dari kartu sendiri
+                opponent = g.getP1();
+            }else{
+                //Berarti dari lawan
+                opponent = g.getP2();
+                SkillFromHere=false;
+            }
+        }
+        String id = evt.getSource().toString().replaceAll("[^1-6]","");
+        Skill skill = GameController.getInstance().getSkillPlacing();
+        String location = GameController.getInstance().getSkillLocation();
+        if(SkillFromHere){
+            SummonedCard s = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
+            if(s!=null){
+                skill.activate(player, Integer.parseInt(id)-1, location);
+                reloadBorder();
+                events.notify(Event.CARD_PLACED,player.getName());
+                setOnClick("modify");
+            }
+        }
+        else{
+            SummonedCard s = opponent.field.getCharacterField().getCard(Integer.parseInt(id)-1);
+            if(s!=null){
+                skill.activate(player, Integer.parseInt(id)-1, location);
+                reloadBorder();
+                events.notify(Event.CARD_PLACED,player.getName());
+                setOnClick("modify");
+            }
+        } 
     }
     
     public void placeCard(javafx.event.Event evt) throws Exception{
@@ -302,13 +317,12 @@ public class FieldController implements Initializable{
                 events.notify(Event.PASS_SELECTED_CARD,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
                 Pane p = (Pane) evt.getSource();
                 GameController g = GameController.getInstance();
-                    if(player.equals(g.getP1())){
-                        events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P1");
-                    }
-                    else{
-                        events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P2");
-                    }
-                
+                if(player.equals(g.getP1())){
+                    events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P1");
+                }
+                else{
+                    events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P2");
+                }
                 events.notify(Event.SELECTEDCARD,player.getName());
                 System.out.println("Keubah jadi kuning");
                 CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: yellow;");
@@ -324,10 +338,32 @@ public class FieldController implements Initializable{
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
         GameController g = GameController.getInstance();
+        Player opponent;
+        boolean CardFromHere=true;
+        if(g.getSelectedPaneID().contains("P1")){
+            if(player.equals(g.getP1())){
+                //Berarti dari kartu sendiri
+                opponent = g.getP2();
+            }else{
+                //Berarti dari lawan
+                opponent = g.getP1();
+                CardFromHere=false;
+            }
+        }else{
+            //Letak Kartu dari P2
+            if(player.equals(g.getP2())){
+                //Berati dari kartu sendiri
+                opponent = g.getP1();
+            }else{
+                //Berarti dari lawan
+                opponent = g.getP2();
+                CardFromHere=false;
+            }
+        }
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""));
         int idUsed = Integer.parseInt(g.getSelectedPaneID().replaceAll("[^1-6]", ""));
         Pane p = (Pane) evt.getSource();
-        if(g.getSelectedPaneID().equals(p.getId())){
+        if(g.getSelectedPaneID().equals(p.getId()) && CardFromHere){
             //Tidak melakukan apa apa , hanya menghilangkan border kuning
         }
         else{
