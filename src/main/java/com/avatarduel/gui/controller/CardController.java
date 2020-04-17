@@ -3,6 +3,7 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.util.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -49,7 +50,7 @@ public class CardController extends AvatarDuel implements Initializable {
             attr1.setText("ATT: " + card.getAttribute(Attribute.ATTACK));
             attr2.setText("DEF: " + card.getAttribute(Attribute.DEFENSE));
             attr3.setText("POW: " + card.getAttribute(Attribute.POWER));
-            imgPath = "card/image/template/characterCard.png";
+            imgPath = Constants.characterCardTemplateImage;
             attr4.setText("Skill Attached : None");
         } else if (card instanceof com.avatarduel.model.card.Skill) {
             attr1.setText("SKILL");
@@ -61,10 +62,10 @@ public class CardController extends AvatarDuel implements Initializable {
                 attr2.setText("PWR UP");
             }
             attr3.setText("POW: " + card.getAttribute(Attribute.POWER));
-            imgPath = "card/image/template/skillCard.png";
+            imgPath = Constants.skillCardTemplateImage;
         } else if (card instanceof com.avatarduel.model.card.Land) {
             attr3.setText("LAND");
-            imgPath = "card/image/template/landCard.png";
+            imgPath = Constants.landCardTemplateImage;
         }
         setBackground(imgPath);
     }

@@ -36,7 +36,7 @@ public class HandLoader implements Loader {
         Stage stage = new Stage();
         Scene scene = new Scene(mainMenu, 648, 85);
         stage.setScene(scene);
-        stage.setTitle("Avatar Card Game");
+        stage.setTitle(Constants.gameTitle);
         stage.show();
     }
 

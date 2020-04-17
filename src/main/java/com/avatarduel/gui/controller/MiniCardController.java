@@ -3,6 +3,7 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.util.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -30,11 +31,11 @@ public class MiniCardController implements Initializable {
         if (card != null) {
             cardImage.setImage(new Image(AvatarDuel.class.getResource(card.getImgPath()).toString()));
             if (card instanceof com.avatarduel.model.card.Character) {
-                template.setImage(new Image(AvatarDuel.class.getResource("card/image/template/characterCard.png").toString()));
+                template.setImage(new Image(AvatarDuel.class.getResource(Constants.characterCardTemplateImage).toString()));
             } else if (card instanceof com.avatarduel.model.card.Land) {
-                template.setImage(new Image(AvatarDuel.class.getResource("card/image/template/landCard.png").toString()));
+                template.setImage(new Image(AvatarDuel.class.getResource(Constants.landCardTemplateImage).toString()));
             } else {
-                template.setImage(new Image(AvatarDuel.class.getResource("card/image/template/skillCard.png").toString()));
+                template.setImage(new Image(AvatarDuel.class.getResource(Constants.skillCardTemplateImage).toString()));
             }
         }
     }

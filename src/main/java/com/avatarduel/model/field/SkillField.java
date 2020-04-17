@@ -2,12 +2,13 @@ package com.avatarduel.model.field;
 
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
+import com.avatarduel.util.Constants;
 
 public class SkillField {
     Skill[] field;
 
     public SkillField() {
-        field = new Skill[6];
+        field = new Skill[Constants.nFieldInSkillField];
     }
 
     public void placeCard(int index, Card card) {

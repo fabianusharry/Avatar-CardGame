@@ -41,7 +41,7 @@ public class MainMenuLoader implements Loader {
         stage = new Stage();
         Scene scene = new Scene(mainMenu, 1360, 768);
         stage.setScene(scene);
-        stage.setTitle("Avatar Card Game");
+        stage.setTitle(Constants.gameTitle);
         stage.setResizable(false);
         stage.show();
     }
@@ -50,7 +50,7 @@ public class MainMenuLoader implements Loader {
         this.stage = stage;
         Scene scene = new Scene(mainMenu, 1360, 768);
         stage.setScene(scene);
-        stage.setTitle("Avatar Card Game");
+        stage.setTitle(Constants.gameTitle);
         stage.setResizable(false);
         stage.show();
     }

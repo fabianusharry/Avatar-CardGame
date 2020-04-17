@@ -6,6 +6,7 @@ import com.avatarduel.model.card.Element;
 import com.avatarduel.model.cards.Deck;
 import com.avatarduel.model.cards.HandCards;
 import com.avatarduel.model.field.CardField;
+import com.avatarduel.util.Constants;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -21,11 +22,11 @@ public class Player {
 
     public Player(String name) throws IOException, URISyntaxException {
         this.name = name;
-        this.HP = 80;
+        this.HP = Constants.playerInitialHP;
         powerNow = new Power();
         maxPower = new Power();
         deck = new Deck();
-        handCards = new HandCards(deck.takes(7));
+        handCards = new HandCards(deck.takes(Constants.playerInitialCard));
         field = new CardField();
     }
 
@@ -61,7 +62,7 @@ public class Player {
     }
 
     public void draw() {
-        if (this.getHandCards().size() < 11) {
+        if (this.getHandCards().size() < Constants.maxCardOnHand) {
             handCards.add(deck.take());
         }
     }

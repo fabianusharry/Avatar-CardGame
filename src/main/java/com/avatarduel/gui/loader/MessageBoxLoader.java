@@ -2,6 +2,8 @@ package com.avatarduel.gui.loader;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.controller.MessageBoxController;
+import com.avatarduel.util.Constants;
+import com.sun.org.apache.bcel.internal.Const;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -12,7 +14,7 @@ public class MessageBoxLoader implements Loader {
 
     public MessageBoxLoader(String Message) {
         try {
-            FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource("fxml/MessageBox.fxml"));
+            FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.messageBoxFxml));
             MessageBoxController controller = new MessageBoxController(Message);
             loader.setController(controller);
             MessageBox = loader.load();
@@ -29,9 +31,9 @@ public class MessageBoxLoader implements Loader {
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(MessageBox);
-        scene.getStylesheets().add(AvatarDuel.class.getResource("fxml/css/MessageBox.css").toExternalForm());
+        scene.getStylesheets().add(AvatarDuel.class.getResource(Constants.messageBoxCss).toExternalForm());
         stage.setScene(scene);
-        stage.setTitle("Avatar Card Game");
+        stage.setTitle(Constants.gameTitle);
         stage.show();
     }
 }

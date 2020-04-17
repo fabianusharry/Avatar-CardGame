@@ -46,7 +46,7 @@ public class GameLoader {
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(game, 1360, 768);
-        stage.setTitle("Avatar Card Game");
+        stage.setTitle(Constants.gameTitle);
 //        stage.initStyle(StageStyle.UNDECORATED);
 //        stage.setResizable(false);
         stage.setScene(scene);

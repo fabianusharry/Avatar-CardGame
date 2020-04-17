@@ -4,12 +4,13 @@ import com.avatarduel.model.card.Card;
 import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Skill;
+import com.avatarduel.util.Constants;
 
 public class CharacterField {
     private SummonedCard[] field;
 
     public CharacterField() {
-        field = new SummonedCharacter[6];
+        field = new SummonedCharacter[Constants.nFieldInCharacterField];
     }
 
     public void placeCard(int index, Card card) {
