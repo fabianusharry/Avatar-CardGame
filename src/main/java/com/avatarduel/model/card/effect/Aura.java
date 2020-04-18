@@ -31,4 +31,17 @@ public class Aura extends Skill {
         
         destination.field.getCharacterField().attachSkill(index, this,location);
     }
+
+    @Override
+    public int getAttribute(Attribute attribute) {
+        int result = -1;
+        if (attribute == Attribute.ATTACK) {
+            result = attack;
+        } else if (attribute == Attribute.DEFENSE) {
+            result = defense;
+        } else if (attribute == Attribute.POWER) {
+            result = power;
+        }
+        return  result;
+    }
 }

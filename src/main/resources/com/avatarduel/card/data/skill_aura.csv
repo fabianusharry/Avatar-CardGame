@@ -6,7 +6,7 @@ id	name	element	description	imagepath	power	attack	defense
 80	Combustionbending	FIRE	Ignite objects with their mind instead of traditional firebending methods.	card/image/skill/Combustionbending.png	3	3	0
 81	Fire Armor	FIRE	Fire Nation armor.	card/image/skill/Fire Armor.png	1	0	2
 82	Lightningbending	FIRE	Manipulate lightning by separating the yin and yang energies.	card/image/skill/Lightningbending.png	4	4	-2
-83	Shozin Comet	FIRE	Formerly known as the Great Comet. A celestial object that passes close to the Earth every one hundred years, just skimming the surface of the upper atmosphere.	card/image/skill/Shozin Comet.png	4	4	-1
+83	Shozin Comet	FIRE	Formerly known as the Great Comet.	card/image/skill/Shozin Comet.png	4	4	-1
 84	Trebuchets	FIRE	Large weapons to conduct long-range artilery warfare.	card/image/skill/Trebuchets.png	2	2	0
 85	Wall of Flames	FIRE	Wall of concentrated flames acts as a barrier to incoming attacks.	card/image/skill/Wall of Flames.png	3	0	3
 86	Bloodbending	WATER	Ability that allows waterbender to manipulate person's movement.	card/image/skill/Bloodbending.png	4	4	1
