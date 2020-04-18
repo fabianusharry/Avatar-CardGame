@@ -253,6 +253,7 @@ public class FieldController implements Initializable{
     }
 
     public void attachSkill(javafx.event.Event evt) throws Exception{
+        System.out.println("MASUK ATTACH SKILL");
         GameController g = GameController.getInstance();
         Player withSkill;
         String cardPlacedLoc;
@@ -397,6 +398,7 @@ public class FieldController implements Initializable{
     }
     
     public void selectCard(javafx.event.Event evt) throws Exception {
+        System.out.println("MASUK SELECT CARD");
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         if(evt.getSource().toString().contains("Character")){
             if (!disabledInBattle.contains("Character"+id)) {
@@ -421,6 +423,7 @@ public class FieldController implements Initializable{
     
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
+        System.out.println("MASUK USE CARD");
         Player opponent;
         String opponentId = null;
         GameController g = GameController.getInstance();

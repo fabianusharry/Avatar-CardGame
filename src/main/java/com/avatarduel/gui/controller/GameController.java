@@ -463,6 +463,8 @@ public class GameController implements Initializable, EventListener {
                     p1FieldController.setOnClick("useCard");
                     p2FieldController.setOnClick("useCard");
                 }
+                p1FieldController.setOnClick("useCard");
+                p2FieldController.setOnClick("useCard");
                 //Disable seluruh p1FieldController disable skill p2FieldController
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
@@ -471,8 +473,10 @@ public class GameController implements Initializable, EventListener {
             }
             else{
                 if (P1.field.getCharacterField().isEmpty()) {
+                    p1FieldController.setOnClick("attackEnemyHP");
                     p2FieldController.setOnClick("attackEnemyHP");
                 } else {
+                    p1FieldController.setOnClick("useCard");
                     p2FieldController.setOnClick("useCard");
                 }
                 p2FieldController.setEnableClick(false);
