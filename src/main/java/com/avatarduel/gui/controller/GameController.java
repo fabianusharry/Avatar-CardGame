@@ -386,26 +386,6 @@ public class GameController implements Initializable, EventListener {
                 setStageTextP2("draw");
                 P2Turn.setProgress(-1);
             }
-        } else if (eventType.equals(Event.MAIN_PHASE)) {
-            if (value.equals(P1.getName())) {
-                setStageTextP1("main");
-                P1deck.setDisable(true);
-                P1Field.setDisable(false);
-                p1HandController.setEnableClick(true);
-                disable(mainPhaseP1, true);
-                disable(battlePhaseP1, false);
-                p1FieldController.setEnableClick(true);
-                p1FieldController.setOnClick("modify");
-            } else {
-                setStageTextP2("main");
-                P2deck.setDisable(true);
-                P2Field.setDisable(false);
-                p2HandController.setEnableClick(true);
-                disable(mainPhaseP2, true);
-                disable(battlePhaseP2, false);
-                p2FieldController.setEnableClick(true);
-                p2FieldController.setOnClick("modify");
-            }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
                 System.out.println("UDA ADA KARTU READY DITARUH");
