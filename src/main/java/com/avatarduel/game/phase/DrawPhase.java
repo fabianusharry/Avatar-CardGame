@@ -17,7 +17,6 @@ public class DrawPhase extends Phase {
         }
         if (playerNow.equals(controller.getP1())) {
             controller.reload(controller.P1Element, new PowerLoader(playerNow).getPane());
-            controller.P1Field.setDisable(true);
             controller.getP1HandController().setEnableClick(false);
             controller.getP1HandController().setDisableLand(false);
             controller.disable(controller.mainPhaseP1, true);
@@ -25,7 +24,7 @@ public class DrawPhase extends Phase {
             controller.disable(controller.endPhaseP1, true);
             controller.getP1FieldController().clearDisabledInBattle();
         } else {
-            controller.P2Field.setDisable(true);
+            controller.reload(controller.P2Element, new PowerLoader(playerNow).getPane());
             controller.getP2HandController().setEnableClick(false);
             controller.getP2HandController().setDisableLand(false);
             controller.disable(controller.mainPhaseP2, true);
@@ -33,5 +32,7 @@ public class DrawPhase extends Phase {
             controller.disable(controller.endPhaseP2, true);
             controller.getP2FieldController().clearDisabledInBattle();
         }
+        controller.getP1FieldController().setOnClick("");
+        controller.getP2FieldController().setOnClick("");
     }
 }
