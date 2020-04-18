@@ -25,6 +25,7 @@ public class BattlePhase extends Phase {
     public void initPhase() {
         if (playerNow.equals(controller.getP1())) {
             controller.setStageTextP1("battle");
+            controller.getP1FieldController().reloadBorder();
             controller.getP1HandController().setEnableClick(false);
             controller.getP1HandController().setViewEnabled(false);
             controller.disable(controller.battlePhaseP1, true);
@@ -36,6 +37,7 @@ public class BattlePhase extends Phase {
            
         } else {
             controller.setStageTextP2("battle");
+            controller.getP2FieldController().reloadBorder();
             controller.getP2HandController().setEnableClick(false);
             controller.getP2HandController().setViewEnabled(false);
             controller.disable(controller.battlePhaseP2, true);

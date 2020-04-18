@@ -192,6 +192,10 @@ public class FieldController implements Initializable{
                case "attachSkill":
                 attachSkill(evt);
                 break;
+               case "attackEnemyHP":
+                   System.out.println("gggggggggggggggggggg");
+                attackEnemyHP(evt);
+                break;
                default:
                 break;
            }
@@ -213,7 +217,11 @@ public class FieldController implements Initializable{
         }
         
     }
-    
+
+    public void attackEnemyHP(javafx.event.Event evt) {
+        System.out.println("ATTACK HP MUSUH");
+    }
+
     public void attachSkill(javafx.event.Event evt) throws Exception{
         GameController g = GameController.getInstance();
         Player opponent;
@@ -428,7 +436,6 @@ public class FieldController implements Initializable{
                         } else {
                             events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" P2");
                         }
-                        events.notify(Event.SELECTEDCARD,player.getName());
                         System.out.println("Keubah jadi kuning");
                         CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: deeppink;");
                         reloadFieldPane();

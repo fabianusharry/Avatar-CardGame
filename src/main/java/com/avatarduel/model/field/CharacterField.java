@@ -46,5 +46,13 @@ public class CharacterField {
     public void attachSkill(int index, Skill skill,String location){
         field[index].attachSkill(skill,location);
     }
-    
+
+    public boolean isEmpty() {
+        for (int i = 0; i < 6; i++) {
+            if (field[i] != null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

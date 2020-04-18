@@ -405,23 +405,25 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.setEnableClick(true);
                 p1FieldController.setOnClick("placeCard");
                 p2FieldController.setEnableClick(false);
-                //Disable semua label
+                disableAllTextClickP1();
             } else {
                 p2HandController.setEnableClick(false);
                 p2FieldController.setEnableClick(true);
                 p2FieldController.setOnClick("placeCard");
                 p1FieldController.setEnableClick(false);
-                //Disable semua label
+                disableAllTextClickP2();
             }
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
                p1HandController.setEnableClick(true);
                p1FieldController.setOnClick("changeAttackMode");
+               disable(battlePhaseP1, false);
             }
             else{
                 p2HandController.setEnableClick(true);
                 p2FieldController.setOnClick("changeAttackMode");
+                disable(battlePhaseP2, false);
             }
         }
         else if(eventType.equals(Event.PASS_SELECTED_CARD)){
@@ -432,16 +434,23 @@ public class GameController implements Initializable, EventListener {
         }
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
-                p1FieldController.setOnClick("useCard");
+                if (P2.field.getCharacterField().isEmpty()) {
+                    p1FieldController.setOnClick("attackEnemyHP");
+                } else {
+                    p1FieldController.setOnClick("useCard");
+                }
                 //Disable seluruh p1FieldController disable skill p2FieldController
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
                 p2FieldController.enableCharacter();
                 p1FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
-                
             }
             else{
-                p2FieldController.setOnClick("useCard");
+                if (P1.field.getCharacterField().isEmpty()) {
+                    p2FieldController.setOnClick("attackEnemyHP");
+                } else {
+                    p2FieldController.setOnClick("useCard");
+                }
                 p2FieldController.setEnableClick(false);
                 p1FieldController.setEnableClick(false);
                 p1FieldController.enableCharacter();
