@@ -54,9 +54,13 @@ public class HandController implements Initializable {
 
     public void setDisableLand(boolean disableLand) { this.disableLand = disableLand; }
     
-    public boolean canPlaceSkill(){
+    public boolean canPlaceSkill() throws Exception{
+        GameController g = GameController.getInstance();
         for(int i=0;i<6;i++){
-            if(player.field.getCharacterField().getCard(i)!=null){
+            if(g.getP1().field.getCharacterField().getCard(i)!=null){
+                return true;
+            }
+            if(g.getP2().field.getCharacterField().getCard(i)!=null){
                 return true;
             }
         }

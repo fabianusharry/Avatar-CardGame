@@ -148,7 +148,7 @@ public class FieldController implements Initializable{
     }
     
     public void disableSpecific(String paneId){
-        System.out.println("Berhasil ditambah");
+        System.out.println("Berhasil dikurang");
         Enabled.remove(paneId);
         System.out.println(Enabled);
     }
@@ -176,7 +176,8 @@ public class FieldController implements Initializable{
        int id;
         id = Integer.parseInt(p.getId().replaceAll("[^1-6]",""));
         if(Enabled.contains(p.getId())){
-           switch (onClickArgs) {
+            System.out.println("NGECLICK YANG BISA DICLICK");
+           switch (onClickArgs){
                case "placeCard":
                 placeCard(evt);
                 break;
@@ -199,6 +200,9 @@ public class FieldController implements Initializable{
                default:
                 break;
            }
+        } else{
+            System.out.println("NGECLICK YANG GA BISA DI CLICK");
+            System.out.println(Enabled);
         }
     }
     
@@ -227,8 +231,8 @@ public class FieldController implements Initializable{
         Player opponent;
         String playerNow;
         String opponents;
-        System.out.println(g.getSkillLocation());
         boolean SkillFromHere=true;
+        System.out.println("BISA");
         if(g.getSkillLocation().contains("P1")){
             if(player.equals(g.getP1())){
                 //Berarti dari kartu sendiri
@@ -319,7 +323,6 @@ public class FieldController implements Initializable{
                     else{
                         events.notify(Event.SKILL_LOCATION,"Skill"+(Integer.parseInt(id)-1)+" P2");
                     }
-                    System.out.println("wauw");
                     events.notify(Event.ATTACHING_SKILL,player.getName());
                 }
             }
@@ -407,14 +410,6 @@ public class FieldController implements Initializable{
                 int newDefense = c.getCharacter().getAttribute(Attribute.DEFENSE) - ((Aura) s).getDefense();
                 c.getCharacter().setAttribute(Attribute.ATTACK, newAttack);
                 c.getCharacter().setAttribute(Attribute.DEFENSE, newDefense);
-                player.field.getSkillField().removeCard(Integer.parseInt(id));
-            }
-            else if(s instanceof com.avatarduel.model.card.effect.PowerUp){
-                //Deactivate Powerup
-                boolean isAttackMode = c.isAttackMode();
-                if(isAttackMode){
-                    target.field.getCharacterField().changeCardPosition(Integer.parseInt(characterLocation.substring(0,characterLocation.indexOf(' '))));
-                }
                 player.field.getSkillField().removeCard(Integer.parseInt(id));
             }
         }
