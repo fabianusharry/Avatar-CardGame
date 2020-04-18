@@ -70,25 +70,17 @@ public class HandController implements Initializable {
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
         Card takenCard = null;
+        boolean canTake = true;
         if (enableClick) {
-            boolean canTake = true;
-            System.out.println("click");
             String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
             if ((player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Land && disableLand)) {
                 canTake = false;
             }
             else if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Skill){
-                if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.effect.Destroy){
-                    canTake = true;
-                }
-                else if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Skill && !canPlaceSkill()){
-                    canTake = false;
-                }
-                else{
-                    canTake = true;
-                }
+                canTake = canPlaceSkill();
             }
             if (canTake) {
+                System.out.println("MASUK KE SINI");
                 takenCard = player.takeCard(Integer.parseInt(id));
                 if (takenCard != null) {
                     reloadCardsPane();
