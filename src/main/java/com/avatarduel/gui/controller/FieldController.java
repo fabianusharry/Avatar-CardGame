@@ -227,6 +227,7 @@ public class FieldController implements Initializable{
         Player opponent;
         String playerNow;
         String opponents;
+        System.out.println(g.getSkillLocation());
         boolean SkillFromHere=true;
         if(g.getSkillLocation().contains("P1")){
             if(player.equals(g.getP1())){
@@ -253,8 +254,9 @@ public class FieldController implements Initializable{
                 opponent = g.getP2();
                 playerNow = "P1";
                 opponents = "P2";
-            }
                 SkillFromHere=false;
+            }
+                
         }
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         Skill skill = GameController.getInstance().getSkillPlacing();
@@ -317,7 +319,7 @@ public class FieldController implements Initializable{
                     else{
                         events.notify(Event.SKILL_LOCATION,"Skill"+(Integer.parseInt(id)-1)+" P2");
                     }
-                    
+                    System.out.println("wauw");
                     events.notify(Event.ATTACHING_SKILL,player.getName());
                 }
             }
@@ -480,8 +482,10 @@ public class FieldController implements Initializable{
                 cardFromHere =false;
             }
         }
-        if (g.getSelectedPaneID().equals(p.getId()) && cardFromHere) {
+        if (g.getSelectedPaneID().contains(p.getId()) && cardFromHere) {
             //Tidak melakukan apa apa, hanya menghilangkan border kuning
+            System.out.println("kartu sendiri");
+            System.out.println(Enabled);
         } else {
             if (player.equals(g.getP1())) {
                 opponent = g.getP2();
@@ -492,6 +496,7 @@ public class FieldController implements Initializable{
             }
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = opponent.field.getCharacterField().getCard(idDestination-1);
+            System.out.println("Lagi nyerang cui");
             if (used.getPositionValue() > destination.getPositionValue()) {
                 // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
                 removeCharacter(opponent,idDestination,destination.getSkillLocation());

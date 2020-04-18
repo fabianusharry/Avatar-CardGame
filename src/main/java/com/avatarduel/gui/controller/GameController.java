@@ -477,6 +477,13 @@ public class GameController implements Initializable, EventListener {
                 p2FieldController.enableCharacter();
                 p1FieldController.setOnClick("attachSkill");
             }
+            else if(value.equals(P2.getName())){
+                p1FieldController.setEnableClick(false);
+                p2FieldController.setEnableClick(false);
+                p1FieldController.enableCharacter();
+                p2FieldController.enableCharacter();
+                p2FieldController.setOnClick("attachSkill");
+            }
         } else if(eventType.equals(Event.MODIFYING)){
             this.modifyType = (String) value;
         } else if(eventType.equals(Event.MODIFY_LOCATION)){
