@@ -256,7 +256,7 @@ public class FieldController implements Initializable{
         Player withSkill;
         String cardPlacedLoc;
         String skillLocation = g.getSkillLocation();
-        if(skillLocation.contains(g.getP1().getName())){
+        if(skillLocation.split(" ")[1].equals(g.getP1().getName())){
             withSkill = g.getP1();
         }else{
             withSkill = g.getP2();
@@ -350,7 +350,7 @@ public class FieldController implements Initializable{
         for (String locations : location) {
             String idextractor = locations.substring(0,locations.indexOf(' '));
             int index = Integer.parseInt(idextractor.replaceAll("[^1-6]",""));
-            if(locations.contains(g.getP1().getName())){
+            if(locations.split(" ")[1].equals(g.getP1().getName())){
                 target = g.getP1();
             }
             else{
@@ -364,17 +364,17 @@ public class FieldController implements Initializable{
     public void deleteCard() throws Exception {
         GameController g = GameController.getInstance();
         String id = g.getModifyLocation().replaceAll("[^0-6]","");
-        if(g.getModifyLocation().contains("Character")){
+        if(g.getModifyLocation().split(" ")[0].contains("Character")){
             List<String> location = player.field.getCharacterField().getCard(Integer.parseInt(id)).getSkillLocation();
             this.removeCharacter(player, Integer.parseInt(id), location);
         }
-        else if(g.getModifyLocation().contains("Skill")){
+        else if(g.getModifyLocation().split(" ")[0].contains("Skill")){
             Player target;
             String i = g.getModifyLocation();
             Skill s = (Skill) player.field.getSkillField().getCard(Integer.parseInt(id));
             String characterLocation = s.getTargetLocation();//Lokasi kartu karakter yang harus di deaktifasi
             SummonedCard c;
-            if(characterLocation.contains(g.getP1().getName())){
+            if(characterLocation.split(" ")[1].equals(g.getP1().getName())){
                 target = g.getP1();
                 c = (SummonedCharacter) target.field.getCharacterField().getCard(Integer.parseInt(id));
             }
@@ -432,12 +432,12 @@ public class FieldController implements Initializable{
         int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""))-1;
         Pane p = (Pane) evt.getSource();
         Player haveSelectedCard;
-        if(g.getSelectedPaneID().contains(g.getP1().getName())) {
+        if(g.getSelectedPaneID().split(" ")[1].equals(g.getP1().getName())) {
             haveSelectedCard = g.getP1();
         }else{
             haveSelectedCard = g.getP2();
         }
-        if (g.getSelectedPaneID().contains(p.getId()) && player.equals(haveSelectedCard)) {
+        if (g.getSelectedPaneID().split(" ")[0].contains(p.getId()) && player.equals(haveSelectedCard)) {
             //Tidak melakukan apa apa, hanya menghilangkan border kuning
         } else {
             SummonedCard used = g.getCardSelected();
