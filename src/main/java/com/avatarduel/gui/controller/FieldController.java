@@ -271,7 +271,6 @@ public class FieldController implements Initializable{
         if(s!=null){
             skill.setTargetLocation("Character"+id+" "+player.getName());
             if(skill instanceof com.avatarduel.model.card.effect.Destroy){
-                System.out.println(indexSkill);
                 withSkill.field.getSkillField().removeCard(indexSkill-1);
                 removeCharacter(player, Integer.parseInt(id)-1, player.field.getCharacterField().getCard(Integer.parseInt(id)-1).getSkillLocation());
             }
