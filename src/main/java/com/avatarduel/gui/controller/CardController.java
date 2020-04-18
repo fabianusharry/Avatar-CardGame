@@ -57,6 +57,7 @@ public class CardController extends AvatarDuel implements Initializable {
             attr1.setText("SKILL");
             if (card instanceof com.avatarduel.model.card.effect.Aura) {
                 attr2.setText("AURA");
+                attr4.setText("ATT: " + card.getAttribute(Attribute.ATTACK) + ", " + "DEF: " + card.getAttribute(Attribute.DEFENSE));
             } else if (card instanceof com.avatarduel.model.card.effect.Destroy) {
                 attr2.setText("DESTROY");
             } else {

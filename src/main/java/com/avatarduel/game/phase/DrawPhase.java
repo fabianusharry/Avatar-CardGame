@@ -14,6 +14,9 @@ public class DrawPhase extends Phase {
     @Override
     public void run() throws Exception {
         playerNow.resetPowerNow();
+        if (playerNow.getDeck().size() == 0) {
+            // NOTIF END GAME
+        }
         if (playerNow.equals(controller.getP1())) {
             controller.reload(controller.P1Element, new PowerLoader(playerNow).getPane());
             controller.P1Field.setDisable(true);

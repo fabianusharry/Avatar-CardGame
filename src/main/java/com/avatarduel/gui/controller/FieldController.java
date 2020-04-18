@@ -194,7 +194,6 @@ public class FieldController implements Initializable{
                 attachSkill(evt);
                 break;
                case "attackEnemyHP":
-                   System.out.println("gggggggggggggggggggg");
                 attackEnemyHP(evt);
                 break;
                default:
@@ -222,8 +221,36 @@ public class FieldController implements Initializable{
         
     }
 
-    public void attackEnemyHP(javafx.event.Event evt) {
-        System.out.println("ATTACK HP MUSUH");
+    public void attackEnemyHP(javafx.event.Event evt) throws Exception {
+        Player opponent;
+        String opponentId;
+        GameController g = GameController.getInstance();
+        int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
+        if (g.getP1().equals(player)) {
+            opponent = g.getP2();
+            opponentId = "P2";
+        } else {
+            opponent = g.getP1();
+            opponentId = "P1";
+        }
+        opponent.reduceHP(g.getCardSelected().getPositionValue());
+        if (opponentId.equals("P1")) {
+            g.P1HP.setText("HP : " + opponent.getHP());
+            g.setP1HPBar(opponent.getHP());
+        } else {
+            g.P2HP.setText("HP : " + opponent.getHP());
+            g.setP2HPBar(opponent.getHP());
+        }
+        disabledInBattle.add(g.getSelectedPaneID().split("\\s+")[0]); // DISABLE
+        //Set Border ilang (unselect) setOnClick selectCard
+        CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
+        events.notify(Event.RESET_SELECT_CARD, player.getName());
+
+        setOnClick("selectCard");
+        if (g.isEndGame()) {
+            System.out.println("NOTIF END GAMEE");
+            // NOTIF END GAME
+        }
     }
 
     public void attachSkill(javafx.event.Event evt) throws Exception{
@@ -420,7 +447,12 @@ public class FieldController implements Initializable{
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
         if(evt.getSource().toString().contains("Character")){
             //Berarti yang bisa dimasukkan adalah kartu KARAKTER
-            System.out.println("Character"+id);
+            System.out.println("=================================");
+            System.out.println("DISABLED IN BATTLE : ");
+            for (String test : disabledInBattle) {
+                System.out.println(test);
+            }
+            System.out.println("=================================");
             if (!disabledInBattle.contains("Character"+id)) {
                 SummonedCard summonedCard = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
                 if(summonedCard != null){
@@ -502,9 +534,15 @@ public class FieldController implements Initializable{
                     if (opponentId.equals("P1")) {
                         g.P1HP.setText("HP : " + opponent.getHP());
                         g.setP1HPBar(opponent.getHP());
+                        if (g.isEndGame()) {
+                            // NOTIF END GAME
+                        }
                     } else {
                         g.P2HP.setText("HP : " + opponent.getHP());
                         g.setP2HPBar(opponent.getHP());
+                        if (g.isEndGame()) {
+                            // NOTIF END GAME
+                        }
                     }
                     if (opponent.getHP() <= 0) {
                         // g.endGame = true
