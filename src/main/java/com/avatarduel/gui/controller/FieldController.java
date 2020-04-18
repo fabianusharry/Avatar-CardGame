@@ -425,8 +425,7 @@ public class FieldController implements Initializable{
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
         System.out.println("MASUK USE CARD");
-        Player opponent;
-        String opponentId = null;
+        Player opponent = null;
         GameController g = GameController.getInstance();
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""))-1;
         int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""))-1;
@@ -434,11 +433,13 @@ public class FieldController implements Initializable{
         Player haveSelectedCard;
         if(g.getSelectedPaneID().contains(g.getP1().getName())) {
             haveSelectedCard = g.getP1();
+            opponent = g.getP2();
         }else{
             haveSelectedCard = g.getP2();
+            opponent = g.getP1();
         }
         if (g.getSelectedPaneID().contains(p.getId()) && player.equals(haveSelectedCard)) {
-            //Tidak melakukan apa apa, hanya menghilangkan border kuning
+            events.notify(Event.RESET_SELECT_CARD, opponent.getName());
         } else {
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = player.field.getCharacterField().getCard(idDestination);
@@ -452,43 +453,22 @@ public class FieldController implements Initializable{
                     if (player.equals(g.getP1())) {
                         g.P1HP.setText("HP : " + player.getHP());
                         g.setP1HPBar(player.getHP());
-                        if (g.isEndGame()) {
-                            // NOTIF END GAME
-                        }
                     } else {
                         g.P2HP.setText("HP : " + player.getHP());
                         g.setP2HPBar(player.getHP());
-                        if (g.isEndGame()) {
-                            // NOTIF END GAME
-                        }
                     }
-                    if (player.getHP() <= 0) {
-                        // g.endGame = true
+                    if (g.getP1().equals(player)) {
+                        g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]);
+                    } else {
+                        g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]);
                     }
+                    if (g.isEndGame()) {
+                        // NOTIF END GAME
+                    }
+                    events.notify(Event.RESET_SELECT_CARD, player.getName());
                 }
             }
-            //Kalau kondisi menyerang , cek yang diserang player.field.getCharacterField.get(i)
-            //YANG DISERANG DALAM POSISI APA
-            //KALAU SERANG JUGA POSISINYA
-            //Attack dari karakter lawan tidak boleh lebih dari atau sama dengan kartu Used
-            //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
-            //playerlawan.setHP(Attack kartu used - attack kartu Destination)
-            //REMOVE KARTU USED DARI LIST OF ENABLED
-
-            //Kalau DEFEND POSISINYA
-            //Defense dari karakter lawan tidak boleh lebih dari atau sama dengan attack karakter pemain.
-            //Kalau serang berhasil player.field.getCharacterField().removeCard(idDestination)
-            //TIDAK ADA SET HP LAWAN(TIDAK ADA PENGURANGAN)
-            //REMOVE KARTU USED dari LIST Of enabled
-            //TAMBAH used ke LIST disabledInBattle
-
         }
         //Set Border ilang (unselect) setOnClick selectCard
-        if(evt.getSource().toString().contains("Character")){
-            CharacterFields.get(idUsed).setStyle("-fx-border-color: black;");
-        } else {
-            SkillFields.get(idDestination).setStyle("-fx-border-color: black;");
-        }
-        events.notify(Event.RESET_SELECT_CARD, player.getName());
     }
 }

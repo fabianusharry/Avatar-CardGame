@@ -467,12 +467,10 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(true);
                 p2FieldController.setOnClick("selectCard");
-                p2FieldController.getDisabledInBattle().add(getSelectedPaneID().split("\\s+")[0]); // DISABLE
             } else {
                 p1FieldController.setEnableClick(true);
                 p2FieldController.setEnableClick(false);
                 p1FieldController.setOnClick("selectCard");
-                p1FieldController.getDisabledInBattle().add(getSelectedPaneID().split("\\s+")[0]);
             }
             p1FieldController.reloadBorder();
             p2FieldController.reloadBorder();
