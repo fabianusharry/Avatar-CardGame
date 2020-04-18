@@ -20,16 +20,16 @@ public class CharacterField {
         } // else throw exception (?)
     }
 
-    public Card removeCard(int index) {
+    public SummonedCard removeCard(int index) {
         SummonedCard result = field[index];
         field[index] = null;
-        return result.getCharacter();
+        return result;
     }
 
-    public Card getCard(int index) {
-        Card c = null;
+    public SummonedCard getCard(int index) {
+        SummonedCard c = null;
         if (field[index] != null) {
-            c = field[index].getCharacter();
+            c = field[index];
         }
         return c;
     }
@@ -43,9 +43,17 @@ public class CharacterField {
     public boolean isAttackMode(int index) {
         return field[index].isAttackMode();
     }
-
-    public void attachSkill(int index, Skill skill){
-        field[index].attachSkill(skill);
-    }
     
+    public void attachSkill(int index, Skill skill,String location){
+        field[index].attachSkill(skill,location);
+    }
+
+    public boolean isEmpty() {
+        for (int i = 0; i < 6; i++) {
+            if (field[i] != null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

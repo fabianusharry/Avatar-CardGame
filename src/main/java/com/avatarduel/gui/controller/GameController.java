@@ -3,10 +3,14 @@ package com.avatarduel.gui.controller;
 import com.avatarduel.game.TurnManager;
 import com.avatarduel.gui.event.Event;
 import com.avatarduel.gui.event.EventListener;
+import com.avatarduel.model.SummonedCard;
 import javafx.scene.effect.DropShadow;
 import com.avatarduel.gui.loader.*;
 import com.avatarduel.model.Player;
+import com.avatarduel.model.SummonedCard;
+import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Skill;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -19,6 +23,8 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class GameController implements Initializable, EventListener {
     private static GameController instance = null; //Singleton attribute
@@ -26,9 +32,14 @@ public class GameController implements Initializable, EventListener {
     private Player P1;
     private Player P2;
     private Card placing;
-    private Card selecting;
+    private Skill skillAttaching;
+    private String skillLocation;
+    private String modifyType;
+    private String modifyLocation;
+    private SummonedCard selecting;
     private String selectingId;
     private TurnManager manager;
+    private boolean endGame;
 
     private HandController p1HandController;
     private HandController p2HandController;
@@ -201,16 +212,37 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    public boolean isEndGame() {
+        endGame = P1.getHP() <= 0 || P2.getHP() <= 0;
+        return endGame;
+    }
+
     public Card getCardPlacing(){
         return this.placing;
     }
     
-    public Card getCardSelected(){
-        return this.placing;
+    public SummonedCard getCardSelected(){
+        return this.selecting;
     }
     
     public String getSelectedPaneID(){
         return this.selectingId;
+    }
+    
+    public String getSkillLocation(){
+        return this.skillLocation;
+    }
+    
+    public Skill getSkillPlacing(){
+        return this.skillAttaching;
+    }
+    
+    public String getModifyLocation(){
+        return modifyLocation;
+    }
+    
+    public String getModifyType(){
+        return modifyType;
     }
     
     public Pane getCardView() {
@@ -219,6 +251,10 @@ public class GameController implements Initializable, EventListener {
 
     public Player getP1() {
         return P1;
+    }
+    
+    public Player getP2(){
+        return P2;
     }
 
     public TurnManager getManager() {
@@ -232,9 +268,34 @@ public class GameController implements Initializable, EventListener {
     public HandController getP2HandController() {
         return p2HandController;
     }
-
+    
+    public FieldController getP1FieldController(){
+        return p1FieldController;
+    }
+    
+    public FieldController getP2FieldController(){
+        return p2FieldController;
+    }
+    
+    @FXML
+    public void handleOnKeyPressed(KeyEvent event) throws Exception{
+        if(event.getCode().equals(KeyCode.SHIFT)){
+            if(p1FieldController.delete()){
+                p1FieldController.deleteCard();
+            } else if (p2FieldController.delete()){
+                p2FieldController.deleteCard();
+            }
+        }
+    }
+    
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
+        cardView.getChildren().add(newCardView.getPane());
+    }
+
+    public void setCardView(SummonedCard summonedCard) throws IOException {
+        CardLoader newCardView = new CardLoader(summonedCard.getCharacter());
+        newCardView.setSkillAttached(summonedCard.getSkillAttached());
         cardView.getChildren().add(newCardView.getPane());
     }
 
@@ -253,6 +314,14 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    public void setP1HPBar(int HP) {
+        P1HPBar.setProgress((1.25*HP)/100);
+    }
+
+    public void setP2HPBar(int HP) {
+        P2HPBar.setProgress((1.25*HP)/100);
+    }
+
     public void disableAllTextClickP1() {
         mainPhaseP1.setDisable(true);
         battlePhaseP1.setDisable(true);
@@ -266,11 +335,10 @@ public class GameController implements Initializable, EventListener {
     }
 
     public void nextPhase() throws Exception {
-        manager.getTurn().nextPhase().run();
-    }
+        if (!endGame) {
+            manager.getTurn().nextPhase().run();
+        }
 
-    public void changeTurn() throws Exception {
-        manager.changeTurn();
     }
 
     public void disable(Pane pane, boolean value) {
@@ -280,7 +348,11 @@ public class GameController implements Initializable, EventListener {
     @Override
     public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
-            setCardView((Card) value);
+            if (value instanceof Card) {
+                setCardView((Card) value);
+            } else {
+                setCardView((SummonedCard) value);
+            }
         } else if (eventType.equals(Event.PASS_CARD)) {
             
             this.placing = (Card) value;
@@ -315,22 +387,6 @@ public class GameController implements Initializable, EventListener {
                 setStageTextP2("draw");
                 P2Turn.setProgress(-1);
             }
-        } else if (eventType.equals(Event.MAIN_PHASE)) {
-            if (value.equals(P1.getName())) {
-                setStageTextP1("main");
-                P1deck.setDisable(true);
-                P1Field.setDisable(false);
-                p1HandController.setEnableClick(true);
-                disable(mainPhaseP1, true);
-                disable(battlePhaseP1, false);
-            } else {
-                setStageTextP2("main");
-                P2deck.setDisable(true);
-                P2Field.setDisable(false);
-                p2HandController.setEnableClick(true);
-                disable(mainPhaseP2, true);
-                disable(battlePhaseP2, false);
-            }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
                 System.out.println("UDA ADA KARTU READY DITARUH");
@@ -339,83 +395,102 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.setEnableClick(true);
                 p1FieldController.setOnClick("placeCard");
                 p2FieldController.setEnableClick(false);
-                //Disable semua label
+                disableAllTextClickP1();
             } else {
                 p2HandController.setEnableClick(false);
                 p2FieldController.setEnableClick(true);
                 p2FieldController.setOnClick("placeCard");
                 p1FieldController.setEnableClick(false);
-                //Disable semua label
+                disableAllTextClickP2();
             }
         } 
         else if(eventType.equals(Event.CARD_PLACED)){
             if(value.equals(P1.getName())){
                p1HandController.setEnableClick(true);
-               p1FieldController.setEnableClick(false);
+               p1FieldController.reloadBorder();
+               p2FieldController.reloadBorder();
+               p2FieldController.reloadFieldPane();
+               p1FieldController.reloadFieldPane();
+               p1FieldController.enableAll();
+               p1FieldController.setOnClick("modify");
+               p2FieldController.disableAll();
+               disable(battlePhaseP1, false);
             }
             else{
                 p2HandController.setEnableClick(true);
-                p2FieldController.setEnableClick(false);
+                p1FieldController.reloadBorder();
+                p2FieldController.reloadBorder();
+                p1FieldController.reloadFieldPane();
+                p2FieldController.reloadFieldPane();
+                p2FieldController.setOnClick("modify");
+                p2FieldController.enableAll();  
+                p1FieldController.disableAll();
+                disable(battlePhaseP2, false);
             }
         }
         else if(eventType.equals(Event.PASS_SELECTED_CARD)){
-            this.selecting = (Card) value;
+            this.selecting = (SummonedCharacter) value;
         }
         else if(eventType.equals(Event.PASS_SELECTED_PANEID)){
             this.selectingId = (String) value;
         }
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
-                p1FieldController.setOnClick("useCard");
-                if(selecting instanceof com.avatarduel.model.card.Character){
-                    //Disable seluruh p1FieldController disable skill p2FieldController
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.setEnableClick(true);
-                    p2FieldController.disableSkill();
-                    p1FieldController.enableSpecific(selectingId);
-
+                if (P2.field.getCharacterField().isEmpty()) {
+                    p1FieldController.setOnClick("attackHP");
+                    p2FieldController.setOnClick("attackHP");
+                } else {
+                    p1FieldController.setOnClick("useCard");
+                    p2FieldController.setOnClick("useCard");
                 }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p1FieldController.setEnableClick(true);
-                    p2FieldController.setEnableClick(true);
-                }
-                else if(selecting instanceof com.avatarduel.model.card.Skill){
-                    //Enable semua kecuali skill p1FieldController
-                    p1FieldController.setEnableClick(true);
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.disableSkill();
-                    p2FieldController.disableSkill();
-                    p1FieldController.enableSpecific(selectingId);
-                }
+                //Disable seluruh p1FieldController disable skill p2FieldController
+                p1FieldController.setEnableClick(false);
+                p2FieldController.setEnableClick(false);
+                p2FieldController.enableCharacter();
+                p1FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
             }
             else{
-                p2FieldController.setOnClick("useCard");
-                if(selecting instanceof com.avatarduel.model.card.Character){
-                    //Disable seluruh p1FieldController disable skill p2FieldController
-                    p2FieldController.setEnableClick(false);
-                    p1FieldController.setEnableClick(true);
-                    p1FieldController.disableSkill();
-                    p2FieldController.enableSpecific(selectingId);
+                if (P1.field.getCharacterField().isEmpty()) {
+                    p1FieldController.setOnClick("attackHP");
+                    p2FieldController.setOnClick("attackHP");
+                } else {
+                    p1FieldController.setOnClick("useCard");
+                    p2FieldController.setOnClick("useCard");
+                }
+                p2FieldController.setEnableClick(false);
+                p1FieldController.setEnableClick(false);
+                p1FieldController.enableCharacter();
+                p2FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
 
                 }
-                else if(selecting instanceof com.avatarduel.model.card.effect.Destroy){
-                    //Enable semua tapi kalau klik kartu sendiri ga ngancurin, ga ilang
-                    p2FieldController.setEnableClick(true);
-                    p1FieldController.setEnableClick(true);
-                }
-                else if(selecting instanceof com.avatarduel.model.card.Skill){
-                    //Enable semua kecuali skill p1FieldController
-                    p2FieldController.setEnableClick(true);
-                    p1FieldController.setEnableClick(false);
-                    p2FieldController.disableSkill();
-                    p1FieldController.disableSkill();
-                    p2FieldController.enableSpecific(selectingId);
-                }
+        } else if (eventType.equals(Event.RESET_SELECT_CARD)) {
+            if (value.equals((P1.getName()))) {
+                p1FieldController.setEnableClick(false);
+                p2FieldController.setEnableClick(true);
+                p2FieldController.setOnClick("selectCard");
+            } else {
+                p1FieldController.setEnableClick(true);
+                p2FieldController.setEnableClick(false);
+                p1FieldController.setOnClick("selectCard");
             }
-            
-            
-        }
-        
+            p1FieldController.reloadBorder();
+            p2FieldController.reloadBorder();
+        } else if(eventType.equals(Event.SKILL_LOCATION)){
+            skillLocation = (String) value;
+        } else if(eventType.equals(Event.SKILL_PLACING)){
+            skillAttaching = (Skill) value;
+        } else if(eventType.equals(Event.ATTACHING_SKILL)){
+            p1FieldController.setEnableClick(false);
+            p2FieldController.setEnableClick(false);
+            p1FieldController.enableCharacter();
+            p2FieldController.enableCharacter();
+            p1FieldController.setOnClick("attachSkill");
+            p2FieldController.setOnClick("attachSkill");  
+        } else if(eventType.equals(Event.MODIFYING)){
+            this.modifyType = (String) value;
+        } else if(eventType.equals(Event.MODIFY_LOCATION)){
+            this.modifyLocation = (String) value;
+        }    
     }
+
 }

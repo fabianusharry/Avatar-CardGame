@@ -45,7 +45,7 @@ public class Player {
     public String getName() {
         return name;
     }
-
+    
     public Power getPowerNow() {
         return powerNow;
     }
@@ -59,6 +59,10 @@ public class Player {
             HP = 0; //atau throw exception (END GAME)
         }
         this.HP = HP;
+    }
+
+    public void reduceHP(int value) {
+        setHP(HP-value);
     }
 
     public void draw() {

@@ -7,6 +7,7 @@ import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -49,6 +50,7 @@ public class GameLoader {
         stage.setTitle(Constants.gameTitle);
 //        stage.initStyle(StageStyle.UNDECORATED);
 //        stage.setResizable(false);
+        stage.getIcons().add(new Image(AvatarDuel.class.getResource("momo.png").toString()));
         stage.setScene(scene);
         stage.show();
     }

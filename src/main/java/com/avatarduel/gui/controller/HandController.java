@@ -6,6 +6,7 @@ import com.avatarduel.gui.loader.BackCardLoader;
 import com.avatarduel.gui.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
+import com.avatarduel.model.card.Skill;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
@@ -28,11 +29,12 @@ public class HandController implements Initializable {
         this.player = player;
         viewEnabled = true;
         disableLand = false;
-        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.UPDATE_POWER, Event.GOT_CARD, Event.PASS_CARD);
+        events = new EventManager(Event.CHANGE_CARD_VIEW, Event.UPDATE_POWER, Event.GOT_CARD, Event.PASS_CARD,Event.SKILL_PLACING);
         events.subscribe(Event.CHANGE_CARD_VIEW, GameController.getInstance());
         events.subscribe(Event.UPDATE_POWER, GameController.getInstance());
         events.subscribe(Event.GOT_CARD,GameController.getInstance());
         events.subscribe(Event.PASS_CARD, GameController.getInstance());
+        events.subscribe(Event.SKILL_PLACING,GameController.getInstance());
     }
 
     @Override
@@ -51,18 +53,34 @@ public class HandController implements Initializable {
     }
 
     public void setDisableLand(boolean disableLand) { this.disableLand = disableLand; }
-
+    
+    public boolean canPlaceSkill() throws Exception{
+        GameController g = GameController.getInstance();
+        for(int i=0;i<6;i++){
+            if(g.getP1().field.getCharacterField().getCard(i)!=null){
+                return true;
+            }
+            if(g.getP2().field.getCharacterField().getCard(i)!=null){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
         Card takenCard = null;
+        boolean canTake = true;
         if (enableClick) {
-            boolean canTake = true;
-            System.out.println("click");
             String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
             if ((player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Land && disableLand)) {
                 canTake = false;
             }
+            else if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Skill){
+                canTake = canPlaceSkill();
+            }
             if (canTake) {
+                System.out.println("MASUK KE SINI");
                 takenCard = player.takeCard(Integer.parseInt(id));
                 if (takenCard != null) {
                     reloadCardsPane();
@@ -70,9 +88,13 @@ public class HandController implements Initializable {
                     events.notify(Event.PASS_CARD,takenCard);
                     if (takenCard instanceof com.avatarduel.model.card.Land) {
                         disableLand = true;
-                    } else {
+                    } else if(takenCard instanceof com.avatarduel.model.card.Skill){
+                        events.notify(Event.SKILL_PLACING,(Skill) takenCard);
+                        events.notify(Event.GOT_CARD,player.getName());
+                    } else{
                         events.notify(Event.GOT_CARD,player.getName());
                     }
+                    
                 } //ELSE KASIH NOTIF ERROR
             }
         }

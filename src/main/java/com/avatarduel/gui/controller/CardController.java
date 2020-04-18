@@ -4,6 +4,7 @@ import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.util.Constants;
+import com.avatarduel.model.card.Skill;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -13,10 +14,12 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CardController extends AvatarDuel implements Initializable {
-
     private Card card;
 
     public CardController(Card card) {
@@ -56,6 +59,7 @@ public class CardController extends AvatarDuel implements Initializable {
             attr1.setText("SKILL");
             if (card instanceof com.avatarduel.model.card.effect.Aura) {
                 attr2.setText("AURA");
+                attr4.setText("ATT: " + card.getAttribute(Attribute.ATTACK) + ", " + "DEF: " + card.getAttribute(Attribute.DEFENSE));
             } else if (card instanceof com.avatarduel.model.card.effect.Destroy) {
                 attr2.setText("DESTROY");
             } else {
@@ -80,5 +84,16 @@ public class CardController extends AvatarDuel implements Initializable {
 
         Background background = new Background(backgroundImage);
         cardPane.setBackground(background);
+    }
+
+    public void addSkillAttached(List<Skill> skillAttached) {
+        StringBuilder value = new StringBuilder("Skill Attached: ");
+        if (skillAttached.size() == 0) {
+            value.append("None");
+        } else {
+            String skills = skillAttached.stream().map(Card::getName).collect(Collectors.joining(", "));
+            value.append(skills);
+        }
+        attr4.setText(String.valueOf(value));
     }
 }

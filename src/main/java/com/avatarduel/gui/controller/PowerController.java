@@ -25,6 +25,8 @@ public class PowerController implements Initializable {
     @FXML private Text fireMax;
     @FXML private Text waterNow;
     @FXML private Text waterMax;
+    @FXML private Text energyNow;
+    @FXML private Text energyMax;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,5 +38,7 @@ public class PowerController implements Initializable {
         fireMax.setText(String.valueOf(powerMax.get(Element.FIRE)));
         waterNow.setText(String.valueOf(powerNow.get(Element.WATER)));
         waterMax.setText(String.valueOf(powerMax.get(Element.WATER)));
+        energyNow.setText(String.valueOf(powerNow.get(Element.ENERGY)));
+        energyMax.setText(String.valueOf(powerMax.get(Element.ENERGY)));
     }
 }
