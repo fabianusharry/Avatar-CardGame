@@ -307,6 +307,14 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    public void setP1HPBar(int HP) {
+        P1HPBar.setProgress((1.25*HP)/100);
+    }
+
+    public void setP2HPBar(int HP) {
+        P2HPBar.setProgress((1.25*HP)/100);
+    }
+
     public void disableAllTextClickP1() {
         mainPhaseP1.setDisable(true);
         battlePhaseP1.setDisable(true);

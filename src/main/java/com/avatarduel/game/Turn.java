@@ -49,7 +49,6 @@ public class Turn {
         } else if (phaseNow instanceof MainPhase) {
             phaseNow = new BattlePhase(playerNow, playerOpponent);
         } else if (phaseNow instanceof BattlePhase) {
-            System.out.println("MASUK GA SIH?");
             phaseNow = new EndPhase(playerNow);
         }
         return phaseNow;

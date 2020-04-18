@@ -25,18 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 
 public class FieldController implements Initializable{
-    @FXML private Pane Character1;
-    @FXML private Pane Character2;
-    @FXML private Pane Character3;
-    @FXML private Pane Character4;
-    @FXML private Pane Character5;
-    @FXML private Pane Character6;
-    @FXML private Pane Skill1;
-    @FXML private Pane Skill2;
-    @FXML private Pane Skill3;
-    @FXML private Pane Skill4;
-    @FXML private Pane Skill5;
-    @FXML private Pane Skill6; 
+
     @FXML private List<Pane> CharacterFields;
     @FXML private List<Pane> SkillFields;
     private List<String> Enabled;
@@ -500,13 +489,15 @@ public class FieldController implements Initializable{
                 // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
                 removeCharacter(opponent,idDestination,destination.getSkillLocation());
                 //
-                if (destination.isAttackMode() || destination.havePowerUp()) {
+                if (destination.isAttackMode() || used.havePowerUp()) {
                     int diff = used.getPositionValue() - destination.getPositionValue();
                     opponent.reduceHP(diff);
                     if (opponentId.equals("P1")) {
                         g.P1HP.setText("HP : " + opponent.getHP());
+                        g.setP1HPBar(opponent.getHP());
                     } else {
                         g.P2HP.setText("HP : " + opponent.getHP());
+                        g.setP2HPBar(opponent.getHP());
                     }
                     if (opponent.getHP() <= 0) {
                         // g.endGame = true
