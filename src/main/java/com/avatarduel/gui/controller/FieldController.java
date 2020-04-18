@@ -374,7 +374,6 @@ public class FieldController implements Initializable{
             if(characterLocation.contains(g.getP1().getName())){
                 target = g.getP1();
                 c = (SummonedCharacter) target.field.getCharacterField().getCard(Integer.parseInt(id));
-                
             }
             else{
                 target = g.getP2();
@@ -389,6 +388,8 @@ public class FieldController implements Initializable{
                 c.getCharacter().setAttribute(Attribute.ATTACK, newAttack);
                 c.getCharacter().setAttribute(Attribute.DEFENSE, newDefense);
                 player.field.getSkillField().removeCard(Integer.parseInt(id));
+                g.getP1FieldController().reloadFieldPane();
+                g.getP2FieldController().reloadFieldPane();
             }
         }
         delete = false;
