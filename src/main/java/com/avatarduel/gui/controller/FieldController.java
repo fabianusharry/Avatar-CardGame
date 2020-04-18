@@ -192,8 +192,8 @@ public class FieldController implements Initializable{
                case "attachSkill":
                 attachSkill(evt);
                 break;
-               case "attackEnemyHP":
-                attackEnemyHP(evt);
+               case "attackHP":
+                attackHP(evt);
                 break;
                default:
                 break;
@@ -217,18 +217,18 @@ public class FieldController implements Initializable{
         
     }
 
-    public void attackEnemyHP(javafx.event.Event evt) throws Exception {
+    public void attackHP(javafx.event.Event evt) throws Exception {
         System.out.println("MASUK ATTACK ENEMY HP");
         Player opponent;
         String opponentId;
         GameController g = GameController.getInstance();
         int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
         if (g.getP1().equals(player)) {
-            opponent = g.getP2();
-            opponentId = "P2";
-        } else {
             opponent = g.getP1();
             opponentId = "P1";
+        } else {
+            opponent = g.getP2();
+            opponentId = "P2";
         }
         opponent.reduceHP(g.getCardSelected().getPositionValue());
         if (opponentId.equals("P1")) {
@@ -238,12 +238,9 @@ public class FieldController implements Initializable{
             g.P2HP.setText("HP : " + opponent.getHP());
             g.setP2HPBar(opponent.getHP());
         }
-        disabledInBattle.add(g.getSelectedPaneID().split("\\s+")[0]); // DISABLE
         //Set Border ilang (unselect) setOnClick selectCard
         CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
         events.notify(Event.RESET_SELECT_CARD, player.getName());
-
-        setOnClick("selectCard");
         if (g.isEndGame()) {
             System.out.println("NOTIF END GAMEE");
             // NOTIF END GAME
@@ -378,7 +375,10 @@ public class FieldController implements Initializable{
     }
     
     public void removeCharacter(Player p,int id,List<String> location) throws Exception {
-        p.field.getCharacterField().removeCard(id-1);
+        SummonedCard temp = p.field.getCharacterField().removeCard(id-1);
+        if (!temp.isAttackMode()) {
+            CharacterFields.get(id-1).getTransforms().add(new Rotate(-1*90, 35, 42.5));
+        }
         removeSkillsFromPane(location);
         reloadFieldPane();
     }
@@ -499,22 +499,22 @@ public class FieldController implements Initializable{
         if(g.getSelectedPaneID().contains("P1")) {
             if(player.equals(g.getP1())){
                 //Berarti dari kartu sendiri
-                opponent = g.getP2();
-                opponentId = "P2";
-            }else{
-                //Berarti dari lawan
                 opponent = g.getP1();
                 opponentId = "P1";
+            }else{
+                //Berarti dari lawan
+                opponent = g.getP2();
+                opponentId = "P2";
                 cardFromHere =false;
             }
         } else {
             //Letak Kartu dari P2
             if(player.equals(g.getP2())){
                 //Berati dari kartu sendiri
-                opponent = g.getP1();
+                opponent = g.getP2();
             }else{
                 //Berarti dari lawan
-                opponent = g.getP2();
+                opponent = g.getP1();
                 cardFromHere =false;
             }
         }
@@ -523,17 +523,11 @@ public class FieldController implements Initializable{
             System.out.println("kartu sendiri");
             System.out.println(Enabled);
         } else {
-            if (player.equals(g.getP1())) {
-                opponent = g.getP2();
-
-            } else {
-                opponent = g.getP1();
-
-            }
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = opponent.field.getCharacterField().getCard(idDestination-1);
             System.out.println("Lagi nyerang cui");
             if (used.getPositionValue() > destination.getPositionValue()) {
+                System.out.println("BISA ATTACK KOKKKK");
                 // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
                 removeCharacter(opponent,idDestination,destination.getSkillLocation());
                 //
@@ -557,7 +551,6 @@ public class FieldController implements Initializable{
                         // g.endGame = true
                     }
                 }
-                disabledInBattle.add(g.getSelectedPaneID().split("\\s+")[0]); // DISABLE
             }
             //Kalau kondisi menyerang , cek yang diserang player.field.getCharacterField.get(i)
             //YANG DISERANG DALAM POSISI APA
@@ -582,6 +575,5 @@ public class FieldController implements Initializable{
             SkillFields.get(idDestination-1).setStyle("-fx-border-color: black;");
         }
         events.notify(Event.RESET_SELECT_CARD, player.getName());
-        setOnClick("selectCard");
     }
 }

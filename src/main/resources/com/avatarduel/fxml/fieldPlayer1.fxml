@@ -10,25 +10,24 @@
    <children>
       <VBox prefHeight="180.0" prefWidth="717.0" spacing="10.0">
          <children>
-            <HBox spacing="60.0">
+            <HBox spacing="60.0" alignment="CENTER">
                <children>
-                  <Pane fx:id="Character1" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Character2" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Character3" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Character4" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Character5" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Character6" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character1" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character2" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character3" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character4" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character5" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Character6" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
                </children>
             </HBox>
-            <HBox spacing="60.0">
+            <HBox spacing="60.0" alignment="CENTER">
                <children>
-                  <Pane fx:id="Skill1" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Skill2" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Skill3" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Skill4" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-               
-                  <Pane fx:id="Skill5" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
-                  <Pane fx:id="Skill6" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="85.0" prefWidth="70.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill1" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill2" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill3" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill4" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill5" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
+                  <Pane fx:id="Skill6" onMouseClicked="#onClick" onMouseEntered="#onHover" prefHeight="93.0" prefWidth="60.0" styleClass="black-border" stylesheets="@css/field.css" />
                </children>
             </HBox>
          </children>

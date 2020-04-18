@@ -443,8 +443,13 @@ public class GameController implements Initializable, EventListener {
         }
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
-                p1FieldController.setOnClick("useCard");
-                p2FieldController.setOnClick("useCard");
+                if (P2.field.getCharacterField().isEmpty()) {
+                    p1FieldController.setOnClick("attackHP");
+                    p2FieldController.setOnClick("attackHP");
+                } else {
+                    p1FieldController.setOnClick("useCard");
+                    p2FieldController.setOnClick("useCard");
+                }
                 //Disable seluruh p1FieldController disable skill p2FieldController
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
@@ -453,8 +458,8 @@ public class GameController implements Initializable, EventListener {
             }
             else{
                 if (P1.field.getCharacterField().isEmpty()) {
-                    p1FieldController.setOnClick("attackEnemyHP");
-                    p2FieldController.setOnClick("attackEnemyHP");
+                    p1FieldController.setOnClick("attackHP");
+                    p2FieldController.setOnClick("attackHP");
                 } else {
                     p1FieldController.setOnClick("useCard");
                     p2FieldController.setOnClick("useCard");
@@ -467,11 +472,15 @@ public class GameController implements Initializable, EventListener {
                 }
         } else if (eventType.equals(Event.RESET_SELECT_CARD)) {
             if (value.equals((P1.getName()))) {
-                p1FieldController.setEnableClick(true);
-                p2FieldController.setEnableClick(false);
-            } else {
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(true);
+                p2FieldController.setOnClick("selectCard");
+                p2FieldController.getDisabledInBattle().add(getSelectedPaneID().split("\\s+")[0]); // DISABLE
+            } else {
+                p1FieldController.setEnableClick(true);
+                p2FieldController.setEnableClick(false);
+                p1FieldController.setOnClick("selectCard");
+                p1FieldController.getDisabledInBattle().add(getSelectedPaneID().split("\\s+")[0]); // DISABLE
             }
             p1FieldController.reloadBorder();
             p2FieldController.reloadBorder();
@@ -486,12 +495,14 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.enableCharacter();
                 p2FieldController.enableCharacter();
                 p1FieldController.setOnClick("attachSkill");
+                p2FieldController.setOnClick("attachSkill");
             }
             else if(value.equals(P2.getName())){
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
                 p1FieldController.enableCharacter();
                 p2FieldController.enableCharacter();
+                p1FieldController.setOnClick("attachSkill");
                 p2FieldController.setOnClick("attachSkill");
             }
         } else if(eventType.equals(Event.MODIFYING)){
