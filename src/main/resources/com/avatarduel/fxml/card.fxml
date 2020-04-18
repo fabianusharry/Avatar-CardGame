@@ -41,7 +41,7 @@
             <Insets top="30.0" />
         </GridPane.margin>
     </Text>
-    <Text fx:id="element" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="73.03125" GridPane.columnIndex="3">
+    <Text fx:id="element" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="83.03125" GridPane.columnIndex="3">
         <font>
             <Font name="Modern No. 20" size="18.0" />
         </font>

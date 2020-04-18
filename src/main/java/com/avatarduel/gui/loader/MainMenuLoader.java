@@ -4,6 +4,7 @@ import com.avatarduel.AvatarDuel;
 import com.avatarduel.gui.controller.MainMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -51,6 +52,7 @@ public class MainMenuLoader implements Loader {
         stage.setScene(scene);
         stage.setTitle("Avatar Card Game");
         stage.setResizable(false);
+        stage.getIcons().add(new Image(AvatarDuel.class.getResource("momo.png").toString()));
         stage.show();
     }
 
