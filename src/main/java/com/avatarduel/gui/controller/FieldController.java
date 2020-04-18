@@ -244,8 +244,6 @@ public class FieldController implements Initializable{
         //Set Border ilang (unselect) setOnClick selectCard
         CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
         events.notify(Event.RESET_SELECT_CARD, player.getName());
-
-        setOnClick("selectCard");
         if (g.isEndGame()) {
             System.out.println("NOTIF END GAMEE");
             // NOTIF END GAME
@@ -441,6 +439,7 @@ public class FieldController implements Initializable{
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = player.field.getCharacterField().getCard(idDestination);
             if (used.getPositionValue() > destination.getPositionValue()) {
+                System.out.println("BISA ATTACK KOKKKK");
                 // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
                 removeCharacter(player,idDestination,destination.getSkillLocation());
                 if (destination.isAttackMode() || used.havePowerUp()) {

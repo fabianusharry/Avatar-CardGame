@@ -455,16 +455,13 @@ public class GameController implements Initializable, EventListener {
         }
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
-                if(P2.field.getCharacterField().isEmpty()){
+                if (P2.field.getCharacterField().isEmpty()) {
                     p1FieldController.setOnClick("attackHP");
                     p2FieldController.setOnClick("attackHP");
-                }
-                else{
+                } else {
                     p1FieldController.setOnClick("useCard");
                     p2FieldController.setOnClick("useCard");
                 }
-                p1FieldController.setOnClick("useCard");
-                p2FieldController.setOnClick("useCard");
                 //Disable seluruh p1FieldController disable skill p2FieldController
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
@@ -473,8 +470,8 @@ public class GameController implements Initializable, EventListener {
             }
             else{
                 if (P1.field.getCharacterField().isEmpty()) {
-                    p1FieldController.setOnClick("attackEnemyHP");
-                    p2FieldController.setOnClick("attackEnemyHP");
+                    p1FieldController.setOnClick("attackHP");
+                    p2FieldController.setOnClick("attackHP");
                 } else {
                     p1FieldController.setOnClick("useCard");
                     p2FieldController.setOnClick("useCard");
@@ -514,11 +511,7 @@ public class GameController implements Initializable, EventListener {
             this.modifyType = (String) value;
         } else if(eventType.equals(Event.MODIFY_LOCATION)){
             this.modifyLocation = (String) value;
-        }
-    
-    
+        }    
     }
-    
-        
-    
+
 }
