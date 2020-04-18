@@ -39,6 +39,7 @@ public class GameController implements Initializable, EventListener {
     private SummonedCard selecting;
     private String selectingId;
     private TurnManager manager;
+    private boolean endGame;
 
     private HandController p1HandController;
     private HandController p2HandController;
@@ -328,7 +329,10 @@ public class GameController implements Initializable, EventListener {
     }
 
     public void nextPhase() throws Exception {
-        manager.getTurn().nextPhase().run();
+        if (!endGame) {
+            manager.getTurn().nextPhase().run();
+        }
+
     }
 
     public void disable(Pane pane, boolean value) {
@@ -434,11 +438,7 @@ public class GameController implements Initializable, EventListener {
         }
         else if(eventType.equals(Event.SELECTEDCARD)){
             if(value.equals(P1.getName())){
-                if (P2.field.getCharacterField().isEmpty()) {
-                    p1FieldController.setOnClick("attackEnemyHP");
-                } else {
-                    p1FieldController.setOnClick("useCard");
-                }
+                p1FieldController.setOnClick("useCard");
                 //Disable seluruh p1FieldController disable skill p2FieldController
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(false);
@@ -454,7 +454,7 @@ public class GameController implements Initializable, EventListener {
                 p2FieldController.setEnableClick(false);
                 p1FieldController.setEnableClick(false);
                 p1FieldController.enableCharacter();
-                p1FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
+                p2FieldController.enableSpecific(this.selectingId.substring(0,selectingId.indexOf(' ')));
 
                 }
         } else if (eventType.equals(Event.RESET_SELECT_CARD)) {

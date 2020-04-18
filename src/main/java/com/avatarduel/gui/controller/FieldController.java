@@ -480,7 +480,7 @@ public class FieldController implements Initializable{
                 cardFromHere =false;
             }
         }
-        if (g.getSelectedPaneID().equals(p.getId()) && cardFromHere) {
+        if (g.getSelectedPaneID().contains(p.getId()) && cardFromHere) {
             //Tidak melakukan apa apa, hanya menghilangkan border kuning
         } else {
             if (player.equals(g.getP1())) {
