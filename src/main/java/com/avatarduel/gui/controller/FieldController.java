@@ -344,16 +344,19 @@ public class FieldController implements Initializable{
         reloadFieldPane();
     }
     
-    public void removeSkillsFromPane(List<String> panesId) throws Exception {
-        for (String panePlayer : panesId) {
-            System.out.println(panePlayer);
-            int paneNumber = Integer.parseInt(panePlayer.split("\\s+")[0].replaceAll("[^1-6]", ""));
-            String playerId = panePlayer.split("\\s+")[1];
-            if (playerId.equals(GameController.getInstance().getP1().getName())) {
-                GameController.getInstance().getP1FieldController().SkillFields.get(paneNumber).getChildren().clear();
-            } else {
-                GameController.getInstance().getP2FieldController().SkillFields.get(paneNumber).getChildren().clear();
+    public void removeSkillsFromPane(List<String> location) throws Exception {
+        GameController g = GameController.getInstance();
+        Player target;
+        for (String locations : location) {
+            String idextractor = locations.substring(0,locations.indexOf(' '));
+            int index = Integer.parseInt(idextractor.replaceAll("[^1-6]",""));
+            if(locations.contains(g.getP1().getName())){
+                target = g.getP1();
             }
+            else{
+                target = g.getP2();
+            }
+            target.field.getSkillField().removeCard(index-1);
             reloadFieldPane();
         }
     }
