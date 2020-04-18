@@ -1,7 +1,7 @@
-package com.avatarduel.gui.controller;
-import com.avatarduel.gui.event.Event;
-import com.avatarduel.gui.event.EventManager;
-import com.avatarduel.gui.loader.MiniCardLoader;
+package com.avatarduel.view.controller;
+import com.avatarduel.view.event.Event;
+import com.avatarduel.view.event.EventManager;
+import com.avatarduel.view.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
@@ -12,15 +12,16 @@ import com.avatarduel.model.card.Character;
 import com.avatarduel.model.card.effect.Aura;
 import com.avatarduel.model.field.CardField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.avatarduel.model.field.CharacterField;
+import com.avatarduel.model.field.SkillField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 
@@ -92,7 +93,7 @@ public class FieldController implements Initializable{
             SkillField s = player.field.getSkillField();
             for(int i=0;i<6;i++){
                 if(c.getCard(i)!=null){
-                    CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i)).getPane());
+                    CharacterFields.get(i).getChildren().add(new MiniCardLoader(player.field.getCharacterField().getCard(i).getCharacter()).getPane());
                 }
                 if(s.getCard(i)!=null){
                     SkillFields.get(i).getChildren().add(new MiniCardLoader(player.field.getSkillField().getCard(i)).getPane());
@@ -439,7 +440,6 @@ public class FieldController implements Initializable{
     
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
-        System.out.println("MASUK USE CARD");
         Player opponent = null;
         GameController g = GameController.getInstance();
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""))-1;
@@ -459,7 +459,6 @@ public class FieldController implements Initializable{
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = player.field.getCharacterField().getCard(idDestination);
             if (used.getPositionValue() > destination.getPositionValue()) {
-                System.out.println("BISA ATTACK KOKKKK");
                 // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
                 removeCharacter(player,idDestination,destination.getSkillLocation());
                 if (destination.isAttackMode() || used.havePowerUp()) {
@@ -472,11 +471,8 @@ public class FieldController implements Initializable{
                         g.P2HP.setText("HP : " + player.getHP());
                         g.setP2HPBar(player.getHP());
                     }
-                    if (g.getP1().equals(player)) {
-                        g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]);
-                    } else {
-                        g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]);
-                    }
+                    if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
+                    else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
                     if (g.isEndGame()) {
                         // NOTIF END GAME
                     }
@@ -484,6 +480,5 @@ public class FieldController implements Initializable{
                 }
             }
         }
-        //Set Border ilang (unselect) setOnClick selectCard
     }
 }

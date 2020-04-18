@@ -1,4 +1,4 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

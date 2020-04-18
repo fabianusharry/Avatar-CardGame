@@ -1,13 +1,12 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
 import com.avatarduel.game.TurnManager;
-import com.avatarduel.gui.event.Event;
-import com.avatarduel.gui.event.EventListener;
+import com.avatarduel.view.event.Event;
+import com.avatarduel.view.event.EventListener;
 import com.avatarduel.model.SummonedCard;
 import javafx.scene.effect.DropShadow;
-import com.avatarduel.gui.loader.*;
+import com.avatarduel.view.loader.*;
 import com.avatarduel.model.Player;
-import com.avatarduel.model.SummonedCard;
 import com.avatarduel.model.SummonedCharacter;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;

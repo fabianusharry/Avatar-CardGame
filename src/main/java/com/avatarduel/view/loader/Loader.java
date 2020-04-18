@@ -1,4 +1,4 @@
-package com.avatarduel.gui.loader;
+package com.avatarduel.view.loader;
 
 import javafx.scene.layout.Pane;
 

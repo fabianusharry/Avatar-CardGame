@@ -1,22 +1,16 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
-import java.io.IOException;
 import java.lang.Exception;
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.loader.GameLoader;
-import com.avatarduel.gui.loader.MainMenuLoader;
+import com.avatarduel.view.loader.GameLoader;
+import com.avatarduel.view.loader.MainMenuLoader;
 import com.avatarduel.exceptions.*;
-import com.avatarduel.gui.loader.MessageBoxLoader;
+import com.avatarduel.view.loader.MessageBoxLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;

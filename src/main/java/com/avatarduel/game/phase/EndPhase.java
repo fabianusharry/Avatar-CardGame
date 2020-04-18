@@ -1,7 +1,5 @@
 package com.avatarduel.game.phase;
 
-import com.avatarduel.gui.controller.GameController;
-import com.avatarduel.gui.event.Event;
 import com.avatarduel.model.Player;
 
 public class EndPhase extends Phase {

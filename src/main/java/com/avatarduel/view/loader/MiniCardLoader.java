@@ -1,7 +1,7 @@
-package com.avatarduel.gui.loader;
+package com.avatarduel.view.loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.controller.MiniCardController;
+import com.avatarduel.view.controller.MiniCardController;
 import com.avatarduel.model.card.Card;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,12 +11,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import com.avatarduel.util.Constants;
 
-public class BackCardLoader {
+public class MiniCardLoader implements Loader {
     Pane card;
 
-    public BackCardLoader() throws IOException {
+    public MiniCardLoader(Card card) throws IOException {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.backCardFxml));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.miniCardFxml));
+        MiniCardController controller = new MiniCardController(card);
+        loader.setController(controller);
         // make stage
         this.card = loader.load();
     }

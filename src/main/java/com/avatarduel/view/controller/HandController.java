@@ -1,9 +1,9 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
-import com.avatarduel.gui.event.Event;
-import com.avatarduel.gui.event.EventManager;
-import com.avatarduel.gui.loader.BackCardLoader;
-import com.avatarduel.gui.loader.MiniCardLoader;
+import com.avatarduel.view.event.Event;
+import com.avatarduel.view.event.EventManager;
+import com.avatarduel.view.loader.BackCardLoader;
+import com.avatarduel.view.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;

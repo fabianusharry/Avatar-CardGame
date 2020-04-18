@@ -1,4 +1,4 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
 import com.avatarduel.model.Power;
 import com.avatarduel.model.card.Element;

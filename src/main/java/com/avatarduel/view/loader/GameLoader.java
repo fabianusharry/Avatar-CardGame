@@ -1,18 +1,13 @@
-package com.avatarduel.gui.loader;
+package com.avatarduel.view.loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.controller.CardController;
-import com.avatarduel.gui.controller.GameController;
-import com.avatarduel.model.Player;
-import com.avatarduel.model.card.Card;
+import com.avatarduel.view.controller.GameController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import com.avatarduel.util.Constants;
 
 public class GameLoader {

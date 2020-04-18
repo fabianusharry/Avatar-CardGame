@@ -1,4 +1,4 @@
-package com.avatarduel.gui.event;
+package com.avatarduel.view.event;
 
 public enum Event {
     CHANGE_CARD_VIEW,

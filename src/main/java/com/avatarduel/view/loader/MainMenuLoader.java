@@ -1,7 +1,7 @@
-package com.avatarduel.gui.loader;
+package com.avatarduel.view.loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.controller.MainMenuController;
+import com.avatarduel.view.controller.MainMenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

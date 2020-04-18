@@ -1,16 +1,12 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.util.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;

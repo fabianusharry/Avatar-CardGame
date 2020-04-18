@@ -1,4 +1,4 @@
-package com.avatarduel.gui.controller;
+package com.avatarduel.view.controller;
 
 import com.avatarduel.AvatarDuel;
 import com.avatarduel.model.card.Attribute;
@@ -14,7 +14,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;

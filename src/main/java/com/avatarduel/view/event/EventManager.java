@@ -1,6 +1,5 @@
-package com.avatarduel.gui.event;
+package com.avatarduel.view.event;
 
-import java.io.IOException;
 import java.util.*;
 
 public class EventManager {

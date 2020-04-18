@@ -1,9 +1,9 @@
 package com.avatarduel.game;
 
 import com.avatarduel.game.phase.*;
-import com.avatarduel.gui.controller.GameController;
-import com.avatarduel.gui.event.Event;
-import com.avatarduel.gui.event.EventManager;
+import com.avatarduel.view.controller.GameController;
+import com.avatarduel.view.event.Event;
+import com.avatarduel.view.event.EventManager;
 import com.avatarduel.model.Player;
 
 public class Turn {

@@ -1,11 +1,8 @@
-package com.avatarduel.gui.loader;
+package com.avatarduel.view.loader;
 
 import com.avatarduel.AvatarDuel;
-import com.avatarduel.gui.controller.CardController;
-import com.avatarduel.gui.controller.PowerController;
+import com.avatarduel.view.controller.PowerController;
 import com.avatarduel.model.Player;
-import com.avatarduel.model.Power;
-import com.avatarduel.model.card.Card;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
