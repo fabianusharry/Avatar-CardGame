@@ -258,10 +258,15 @@ public class FieldController implements Initializable{
         //Set Border ilang (unselect) setOnClick selectCard
         CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
         events.notify(Event.RESET_SELECT_CARD, player.getName());
-        if (g.isEndGame()) {
-            new MessageBoxLoader(new EndGameException(player.getName() + " Kehabisan HP")).render();
+        try {
+            if (g.isEndGame()) {
+                throw new EndGameException(player.getName() + " Kehabisan HP");
+            }
+        } catch (Exception e) {
+            new MessageBoxLoader(e).render();
             GameLoader.getInstance().exit();
         }
+
     }
 
     public void attachSkill(javafx.event.Event evt) throws Exception{
@@ -472,8 +477,13 @@ public class FieldController implements Initializable{
                     }
                     if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
                     else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
-                    if (g.isEndGame()) {
-                        // NOTIF END GAME
+                    try {
+                        if (g.isEndGame()) {
+                            throw new EndGameException(player.getName() + " Kehabisan HP");
+                        }
+                    } catch (Exception e) {
+                        new MessageBoxLoader(e).render();
+                        GameLoader.getInstance().exit();
                     }
                     events.notify(Event.RESET_SELECT_CARD, player.getName());
                 }

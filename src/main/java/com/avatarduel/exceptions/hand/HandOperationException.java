@@ -1,4 +1,4 @@
-package com.avatarduel.exceptions;
+package com.avatarduel.exceptions.hand;
 
 public class HandOperationException extends Exception {
     public HandOperationException(String message) {

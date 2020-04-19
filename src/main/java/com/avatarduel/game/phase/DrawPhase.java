@@ -15,8 +15,12 @@ public class DrawPhase extends Phase {
     @Override
     public void run() throws Exception {
         playerNow.resetPowerNow();
-        if (playerNow.getDeck().size() == 0) {
-            new MessageBoxLoader(new EndGameException(playerNow.getName() + " Kehabisan Kartu")).render();
+        try {
+            if (playerNow.getDeck().size() == 0) {
+                throw new EndGameException(playerNow.getName() + " Kehabisan Kartu");
+            }
+        } catch (Exception e) {
+            new MessageBoxLoader(e).render();
             GameLoader.getInstance().exit();
         }
         if (playerNow.equals(controller.getP1())) {
