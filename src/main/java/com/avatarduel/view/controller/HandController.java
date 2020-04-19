@@ -75,34 +75,42 @@ public class HandController implements Initializable {
         Card takenCard = null;
         String errMessage = null;
         boolean canTake = true;
-        if (enableClick) {
-            String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
-            if ((player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Land && disableLand)) {
-                canTake = false;
-                errMessage = "Land hanya dapat diambil 1x";
-            }
-            else if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Skill){
-                canTake = canPlaceSkill();
-                errMessage = "Tidak ada kartu karakter";
-            }
-            if (canTake) {
-                takenCard = player.takeCard(Integer.parseInt(id));
-                if (takenCard != null) {
-                    reloadCardsPane();
-                    events.notify(Event.UPDATE_POWER, player.getName());
-                    events.notify(Event.PASS_CARD,takenCard);
-                    if (takenCard instanceof com.avatarduel.model.card.Land) {
-                        disableLand = true;
-                    } else if(takenCard instanceof com.avatarduel.model.card.Skill){
-                        events.notify(Event.SKILL_PLACING,(Skill) takenCard);
-                        events.notify(Event.GOT_CARD,player.getName());
-                    } else{
-                        events.notify(Event.GOT_CARD,player.getName());
+        try {
+            if (enableClick) {
+                String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
+                if ((player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Land && disableLand)) {
+                    canTake = false;
+                    errMessage = "Land hanya dapat diambil 1x";
+                    throw new HandOperationException(errMessage);
+                }
+                else if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Skill){
+                    canTake = canPlaceSkill();
+                    errMessage = "Tidak ada kartu karakter";
+                    throw new HandOperationException(errMessage);
+                }
+                if (canTake) {
+                    takenCard = player.takeCard(Integer.parseInt(id));
+                    if (takenCard != null) {
+                        reloadCardsPane();
+                        events.notify(Event.UPDATE_POWER, player.getName());
+                        events.notify(Event.PASS_CARD,takenCard);
+                        if (takenCard instanceof com.avatarduel.model.card.Land) {
+                            disableLand = true;
+                        } else if(takenCard instanceof com.avatarduel.model.card.Skill){
+                            events.notify(Event.SKILL_PLACING,(Skill) takenCard);
+                            events.notify(Event.GOT_CARD,player.getName());
+                        } else{
+                            events.notify(Event.GOT_CARD,player.getName());
+                        }
                     }
+                } else {
+                    new MessageBoxLoader(new HandOperationException(errMessage)).render();
                 }
             } else {
-                new MessageBoxLoader(new HandOperationException(errMessage)).render();
+                throw new HandOperationException("Sedang dalam battle phase");
             }
+        } catch (Exception e) {
+            new MessageBoxLoader(e.getMessage()).render();
         }
         return takenCard;
     }
