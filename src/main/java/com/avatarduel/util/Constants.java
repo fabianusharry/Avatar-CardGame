@@ -10,7 +10,7 @@ public final class Constants {
     public static final String fieldPlayer2Fxml = "fxml/fieldPlayer2.fxml";
     public static final String gameFxml = "fxml/game.fxml";
     public static final String handFxml = "fxml/hand.fxml";
-    public static final String menuFmxl = "fxml/menu.fxml";
+    public static final String menuFxml = "fxml/menu.fxml";
     public static final String miniCardFxml = "fxml/miniCard.fxml";
     public static final String powerFxml = "fxml/power.fxml";
     public static final String messageBoxFxml = "fxml/MessageBox.fxml";
