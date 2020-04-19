@@ -28,6 +28,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 
+/**
+ * Controller for Player's Field
+ */
 public class FieldController implements Initializable{
 
     @FXML private List<Pane> CharacterFields;

@@ -11,9 +11,16 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * A Controller for MiniCard Pane in Hand
+ */
 public class MiniCardController implements Initializable {
     private Card card;
 
+    /**
+     * Creates a new MiniCardController
+     * @param card card
+     */
     public MiniCardController(Card card) {
         this.card = card;
     }
@@ -22,6 +29,11 @@ public class MiniCardController implements Initializable {
     @FXML private ImageView cardImage;
 
 
+    /**
+     * Initialize attribute in MiniCard
+     * @param location location
+     * @param resources resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (card != null) {

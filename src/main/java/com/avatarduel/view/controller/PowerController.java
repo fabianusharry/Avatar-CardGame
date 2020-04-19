@@ -9,9 +9,19 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * A Controller for Power Pane GUI
+ * Contains powerNow and powerMax
+ */
 public class PowerController implements Initializable {
     Power powerNow;
     Power powerMax;
+
+    /**
+     * Creates a new controller
+     * @param powerNow powerNow
+     * @param powerMax powerMax
+     */
     public PowerController(Power powerNow, Power powerMax ) {
         this.powerNow = powerNow;
         this.powerMax = powerMax;
@@ -28,6 +38,11 @@ public class PowerController implements Initializable {
     @FXML private Text energyNow;
     @FXML private Text energyMax;
 
+    /**
+     * Initialize text in pane
+     * @param location location
+     * @param resources resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         airNow.setText(String.valueOf(powerNow.get(Element.AIR)));

@@ -15,11 +15,17 @@ import javafx.scene.input.KeyEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for MainMenu
+ */
 public class MainMenuController extends AvatarDuel implements Initializable {
     private static String nameOfPlayer1;
     private static String nameOfPlayer2;
     private static final String TEMPLATE = "Masukkan nama pemain";
 
+    /**
+     * Creates a new MainMenuController
+     */
     public MainMenuController(){
         nameOfPlayer1 = "";
         nameOfPlayer2 = "";
@@ -29,6 +35,10 @@ public class MainMenuController extends AvatarDuel implements Initializable {
     @FXML private TextField playerName1;
     @FXML private TextField playerName2;
 
+    /**
+     * Start the AvatarDuel game
+     * @throws Exception exception when PlayerName is empty or same
+     */
     @FXML
     private void startGame() throws Exception {
         // throw exception if player name empty
@@ -58,6 +68,11 @@ public class MainMenuController extends AvatarDuel implements Initializable {
         }
     }
 
+    /**
+     * Start button handling
+     * @param e event
+     * @throws Exception exception when buttonPressed not normally
+     */
     @FXML
     public void buttonPressed(KeyEvent e) throws Exception {
         if (e.getCode().toString().equals("ENTER")) {
@@ -65,6 +80,12 @@ public class MainMenuController extends AvatarDuel implements Initializable {
         }
     }
 
+    /**
+     * Get player name
+     * @param player playerId
+     * @return name
+     * @throws Exception exception when player name is empty
+     */
     public String getName(int player) throws Exception {
         if(!nameOfPlayer1.equals("") && !nameOfPlayer2.equals("")){
             if(player == 1){
@@ -80,17 +101,28 @@ public class MainMenuController extends AvatarDuel implements Initializable {
         return null;
     }
 
+    /**
+     * Initialize player name
+     * @param location location
+     * @param resources resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playerName1.setText(TEMPLATE);
         playerName2.setText(TEMPLATE);
     }
 
+    /**
+     * Clear last name in p1 textfield
+     */
     @FXML
     void fillP1Name() {
         playerName1.clear();
     }
 
+    /**
+     * Clear last name in p2 textfield
+     */
     @FXML
     void fillP2Name() {
         playerName2.clear();

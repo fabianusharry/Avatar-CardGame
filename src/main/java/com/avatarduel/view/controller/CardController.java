@@ -18,9 +18,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for Big CardView
+ */
 public class CardController extends AvatarDuel implements Initializable {
     private Card card;
 
+    /**
+     * Creates a new CardController
+     * @param card card
+     */
     public CardController(Card card) {
         this.card = card;
     }
@@ -35,6 +42,11 @@ public class CardController extends AvatarDuel implements Initializable {
     @FXML private Text attr3;
     @FXML private Text attr4;
 
+    /**
+     * Initialize all atributes in Big CardView
+     * @param location location
+     * @param resources resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         description.setText(card.getDescription());
@@ -46,6 +58,9 @@ public class CardController extends AvatarDuel implements Initializable {
         setAttribute();
     }
 
+    /**
+     * Set pane with card attributes
+     */
     public void setAttribute() {
         String imgPath = null;
         if (card instanceof com.avatarduel.model.card.Character) {
@@ -73,6 +88,10 @@ public class CardController extends AvatarDuel implements Initializable {
         setBackground(imgPath);
     }
 
+    /**
+     * Set card background to template img
+     * @param imgPath imgpath
+     */
     public void setBackground(String imgPath) {
         Image img = new Image(AvatarDuel.class.getResource(imgPath).toString(), 480, 640, false, true);
         BackgroundImage backgroundImage = new BackgroundImage(img,
@@ -85,6 +104,10 @@ public class CardController extends AvatarDuel implements Initializable {
         cardPane.setBackground(background);
     }
 
+    /**
+     * Add skillAttached in a summoned player card
+     * @param skillAttached lisf of skill name
+     */
     public void addSkillAttached(List<Skill> skillAttached) {
         StringBuilder value = new StringBuilder("Skill Attached: ");
         if (skillAttached.size() == 0) {

@@ -25,6 +25,9 @@ import java.util.ResourceBundle;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * Controller for AvatarDuel game
+ */
 public class GameController implements Initializable, EventListener {
     private static GameController instance = null; //Singleton attribute
  
@@ -46,6 +49,11 @@ public class GameController implements Initializable, EventListener {
     private FieldController p1FieldController;
     private FieldController p2FieldController;
 
+    /**
+     * Singleton design pattern implementation
+     * @return instance
+     * @throws Exception exception when a new GameController cannot be instantiated
+     */
     public static GameController getInstance() throws Exception {
         if (instance == null) {
             instance = new GameController();
@@ -53,6 +61,10 @@ public class GameController implements Initializable, EventListener {
         return instance;
     }
 
+    /**
+     * Creates a new GameController
+     * @throws Exception
+     */
     private GameController() throws Exception {
         this.P1 = new Player(MainMenuLoader.getInstance().getP1Name());
         this.P2 = new Player(MainMenuLoader.getInstance().getP2Name());
@@ -93,6 +105,11 @@ public class GameController implements Initializable, EventListener {
     @FXML public Text battlePhaseP2;
     @FXML public Text endPhaseP2;
 
+    /**
+     * Initialize all Game attributes
+     * @param location location
+     * @param resources resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         P1Name.setText("Player 1 - " + P1.getName());
@@ -107,6 +124,10 @@ public class GameController implements Initializable, EventListener {
 
     }
 
+    /**
+     * Initialize Player1
+     * @throws Exception exception when Player1 pane cannot be instantiated
+     */
     public void initializeP1() throws Exception {
         HandLoader p1hand = new HandLoader(P1);
         p1HandController = p1hand.getController();
@@ -119,6 +140,10 @@ public class GameController implements Initializable, EventListener {
         P1DeckSize.setText(String.valueOf(P1.getDeck().size()));
     }
 
+    /**
+     * Initialize Player2
+     * @throws Exception exception when Player2 pane cannot be instantiated
+     */
     public void initializeP2() throws Exception {
         HandLoader p2hand = new HandLoader(P2);
         p2HandController = p2hand.getController();
@@ -130,6 +155,10 @@ public class GameController implements Initializable, EventListener {
         P2DeckSize.setText(String.valueOf(P2.getDeck().size()));
     }
 
+    /**
+     * Set enable player1
+     * @throws Exception exception when Player1 pane cannot be disabled
+     */
     public void setEnableP1(Boolean isEnabled) throws Exception {
         p1HandController.reloadCardsPane();
         if (isEnabled) {
@@ -145,6 +174,10 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    /**
+     * Set enable player2
+     * @throws Exception exception when Player2 pane cannot be disabled
+     */
     public void setEnableP2(Boolean isEnabled) throws Exception {
         p2HandController.reloadCardsPane();
         if (isEnabled) {
@@ -159,7 +192,11 @@ public class GameController implements Initializable, EventListener {
             disableAllTextClickP2();
         }
     }
-    
+
+    /**
+     * Handle button click for p1 draw
+     * @throws Exception exception when Player1 pane cannot draw normally
+     */
     @FXML
     public void p1Draw() throws Exception {
         P1.draw();
@@ -168,6 +205,10 @@ public class GameController implements Initializable, EventListener {
         manager.getTurn().nextPhase().run();
     }
 
+    /**
+     * Handle button click for p2 draw
+     * @throws Exception exception when Player2 pane cannot draw normally
+     */
     @FXML
     public void p2Draw() throws Exception {
         P2.draw();
@@ -176,20 +217,32 @@ public class GameController implements Initializable, EventListener {
         manager.getTurn().nextPhase().run();
     }
 
+    /**
+     * Set stage text in Player1
+     */
     public void setStageTextP1(String value) {
         setPhaseText(value, drawPhaseP1, mainPhaseP1, battlePhaseP1, endPhaseP1);
     }
 
+    /**
+     * Set stage text in Player2
+     */
     public void setStageTextP2(String value) {
         setPhaseText(value, drawPhaseP2, mainPhaseP2, battlePhaseP2, endPhaseP2);
     }
 
+    /**
+     * Initialize phase for player
+     */
     public void initializePhase(Pane playerPane) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.colorProperty().setValue(Color.RED);
         playerPane.setEffect(dropShadow);
     }
 
+    /**
+     * Set player phase text with value
+     */
     private void setPhaseText(String value, Text drawPhaseP1, Text mainPhaseP1, Text battlePhaseP1, Text endPhaseP1) {
         switch (value) {
             case "draw":
@@ -211,71 +264,122 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    /**
+     * Check if the game is in end condition
+     */
     public boolean isEndGame() {
         endGame = P1.getHP() <= 0 || P2.getHP() <= 0;
         return endGame;
     }
 
+    /**
+     * Get card placing
+     */
     public Card getCardPlacing(){
         return this.placing;
     }
-    
+
+    /**
+     * Get card selected
+     */
     public SummonedCard getCardSelected(){
         return this.selecting;
     }
-    
+
+    /**
+     * Get card selected paneId
+     */
     public String getSelectedPaneID(){
         return this.selectingId;
     }
-    
+
+    /**
+     * Get skill location in field
+     */
     public String getSkillLocation(){
         return this.skillLocation;
     }
-    
+
+    /**
+     * Get skill placing
+     */
     public Skill getSkillPlacing(){
         return this.skillAttaching;
     }
-    
+
+    /**
+     * get modify location of a card in field
+     */
     public String getModifyLocation(){
         return modifyLocation;
     }
-    
+
+    /**
+     * Get modify type of a card in field
+     */
     public String getModifyType(){
         return modifyType;
     }
-    
+
+    /**
+     * Get Big cardView pane
+     */
     public Pane getCardView() {
         return cardView;
     }
 
+    /**
+     * Get player1
+     */
     public Player getP1() {
         return P1;
     }
-    
+
+    /**
+     * Get player2
+     */
     public Player getP2(){
         return P2;
     }
 
+    /**
+     * Get turn manager
+     */
     public TurnManager getManager() {
         return manager;
     }
 
+    /**
+     * Get player1 handcontroller
+     */
     public HandController getP1HandController() {
         return p1HandController;
     }
 
+    /**
+     * Get player2 handcontroller
+     */
     public HandController getP2HandController() {
         return p2HandController;
     }
-    
+
+    /**
+     * Get player1 fieldcontroller
+     */
     public FieldController getP1FieldController(){
         return p1FieldController;
     }
-    
+
+    /**
+     * Get player2 fieldcontroller
+     */
     public FieldController getP2FieldController(){
         return p2FieldController;
     }
-    
+
+    /**
+     * Handle keyboard SHIFT button click to delete card selected
+     */
     @FXML
     public void handleOnKeyPressed(KeyEvent event) throws Exception{
         if(event.getCode().equals(KeyCode.SHIFT)){
@@ -286,23 +390,39 @@ public class GameController implements Initializable, EventListener {
             }
         }
     }
-    
+
+    /**
+     * Set the Big CardView with card
+     */
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
         cardView.getChildren().add(newCardView.getPane());
     }
 
+    /**
+     * Set the Big CardView with SummonedCard
+     */
     public void setCardView(SummonedCard summonedCard) throws IOException {
         CardLoader newCardView = new CardLoader(summonedCard.getCharacter());
         newCardView.setSkillAttached(summonedCard.getSkillAttached());
         cardView.getChildren().add(newCardView.getPane());
     }
 
+    /**
+     * Reload pane with new children node
+     * @param pane pane
+     * @param newNode new children node
+     */
     public void reload(Pane pane, Pane newNode) {
         pane.getChildren().clear();
         pane.getChildren().add(newNode);
     }
 
+    /**
+     * Disable text
+     * @param text text
+     * @param value boolean value
+     */
     public void disable(Text text,boolean value) {
         if(value) {
             text.setDisable(true);
@@ -311,26 +431,42 @@ public class GameController implements Initializable, EventListener {
         }
     }
 
+    /**
+     * Set HP Bar for player1
+     * @param HP hp
+     */
     public void setP1HPBar(int HP) {
         P1HPBar.setProgress((1.25*HP)/100);
     }
-
+    /**
+     * Set HP Bar for player2
+     * @param HP hp
+     */
     public void setP2HPBar(int HP) {
         P2HPBar.setProgress((1.25*HP)/100);
     }
 
+    /**
+     * disable click for player1
+     */
     public void disableAllTextClickP1() {
         mainPhaseP1.setDisable(true);
         battlePhaseP1.setDisable(true);
         endPhaseP1.setDisable(true);
     }
 
+    /**
+     * disable click for player2
+     */
     public void disableAllTextClickP2() {
         mainPhaseP2.setDisable(true);
         battlePhaseP2.setDisable(true);
         endPhaseP2.setDisable(true);
     }
 
+    /**
+     * next phase handling
+     */
     public void nextPhase() throws Exception {
         if (!endGame) {
             manager.getTurn().nextPhase().run();
@@ -338,10 +474,21 @@ public class GameController implements Initializable, EventListener {
 
     }
 
+    /**
+     * Disable pane
+     * @param pane pane
+     * @param value boolean value
+     */
     public void disable(Pane pane, boolean value) {
         pane.setDisable(value);
     }
 
+    /**
+     * Update game with specific event
+     * @param eventType eventType
+     * @param value object passed to GameController
+     * @throws Exception exception when update cannot be done normally
+     */
     @Override
     public void update(Event eventType, Object value) throws Exception {
         if (eventType.equals(Event.CHANGE_CARD_VIEW)) {
