@@ -216,6 +216,5 @@ gradlew run (Windows)
         - Turn berpindah ke lawan
         - Jika kartu pada tangan sudah penuh (maks: 11 kartu),
           kartu paling dekat dengan deck akan dihapus.
-  3. Permainan selesai ketika HP salah satu pemain adalah nol 
-     atau pemain kehabisan kartu pada deck saat draw
+3. Permainan selesai ketika HP salah satu pemain adalah nol atau pemain kehabisan kartu pada deck saat draw
 ```

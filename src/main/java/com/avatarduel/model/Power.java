@@ -26,8 +26,10 @@ public class Power {
         power.put(Element.ENERGY, 0);
     }
 
+
     /**
      * Construct a New Power Object where the value of each elements is equal to the value in other Power Object
+     * @param other other
      */
     public Power(Power other) {
         power = new HashMap<>();

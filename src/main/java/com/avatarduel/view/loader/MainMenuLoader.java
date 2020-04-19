@@ -24,7 +24,7 @@ public class MainMenuLoader implements Loader {
 
     /**
      * @return instance of this object if its not null, else create a new one and return it
-     * @throws Exception exception when create new loader
+     * @throws IOException exception when create new loader
      *         for example: file not found error
      */
     public static MainMenuLoader getInstance() throws IOException {

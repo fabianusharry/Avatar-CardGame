@@ -45,6 +45,7 @@ public class FieldController implements Initializable{
     /**
      * Creates a new controller, for specified player.
      * @param player Destined player
+     * @throws Exception exception when field controller cannot be instantiated
      */
     public FieldController(Player player) throws Exception{
         this.player = player;
@@ -122,7 +123,7 @@ public class FieldController implements Initializable{
     
     /**
      * Refresh the field pane display.
-     * @throws Exception 
+     * @throws Exception exception when field pane cannot be reloaded
      */
     public void reloadFieldPane() throws Exception {
         for (int i = 0; i < 6; i++) {
@@ -243,7 +244,7 @@ public class FieldController implements Initializable{
     /**
      * Call function depending on the onClickArgs.
      * @param evt event that triggers onClick
-     * @throws Exception 
+     * @throws Exception exception when onClick event fails
      */
     @FXML
     public void onClick(javafx.event.Event evt) throws Exception{
@@ -297,7 +298,7 @@ public class FieldController implements Initializable{
     /**
      * Set the cardViewer to display event sender image.
      * @param evt event that trigger onHover function
-     * @throws Exception 
+     * @throws Exception exception when onHover event fails
      */
     @FXML
     public void onHover(javafx.event.Event evt) throws Exception{
@@ -352,7 +353,7 @@ public class FieldController implements Initializable{
     /**
      * Attach skill from placed card to evt sender pane.
      * @param evt clicked skill destination pane
-     * @throws Exception 
+     * @throws Exception exception when attach skill event fails
      */
     public void attachSkill(javafx.event.Event evt) throws Exception{
         try{
@@ -397,7 +398,7 @@ public class FieldController implements Initializable{
     /**
      * Place card taken from hands to event sender pane.
      * @param evt clicked pane event
-     * @throws Exception 
+     * @throws Exception exception when place card event fails
      */
     public void placeCard(javafx.event.Event evt) throws Exception{
         try{
@@ -449,7 +450,7 @@ public class FieldController implements Initializable{
     /**
      * Modify the clicked pane: change position and available to delete.
      * @param evt clicked pane event
-     * @throws Exception 
+     * @throws Exception exception when modify event fails
      */
     public void modify(javafx.event.Event evt) throws Exception{
         reloadBorder();
@@ -478,7 +479,7 @@ public class FieldController implements Initializable{
      * @param p Player owner of the character card
      * @param id index of the character card
      * @param location the SkillLocation list
-     * @throws Exception 
+     * @throws Exception exception when remove character fails
      */
     public void removeCharacter(Player p,int id,List<String> location) throws Exception {
         SummonedCard temp = p.field.getCharacterField().removeCard(id);
@@ -493,7 +494,7 @@ public class FieldController implements Initializable{
     /**
      * Remove all skill card listed in location.
      * @param location list of string
-     * @throws Exception 
+     * @throws Exception exception when remove skill from pane fails
      */
     public void removeSkillsFromPane(List<String> location) throws Exception {
         GameController g = GameController.getInstance();
@@ -514,7 +515,7 @@ public class FieldController implements Initializable{
     
     /**
      * Delete card specified by the red border.
-     * @throws Exception 
+     * @throws Exception exception when delete card fails
      */
     public void deleteCard() throws Exception {
         GameController g = GameController.getInstance();
@@ -556,7 +557,7 @@ public class FieldController implements Initializable{
     /**
      * Pass selected card prepared to battle.
      * @param evt event sender field pane
-     * @throws Exception 
+     * @throws Exception exception when selec card fails
      */
     public void selectCard(javafx.event.Event evt) throws Exception {
         try{
@@ -595,7 +596,7 @@ public class FieldController implements Initializable{
     /**
      * Use the selected card (from selectCard) to attack the event sender field pane.
      * @param evt event sender field pane.
-     * @throws Exception EndGameException if the nnemy HP <0 when attacked
+     * @throws Exception EndGameException if the enemy HP less or equal 0 when attacked
      */
     public void useCard(javafx.event.Event evt) throws Exception{
         Player opponent = null;

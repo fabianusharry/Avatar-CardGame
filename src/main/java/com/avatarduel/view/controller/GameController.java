@@ -157,6 +157,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set enable player1
+     * @param isEnabled isEnabled
      * @throws Exception exception when Player1 pane cannot be disabled
      */
     public void setEnableP1(Boolean isEnabled) throws Exception {
@@ -176,6 +177,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set enable player2
+     * @param isEnabled isEnabled
      * @throws Exception exception when Player2 pane cannot be disabled
      */
     public void setEnableP2(Boolean isEnabled) throws Exception {
@@ -219,6 +221,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set stage text in Player1
+     * @param value value
      */
     public void setStageTextP1(String value) {
         setPhaseText(value, drawPhaseP1, mainPhaseP1, battlePhaseP1, endPhaseP1);
@@ -226,6 +229,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set stage text in Player2
+     * @param value value
      */
     public void setStageTextP2(String value) {
         setPhaseText(value, drawPhaseP2, mainPhaseP2, battlePhaseP2, endPhaseP2);
@@ -233,6 +237,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Initialize phase for player
+     * @param playerPane playerPane
      */
     public void initializePhase(Pane playerPane) {
         DropShadow dropShadow = new DropShadow();
@@ -242,30 +247,36 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set player phase text with value
+     * @param value value
+     * @param drawPhase drawPhaseText
+     * @param mainPhase mainPhaseText
+     * @param battlePhase battlePhaseText
+     * @param endPhase endPhaseText
      */
-    private void setPhaseText(String value, Text drawPhaseP1, Text mainPhaseP1, Text battlePhaseP1, Text endPhaseP1) {
+    private void setPhaseText(String value, Text drawPhase, Text mainPhase, Text battlePhase, Text endPhase) {
         switch (value) {
             case "draw":
-                drawPhaseP1.setStyle("-fx-fill: red;");
+                drawPhase.setStyle("-fx-fill: red;");
                 break;
             case "main":
-                drawPhaseP1.setStyle("-fx-fill: black;");
-                mainPhaseP1.setStyle("-fx-fill: red;");
+                drawPhase.setStyle("-fx-fill: black;");
+                mainPhase.setStyle("-fx-fill: red;");
                 break;
             case "battle":
-                mainPhaseP1.setStyle("-fx-fill: black;");
-                battlePhaseP1.setStyle("-fx-fill: red;");
+                mainPhase.setStyle("-fx-fill: black;");
+                battlePhase.setStyle("-fx-fill: red;");
                 break;
             default:
-                drawPhaseP1.setStyle("-fx-fill: black;");
-                mainPhaseP1.setStyle("-fx-fill: black;");
-                battlePhaseP1.setStyle("-fx-fill: black;");
+                drawPhase.setStyle("-fx-fill: black;");
+                mainPhase.setStyle("-fx-fill: black;");
+                battlePhase.setStyle("-fx-fill: black;");
                 break;
         }
     }
 
     /**
      * Check if the game is in end condition
+     * @return true if end game
      */
     public boolean isEndGame() {
         endGame = P1.getHP() <= 0 || P2.getHP() <= 0;
@@ -274,6 +285,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get card placing
+     * @return placing
      */
     public Card getCardPlacing(){
         return this.placing;
@@ -281,6 +293,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get card selected
+     * @return selecting
      */
     public SummonedCard getCardSelected(){
         return this.selecting;
@@ -288,6 +301,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get card selected paneId
+     * @return selectingId
      */
     public String getSelectedPaneID(){
         return this.selectingId;
@@ -295,6 +309,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get skill location in field
+     * @return skillLocation
      */
     public String getSkillLocation(){
         return this.skillLocation;
@@ -302,6 +317,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get skill placing
+     * @return skillPlacing
      */
     public Skill getSkillPlacing(){
         return this.skillAttaching;
@@ -309,6 +325,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * get modify location of a card in field
+     * @return modifyLocation
      */
     public String getModifyLocation(){
         return modifyLocation;
@@ -316,6 +333,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get modify type of a card in field
+     * @return modifyType
      */
     public String getModifyType(){
         return modifyType;
@@ -323,6 +341,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get Big cardView pane
+     * @return cardView
      */
     public Pane getCardView() {
         return cardView;
@@ -330,6 +349,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get player1
+     * @return p1
      */
     public Player getP1() {
         return P1;
@@ -337,6 +357,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get player2
+     * @return p2
      */
     public Player getP2(){
         return P2;
@@ -344,6 +365,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get turn manager
+     * @return manager
      */
     public TurnManager getManager() {
         return manager;
@@ -351,6 +373,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get player1 handcontroller
+     * @return p1handcontroller
      */
     public HandController getP1HandController() {
         return p1HandController;
@@ -358,6 +381,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get player2 handcontroller
+     * @return p2handcontroller
      */
     public HandController getP2HandController() {
         return p2HandController;
@@ -365,6 +389,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get player1 fieldcontroller
+     * @return p1fieldcontroller
      */
     public FieldController getP1FieldController(){
         return p1FieldController;
@@ -372,6 +397,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Get player2 fieldcontroller
+     * @return p2fieldcontroller
      */
     public FieldController getP2FieldController(){
         return p2FieldController;
@@ -379,6 +405,8 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Handle keyboard SHIFT button click to delete card selected
+     * @param event event
+     * @throws Exception exception when onKeyPressed event fails
      */
     @FXML
     public void handleOnKeyPressed(KeyEvent event) throws Exception{
@@ -393,6 +421,8 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set the Big CardView with card
+     * @param card card
+     * @throws IOException exception when set cardView operation fails
      */
     public void setCardView(Card card) throws IOException {
         CardLoader newCardView = new CardLoader(card);
@@ -401,6 +431,8 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * Set the Big CardView with SummonedCard
+     * @param summonedCard summonedCard
+     * @throws IOException exception when setCardView operation fails
      */
     public void setCardView(SummonedCard summonedCard) throws IOException {
         CardLoader newCardView = new CardLoader(summonedCard.getCharacter());
@@ -466,6 +498,7 @@ public class GameController implements Initializable, EventListener {
 
     /**
      * next phase handling
+     * @throws Exception exception when instantiating new phase fails
      */
     public void nextPhase() throws Exception {
         if (!endGame) {
