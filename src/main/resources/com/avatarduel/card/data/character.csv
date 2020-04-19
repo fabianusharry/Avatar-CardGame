@@ -47,3 +47,7 @@ id	name	element	description	imagepath	attack	defense	power
 62	June	EARTH	Bounty hunter with a shirshu as her pet.	card/image/character/June.png	5	8	2
 63	Suki	EARTH	Leader of Kyoshi Warrior.	card/image/character/Suki.png	8	8	3
 64	Pipsqueak	EARTH	Strongest member of Freedom Fighters.	card/image/character/Pipsqueak.png	3	10	2
+65	Korra	ENERGY	The next avatar after Aang.	card/image/character/Korra.png	15	5	5
+66	Yakone	ENERGY	Republic city most famous criminal.	card/image/character/Yakone.png	14	6	5
+67	Tenzin	ENERGY	Korra's Number One Sidekick.	card/image/character/Tenzin.png	9	7	3
+68	Aang Spirit	ENERGY	The Universe Energy Manipulator.	card/image/character/Aang Spirit.png	17	6	5
