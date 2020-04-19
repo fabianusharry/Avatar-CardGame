@@ -444,6 +444,7 @@ public class FieldController implements Initializable{
     
     public void useCard(javafx.event.Event evt) throws Exception{
         //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
+        System.out.println("MASUK USE CARD");
         Player opponent = null;
         GameController g = GameController.getInstance();
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""))-1;
@@ -475,8 +476,6 @@ public class FieldController implements Initializable{
                         g.P2HP.setText("HP : " + player.getHP());
                         g.setP2HPBar(player.getHP());
                     }
-                    if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
-                    else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
                     try {
                         if (g.isEndGame()) {
                             throw new EndGameException(player.getName() + " Kehabisan HP");
@@ -485,8 +484,10 @@ public class FieldController implements Initializable{
                         new MessageBoxLoader(e).render();
                         GameLoader.getInstance().exit();
                     }
-                    events.notify(Event.RESET_SELECT_CARD, player.getName());
                 }
+                if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
+                else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
+                events.notify(Event.RESET_SELECT_CARD, player.getName());
             }
         }
     }
