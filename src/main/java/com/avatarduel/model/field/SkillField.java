@@ -30,7 +30,7 @@ public class SkillField {
     public void placeCard(int index, Card card) {
         if (field[index] == null) {
             field[index] = (Skill) card;
-        } // else throw exception (?)
+        }
     }
 
     /**

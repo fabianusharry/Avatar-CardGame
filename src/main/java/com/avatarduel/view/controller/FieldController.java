@@ -1,5 +1,9 @@
 package com.avatarduel.view.controller;
 import com.avatarduel.exceptions.EndGameException;
+import com.avatarduel.exceptions.field.BattleAllowedException;
+import com.avatarduel.exceptions.field.ClickNotAllowedException;
+import com.avatarduel.exceptions.field.DefenseModeBattleException;
+import com.avatarduel.exceptions.field.WrongPlacementException;
 import com.avatarduel.view.event.Event;
 import com.avatarduel.view.event.EventManager;
 import com.avatarduel.view.loader.GameLoader;
@@ -39,7 +43,10 @@ public class FieldController implements Initializable{
     private EventManager events;
     private boolean delete;
 
-
+    /**
+     * Creates a new controller, for specified player.
+     * @param player Destined player
+     */
     public FieldController(Player player) throws Exception{
         this.player = player;
         Enabled = new ArrayList<>();
@@ -60,35 +67,40 @@ public class FieldController implements Initializable{
         onClickArgs = "";
     }
     
+    /**
+     * Set which function to call by the onClick function.
+     * @param args String command for onClick function. 
+     */
     public void setOnClick(String args){
         this.onClickArgs = args;
     }
     
-    public Card getCardAt(String args,int index){
-        if(args.equals("Skill")){
-            return player.field.getSkillField().getCard(index);
-        }
-        else{
-            return player.field.getCharacterField().getCard(index).getCharacter();
-        }
+    /**
+     * Set the availability of the deleteCard function to value.
+     * @param value boolean Setter
+     */
+    public void setDelete(boolean value){
+        this.delete = value;
     }
     
-    public CardField getCardField(){
-        return this.player.field;
-    }
-    
-    public void setDelete(boolean b){
-        this.delete = b;
-    }
-    
-    public void setEnableClick(boolean b){
-        if(b){
+    /**
+     * Set the avaibility of the onClick function to value.
+     * @param value boolean Setter
+     */
+    public void setEnableClick(boolean value){
+        if(value){
             enableAll();
         }
         else{
             disableAll();
         }
     }
+    
+    /**
+     * Initialize all needed attributes for FieldController, when constructed.
+     * @param location URL
+     * @param resources ResourceBundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources){
         try {
@@ -105,10 +117,14 @@ public class FieldController implements Initializable{
             reloadBorder();
         }
         catch(IOException e){
-//            e.printStackTrace();
+//            
         }
     }
     
+    /**
+     * Refresh the field pane display.
+     * @throws Exception 
+     */
     public void reloadFieldPane() throws Exception {
         for (int i = 0; i < 6; i++) {
             CharacterFields.get(i).getChildren().clear();
@@ -124,6 +140,9 @@ public class FieldController implements Initializable{
         }
     }
     
+    /**
+     * Reloads the border on the whole field to black. 
+     */
     public void reloadBorder(){
         for(int i = 0; i < 6;i++){
            CharacterFields.get(i).setStyle("-fx-border-color:black;");
@@ -131,99 +150,156 @@ public class FieldController implements Initializable{
         }
     }
     
+    /**
+     * Set to enable onClick only on skill section of the field.
+     */
     public void enableSkill(){
         for(int i=0; i < 6 ;i++){
             Enabled.add(SkillFields.get(i).getId());
         }
     }
     
+    /**
+     * Set to enable onClick function on the whole field.
+     */
     public void enableAll(){
         disableAll();
         enableCharacter();
         enableSkill();
     }
     
+    /**
+     * Set to enable onClick function on the enableCharacter section.
+     */
     public void enableCharacter(){
         for(int i=0; i < 6 ; i++){
             Enabled.add(CharacterFields.get(i).getId());
         }
     }
     
+    /**
+     * Set to enable onClick on specific pane using paneID.
+     * @param paneId String specific PaneID
+     */
     public void enableSpecific(String paneId){
-        System.out.println("Berhasil ditambah");
         Enabled.add(paneId);
     }
     
+    /**
+     * Set to disable onClick on skill section of the field.
+     */
     public void disableSkill(){
         for(int i=0; i < 6 ;i++){
             Enabled.remove(SkillFields.get(i).getId());
         }
     }
     
+    /**
+     * Set to disable onClick on character section of the field.
+     */
     public void disableCharacter(){
         for(int i=0; i < 6 ; i++){
             Enabled.remove(CharacterFields.get(i).getId());
         }
     }
     
+    /**
+     * Set to disable specific pane using paneID.
+     * @param paneId String pane id
+     */
     public void disableSpecific(String paneId){
-        System.out.println("Berhasil dikurang");
         Enabled.remove(paneId);
-        System.out.println(Enabled);
     }
     
+    /**
+     * Set to disable onClick function on the whole field.
+     */
     public void disableAll(){
         Enabled = new ArrayList<>();
     }
-
+    
+    /**
+     * Get list of disabled pane in battle phase.
+     * @return String list of disabled paneid
+     */
     public List<String> getDisabledInBattle() {
         return disabledInBattle;
     }
 
+    /**
+     * Clearing list of disabled pane in battle phase.
+     */
     public void clearDisabledInBattle() {
         disabledInBattle.clear();
     }
     
+    /**
+     * Getting the value of the availability of deleteCard function.
+     * @return boolean delete value of this
+     */
     public boolean delete(){
         return this.delete;
     }
     
+    /**
+     * Call function depending on the onClickArgs.
+     * @param evt event that triggers onClick
+     * @throws Exception 
+     */
     @FXML
     public void onClick(javafx.event.Event evt) throws Exception{
-        System.out.println(Enabled);
-       Pane p = (Pane) evt.getSource();
-       int id;
-        id = Integer.parseInt(p.getId().replaceAll("[^1-6]",""));
-        if(Enabled.contains(p.getId())){
-            System.out.println("NGECLICK YANG BISA DICLICK");
-           switch (onClickArgs){
+       try{
+        Pane p = (Pane) evt.getSource();
+        int id;
+         id = Integer.parseInt(p.getId().replaceAll("[^1-6]",""));
+         if(Enabled.contains(p.getId())){
+            switch (onClickArgs){
+                case "placeCard":
+                 placeCard(evt);
+                 break;
+                case "selectCard":
+                 selectCard(evt);
+                 break;
+                case "useCard":
+                 useCard(evt);
+                 break;
+                case "modify":
+                 modify(evt);
+                 break;
+                case "attachSkill":
+                 attachSkill(evt);
+                 break;
+                case "attackHP":
+                 attackHP(evt);
+                 break;
+                default:
+                 break;
+            }
+         } else{
+             switch(onClickArgs){
                case "placeCard":
-                placeCard(evt);
-                break;
-               case "selectCard":
-                selectCard(evt);
-                break;
-               case "useCard":
-                useCard(evt);
-                break;
-               case "modify":
-                modify(evt);
-                break;
-               case "attachSkill":
-                attachSkill(evt);
-                break;
-               case "attackHP":
-                attackHP(evt);
-                break;
-               default:
-                break;
-           }
-        } else{
-            System.out.println("NGECLICK YANG GA BISA DI CLICK");
-            System.out.println(Enabled);
-        }
+                 throw new ClickNotAllowedException("Cannot place into opponent field");
+                case "selectCard":
+                 throw new ClickNotAllowedException("Cannot select opponent card");
+                case "useCard":
+                 throw new ClickNotAllowedException("Cannot attack your own card / skill card");
+                case "modify":
+                  throw new ClickNotAllowedException("Cannot modify opponent card");
+                case "attachSkill":
+                  throw new ClickNotAllowedException("Cannot attach skill to skill");
+             }
+         }
+       }
+       catch (Exception e){
+           new MessageBoxLoader(e).render();
+       }
     }
     
+    /**
+     * Set the cardViewer to display event sender image.
+     * @param evt event that trigger onHover function
+     * @throws Exception 
+     */
     @FXML
     public void onHover(javafx.event.Event evt) throws Exception{
         String id = evt.getSource().toString().replaceAll("[^0-9]","");
@@ -239,7 +315,12 @@ public class FieldController implements Initializable{
         }
         
     }
-
+    
+    /**
+     * Reduce enemy HP and set the HP text.
+     * @param evt clicked enemy pane
+     * @throws Exception EndGameException
+     */
     public void attackHP(javafx.event.Event evt) throws Exception {
         Player opponent;
         String opponentId;
@@ -268,70 +349,109 @@ public class FieldController implements Initializable{
         }
 
     }
-
+    
+    /**
+     * Attach skill from placed card to evt sender pane.
+     * @param evt clicked skill destination pane
+     * @throws Exception 
+     */
     public void attachSkill(javafx.event.Event evt) throws Exception{
-        System.out.println("MASUK ATTACH SKILL");
-        GameController g = GameController.getInstance();
-        Player withSkill;
-        String cardPlacedLoc;
-        String skillLocation = g.getSkillLocation();
-        if(skillLocation.split(" ")[1].equals(g.getP1().getName())){
-            withSkill = g.getP1();
-        }else{
-            withSkill = g.getP2();
-        }
-        String id = evt.getSource().toString().replaceAll("[^1-6]","");
-        Skill skill = g.getSkillPlacing();
-        int indexSkill = Integer.parseInt(skillLocation.substring(0,skillLocation.indexOf(' ')).replaceAll("[^0-6]",""));
-        cardPlacedLoc = player.getName();
-        SummonedCard s = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
-        if(s!=null){
-            skill.setTargetLocation("Character"+id+" "+player.getName());
-            if(skill instanceof com.avatarduel.model.card.effect.Destroy){
-                withSkill.field.getSkillField().removeCard(indexSkill-1);
-                removeCharacter(player, Integer.parseInt(id)-1, player.field.getCharacterField().getCard(Integer.parseInt(id)-1).getSkillLocation());
+        try{
+            GameController g = GameController.getInstance();
+            Player withSkill;
+            String cardPlacedLoc;
+            String skillLocation = g.getSkillLocation();
+            if(skillLocation.split(" ")[1].equals(g.getP1().getName())){
+                withSkill = g.getP1();
+            }else{
+                withSkill = g.getP2();
+            }
+            String id = evt.getSource().toString().replaceAll("[^1-6]","");
+            Skill skill = g.getSkillPlacing();
+            int indexSkill = Integer.parseInt(skillLocation.substring(0,skillLocation.indexOf(' ')).replaceAll("[^0-6]",""));
+            cardPlacedLoc = player.getName();
+            SummonedCard s = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
+            if(s!=null){
+                skill.setTargetLocation("Character"+id+" "+player.getName());
+                if(skill instanceof com.avatarduel.model.card.effect.Destroy){
+                    withSkill.field.getSkillField().removeCard(indexSkill-1);
+                    removeCharacter(player, Integer.parseInt(id)-1, player.field.getCharacterField().getCard(Integer.parseInt(id)-1).getSkillLocation());
+                }
+                else{
+                    skill.activate(player, Integer.parseInt(id)-1,skillLocation);
+                }
+                reloadBorder();
+                reloadFieldPane();
+                events.notify(Event.CARD_PLACED,withSkill.getName());
+                setOnClick("modify");
             }
             else{
-                skill.activate(player, Integer.parseInt(id)-1,skillLocation);
+                throw new WrongPlacementException("No character card");
             }
-            reloadBorder();
-            reloadFieldPane();
-            events.notify(Event.CARD_PLACED,withSkill.getName());
-            setOnClick("modify");
+        }
+        catch(Exception e){
+            new MessageBoxLoader(e).render();
         }
         
     }
     
+    /**
+     * Place card taken from hands to event sender pane.
+     * @param evt clicked pane event
+     * @throws Exception 
+     */
     public void placeCard(javafx.event.Event evt) throws Exception{
-        reloadBorder();
-        String id = evt.getSource().toString().replaceAll("[^1-6]","");
-        Card placing = GameController.getInstance().getCardPlacing();
-        if(evt.getSource().toString().contains("Character")){
-            //Berarti yang bisa dimasukkan adalah kartu KARAKTER
-            if(placing instanceof Character){
-                if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)==null){
-                    player.field.getCharacterField().placeCard(Integer.parseInt(id)-1,placing);
-                    reloadFieldPane();
-                    disabledInBattle.add("Character"+id);
-                    events.notify(Event.CARD_PLACED,player.getName());
-                    setOnClick("modify");
+        try{
+            reloadBorder();
+            String id = evt.getSource().toString().replaceAll("[^1-6]","");
+            Card placing = GameController.getInstance().getCardPlacing();
+            if(evt.getSource().toString().contains("Character")){
+                //Berarti yang bisa dimasukkan adalah kartu KARAKTER
+                if(placing instanceof Character){
+                    if(player.field.getCharacterField().getCard(Integer.parseInt(id)-1)==null){
+                        player.field.getCharacterField().placeCard(Integer.parseInt(id)-1,placing);
+                        reloadFieldPane();
+                        disabledInBattle.add("Character"+id);
+                        events.notify(Event.CARD_PLACED,player.getName());
+                        setOnClick("modify");
+                    }
+                    else{
+                        throw new WrongPlacementException("Target location is not empty");
+                    }
+                }
+                else{
+                    throw new WrongPlacementException("Cannot place skill to character field.");
                 }
             }
-        } else {
-            if(placing instanceof Skill){
-                System.out.println("PLACING SKILL...");
-                if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)==null){
-                    player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
-                    reloadFieldPane();
-                    SkillFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
-                    GameController g = GameController.getInstance();
-                    events.notify(Event.SKILL_LOCATION,"Skill"+Integer.parseInt(id)+" "+player.getName());
-                    events.notify(Event.ATTACHING_SKILL,player.getName());
+             else {
+                if(placing instanceof Skill){
+                    if(player.field.getSkillField().getCard(Integer.parseInt(id)-1)==null){
+                        player.field.getSkillField().placeCard(Integer.parseInt(id)-1,placing);
+                        reloadFieldPane();
+                        SkillFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: red;");
+                        GameController g = GameController.getInstance();
+                        events.notify(Event.SKILL_LOCATION,"Skill"+Integer.parseInt(id)+" "+player.getName());
+                        events.notify(Event.ATTACHING_SKILL,player.getName());
+                    }
+                    else{
+                        throw new WrongPlacementException("Target location is not empty");
+                    }
+                }
+                else{
+                    throw new WrongPlacementException("Cannot place character to skill field");
                 }
             }
         }
+        catch(Exception e){
+           new MessageBoxLoader(e).render();
+        }
     }
     
+    /**
+     * Modify the clicked pane: change position and available to delete.
+     * @param evt clicked pane event
+     * @throws Exception 
+     */
     public void modify(javafx.event.Event evt) throws Exception{
         reloadBorder();
         String id = evt.getSource().toString().replaceAll("[^1-6]","");
@@ -354,6 +474,13 @@ public class FieldController implements Initializable{
         }
     }
     
+    /**
+     * Remove character including skill attached to it.
+     * @param p Player owner of the character card
+     * @param id index of the character card
+     * @param location the SkillLocation list
+     * @throws Exception 
+     */
     public void removeCharacter(Player p,int id,List<String> location) throws Exception {
         SummonedCard temp = p.field.getCharacterField().removeCard(id);
         if(!temp.isAttackMode()){
@@ -364,6 +491,11 @@ public class FieldController implements Initializable{
         GameController.getInstance().getP2FieldController().reloadFieldPane();
     }
     
+    /**
+     * Remove all skill card listed in location.
+     * @param location list of string
+     * @throws Exception 
+     */
     public void removeSkillsFromPane(List<String> location) throws Exception {
         GameController g = GameController.getInstance();
         Player target;
@@ -381,6 +513,10 @@ public class FieldController implements Initializable{
         }
     }
     
+    /**
+     * Delete card specified by the red border.
+     * @throws Exception 
+     */
     public void deleteCard() throws Exception {
         GameController g = GameController.getInstance();
         String id = g.getModifyLocation().replaceAll("[^0-6]","");
@@ -418,33 +554,51 @@ public class FieldController implements Initializable{
         delete = false;
     }
     
+    /**
+     * Pass selected card prepared to battle.
+     * @param evt event sender field pane
+     * @throws Exception 
+     */
     public void selectCard(javafx.event.Event evt) throws Exception {
-        System.out.println("MASUK SELECT CARD");
-        String id = evt.getSource().toString().replaceAll("[^1-6]","");
-        if(evt.getSource().toString().contains("Character")){
-            if (!disabledInBattle.contains("Character"+id)) {
-                SummonedCard summonedCard = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
-                if(summonedCard != null){
-                    if (summonedCard.isAttackMode()) {
-                        events.notify(Event.PASS_SELECTED_CARD,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
-                        Pane p = (Pane) evt.getSource();
-                        GameController g = GameController.getInstance();
-                        events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" "+player.getName());
-                        CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: deeppink;");
-                        reloadFieldPane();
-                        events.notify(Event.SELECTEDCARD,player.getName());
-                    }    // ELSE THROW EXCEPTION DEFENSE CARD
+        try{
+            String id = evt.getSource().toString().replaceAll("[^1-6]","");
+            if(evt.getSource().toString().contains("Character")){
+                if (!disabledInBattle.contains("Character"+id)) {
+                    SummonedCard summonedCard = player.field.getCharacterField().getCard(Integer.parseInt(id)-1);
+                    if(summonedCard != null){
+                        if (summonedCard.isAttackMode()) {
+                            events.notify(Event.PASS_SELECTED_CARD,player.field.getCharacterField().getCard(Integer.parseInt(id)-1));
+                            Pane p = (Pane) evt.getSource();
+                            GameController g = GameController.getInstance();
+                            events.notify(Event.PASS_SELECTED_PANEID,p.getId()+" "+player.getName());
+                            CharacterFields.get(Integer.parseInt(id)-1).setStyle("-fx-border-color: deeppink;");
+                            reloadFieldPane();
+                            events.notify(Event.SELECTEDCARD,player.getName());
+                        }
+                        else{
+                            throw new DefenseModeBattleException();
+                        }
+                    }
+                } 
+                else{
+                    throw new BattleAllowedException("Card cannot battle in this round");
                 }
-            } // ELSE THROW EXCEPTION TIDAK BISA DIPAKAI DI BATTLE INI
+            }
+            else{
+                throw new BattleAllowedException("Skill cannot participate in battle");
+            }
         }
-        else{
-            System.out.println("GBS SELECT SKILL DI BATTLE PHASE");
+        catch(Exception e){
+           new MessageBoxLoader(e).render();
         }
     }
     
+    /**
+     * Use the selected card (from selectCard) to attack the event sender field pane.
+     * @param evt event sender field pane.
+     * @throws Exception EndGameException if the nnemy HP <0 when attacked
+     */
     public void useCard(javafx.event.Event evt) throws Exception{
-        //CEK KARTU APA KALAU KARTU SENDIRI ILANGIN BORDER SETONCLICK BALIK KE SELECTCARD
-        System.out.println("MASUK USE CARD");
         Player opponent = null;
         GameController g = GameController.getInstance();
         int idDestination = Integer.parseInt(evt.getSource().toString().replaceAll("[^1-6]",""))-1;
