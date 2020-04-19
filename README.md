@@ -203,6 +203,8 @@ gradlew run (Windows)
         - Pilih kartu pada hand yang akan diletakkan ke field milik sendiri
         - Tekan pada field yang telah terisi kartu untuk mengubah posisi karakter 
           tersebut (Attack/Defense)
+        - Untuk menghapus sebuah kartu pada field, tekan kartu tersebut
+          kemudian tekan tombol SHIFT pada keyboard
         - Tekan text "Battle Phase" untuk berpindah ke Battle Phase
     2.3  Battle Phase
         - Tekan kartu dalam posisi attack untuk memilih karakter menuju battle
@@ -214,4 +216,6 @@ gradlew run (Windows)
         - Turn berpindah ke lawan
         - Jika kartu pada tangan sudah penuh (maks: 11 kartu),
           kartu paling dekat dengan deck akan dihapus.
+  3. Permainan selesai ketika HP salah satu pemain adalah nol 
+     atau pemain kehabisan kartu pada deck saat draw
 ```
