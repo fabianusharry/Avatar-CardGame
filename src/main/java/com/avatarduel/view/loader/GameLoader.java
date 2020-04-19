@@ -10,12 +10,22 @@ import javafx.stage.Stage;
 
 import com.avatarduel.util.Constants;
 
-public class GameLoader {
+/**
+ * GameLoader is a singletone class that hold the main stage
+ *
+ */
+public class GameLoader implements  Loader {
     private static GameLoader instance = null; //Singleton attribute
 
     Stage stage;
     Pane game;
 
+    /**
+     *
+     * @return instance of this object if its not null, else create a new one and return it
+     * @throws Exception exception when create new loader
+     *         for example: file not found error
+     */
     public static GameLoader getInstance() throws Exception {
         if (instance == null) {
             instance = new GameLoader();
@@ -23,10 +33,19 @@ public class GameLoader {
         return instance;
     }
 
+    /**
+     * @return true if instance is not null, else false
+     */
     public static Boolean isInstantiated() {
         return instance != null;
     }
 
+    /**
+     * Load fxml and set a controller
+     *
+     * @throws Exception exception when load fxml file and controller
+     *         for example: file not found error
+     */
     private GameLoader() throws Exception {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.gameFxml));
@@ -36,10 +55,19 @@ public class GameLoader {
 
     }
 
+    /**
+     * @return pane of this object
+     */
+    @Override
     public Pane getPane() {
         return game;
     }
 
+    /**
+     * create new stage and scene
+     * show in new window
+     */
+    @Override
     public void render() {
         stage = new Stage();
         Scene scene = new Scene(game, 1360, 768);
@@ -51,6 +79,9 @@ public class GameLoader {
         stage.show();
     }
 
+    /**
+     * Exit the game
+     */
     public void exit() {
         game.setDisable(true);
     }

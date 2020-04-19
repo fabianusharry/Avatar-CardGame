@@ -19,7 +19,9 @@ public class SkillTest {
 
         Skill card = new Skill(name, desc, el, power, ImgPath) {
             @Override
-            public void activate(Player destination, int index) { }
+            public void activate(Player destination, int index, String location) {
+
+            }
         };
 
         assertEquals(power, card.getAttribute(Attribute.POWER));

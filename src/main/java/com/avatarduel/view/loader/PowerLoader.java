@@ -11,9 +11,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import com.avatarduel.util.Constants;
 
+/**
+ * Used to create power object on the screen
+ */
 public class PowerLoader implements Loader {
     Pane power;
 
+    /**
+     *
+     * @param player player that own the power
+     * @throws IOException exception when load fxml file and controller
+     *         for example: file not found error
+     */
     public PowerLoader(Player player) throws IOException {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.powerFxml));
@@ -24,10 +33,19 @@ public class PowerLoader implements Loader {
 
     }
 
+    /**
+     * @return pane of this object
+     */
+    @Override
     public Pane getPane() {
         return power;
     }
 
+    /**
+     * create new stage and scene
+     * show in new window
+     */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(power, 99, 310);

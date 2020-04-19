@@ -10,10 +10,21 @@ import javafx.stage.Stage;
 
 import com.avatarduel.util.Constants;
 
+import java.io.IOException;
+
+/**
+ * HandLoader used to create new Hand object in screen
+ *
+ */
 public class HandLoader implements Loader {
     Pane mainMenu;
     HandController controller;
 
+    /**
+     * @param player owner of the hand cards
+     * @throws Exception exception when load fxml file and controller
+     *         for example: file not found error
+     */
     public HandLoader(Player player) throws Exception {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.handFxml));
@@ -25,10 +36,19 @@ public class HandLoader implements Loader {
 
     }
 
+    /**
+     * @return pane of this object
+     */
+    @Override
     public Pane getPane() {
         return mainMenu;
     }
 
+    /**
+     * create new stage and scene
+     * show in new window
+     */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(mainMenu, 648, 85);
@@ -37,6 +57,10 @@ public class HandLoader implements Loader {
         stage.show();
     }
 
+    /**
+     *
+     * @return controller of this object
+     */
     public HandController getController() {
         return controller;
     }

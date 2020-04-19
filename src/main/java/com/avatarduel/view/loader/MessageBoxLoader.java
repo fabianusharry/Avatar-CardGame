@@ -8,28 +8,48 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+/**
+ * Used to create a new message box to show error
+ */
 public class MessageBoxLoader implements Loader {
     private Pane MessageBox;
 
-    public MessageBoxLoader(Exception err) {
+    /**
+     * Call constructor by exception
+     *
+     * @param err exception that had benn catched
+     * @throws IOException exception from constrcutor
+     */
+    public MessageBoxLoader(Exception err) throws IOException {
         this(err.getMessage());
     }
 
-    public MessageBoxLoader(String Message) {
-        try {
-            FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.messageBoxFxml));
-            MessageBoxController controller = new MessageBoxController(Message);
-            loader.setController(controller);
-            MessageBox = loader.load();
-
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
+    /**
+     * Load fxml and set a controller
+     *
+     * @param Message is message that will be shown
+     * @throws IOException exception when load fxml file and controller
+     *         for example: file not found error
+     */
+    public MessageBoxLoader(String Message) throws IOException {
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.messageBoxFxml));
+        MessageBoxController controller = new MessageBoxController(Message);
+        loader.setController(controller);
+        MessageBox = loader.load();
     }
 
+    /**
+     * @return pane of this object
+     */
     @Override
     public Pane getPane() { return  MessageBox; }
 
+    /**
+     * create new stage and scene
+     * show in new window
+     */
     @Override
     public void render() {
         Stage stage = new Stage();
