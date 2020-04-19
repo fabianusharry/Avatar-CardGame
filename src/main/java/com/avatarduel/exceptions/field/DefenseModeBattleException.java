@@ -7,7 +7,8 @@ package com.avatarduel.exceptions.field;
 
 /**
  *
- * @author personate
+ * Exception saat memilih kartu dengan posisi bertahan
+ * pada battle phase
  */
 public class DefenseModeBattleException extends Exception{
     public DefenseModeBattleException(){

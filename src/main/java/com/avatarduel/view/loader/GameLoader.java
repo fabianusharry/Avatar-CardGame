@@ -16,16 +16,17 @@ import java.io.IOException;
  * GameLoader in GUI
  * Contains pane for show AvatarDuel Game
  */
-public class GameLoader {
+public class GameLoader implements Loader {
     private static GameLoader instance = null; //Singleton attribute
 
     Stage stage;
     Pane game;
 
     /**
-     * Singleton design pattern implementation
-     * @return instance
-     * @throws IOException exception when fail to create GameLoader object
+     *
+     * @return instance of this object if its not null, else create a new one and return it
+     * @throws Exception exception when create new loader
+     *         for example: file not found error
      */
     public static GameLoader getInstance() throws Exception {
         if (instance == null) {
@@ -35,16 +36,17 @@ public class GameLoader {
     }
 
     /**
-     * Check if Game is instantiated (or started)
-     * @return instance != null
+     * @return true if instance is not null, else false
      */
     public static Boolean isInstantiated() {
         return instance != null;
     }
 
     /**
-     * Creates a new GameLoader
-     * @throws IOException exception when FXMLLoader fails to load resource
+     * Load fxml and set a controller
+     *
+     * @throws Exception exception when load fxml file and controller
+     *         for example: file not found error
      */
     private GameLoader() throws Exception {
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.gameFxml));
@@ -53,16 +55,18 @@ public class GameLoader {
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return game;
     }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         stage = new Stage();
         Scene scene = new Scene(game, 1348, 758);
@@ -74,7 +78,7 @@ public class GameLoader {
     }
 
     /**
-     * Disable tha Game stage
+     * Exit the game
      */
     public void exit() {
         game.setDisable(true);

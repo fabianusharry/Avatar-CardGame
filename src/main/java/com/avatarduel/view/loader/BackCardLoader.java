@@ -13,7 +13,7 @@ import com.avatarduel.util.Constants;
  * BackCardLoader in GUI
  * Contains pane for showing back side of a card
  */
-public class BackCardLoader {
+public class BackCardLoader implements Loader {
     Pane card;
 
     /**
@@ -26,16 +26,18 @@ public class BackCardLoader {
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return card;
     }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(card, 58, 85);

@@ -7,7 +7,7 @@ package com.avatarduel.exceptions.field;
 
 /**
  *
- * @author personate
+ * Exception saat mencoba attack selain saat battle phase
  */
 public class BattleAllowedException extends Exception{
     public BattleAllowedException(String exception){

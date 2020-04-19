@@ -20,8 +20,12 @@ public class FieldLoader implements Loader{
     FieldController controller;
 
     /**
-     * Creates a new FieldLoader
-     * @throws Exception exception when FXMLLoader fails to load resource
+     * Load fxml and set a controller
+     *
+     * @param player is player that own the field
+     * @param playerNumber 1 if it's player 1 and 2 if it's player 2
+     * @throws Exception exception when load fxml file and controller
+     *         for example: file not found error
      */
     public FieldLoader(Player player, int playerNumber) throws Exception {
         FXMLLoader loader;
@@ -36,23 +40,28 @@ public class FieldLoader implements Loader{
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return field;
     }
 
+    /**
+     * @return controller of this object
+     */
     public FieldController getController(){ return controller; }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(field, 717, 180);
         stage.setScene(scene);
-        stage.setTitle("Avatar Card Game");
+        stage.setTitle(Constants.gameTitle);
         stage.show();
     }
     

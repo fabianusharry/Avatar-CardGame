@@ -22,8 +22,9 @@ public class CardLoader implements Loader {
     CardController controller;
 
     /**
-     * Creates a new CardLoader
-     * @throws IOException exception when FXMLLoader fails to load resource
+     * @param card to be made a view
+     * @throws IOException exception when load fxml file
+     *         for example: file not found error
      */
     public CardLoader(Card card) throws IOException {
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.cardFxml));
@@ -33,16 +34,18 @@ public class CardLoader implements Loader {
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return card;
     }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(card, 480, 640);
@@ -51,7 +54,8 @@ public class CardLoader implements Loader {
     }
 
     /**
-     * Set skill Attached in Skill Card Pane
+     * attach skills to card
+     * @param skillAttached to be attached
      */
     public void setSkillAttached(List<Skill> skillAttached) {
         controller.addSkillAttached(skillAttached);

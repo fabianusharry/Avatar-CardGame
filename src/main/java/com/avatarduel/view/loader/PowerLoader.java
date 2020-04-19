@@ -19,9 +19,10 @@ public class PowerLoader implements Loader {
     Pane power;
 
     /**
-     * Creates a new PowerLoader for player
-     * @param player player
-     * @throws IOException exception when FXMLLoader fails to load resource
+     *
+     * @param player player that own the power
+     * @throws IOException exception when load fxml file and controller
+     *         for example: file not found error
      */
     public PowerLoader(Player player) throws IOException {
         // init loader
@@ -33,16 +34,18 @@ public class PowerLoader implements Loader {
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return power;
     }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(power, 99, 310);

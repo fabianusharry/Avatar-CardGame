@@ -19,9 +19,10 @@ public class MiniCardLoader implements Loader {
     Pane card;
 
     /**
-     * Creates a new MiniCardLoader for card
-     * @param card card
-     * @throws IOException exception when FXMLLoader fails to load resource
+     *
+     * @param card to be made a view
+     * @throws IOException exception when load fxml file
+     *         for example: file not found error
      */
     public MiniCardLoader(Card card) throws IOException {
         // init loader
@@ -32,16 +33,18 @@ public class MiniCardLoader implements Loader {
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return card;
     }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(card, 58, 85);

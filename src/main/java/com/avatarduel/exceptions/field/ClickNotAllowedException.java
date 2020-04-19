@@ -7,7 +7,7 @@ package com.avatarduel.exceptions.field;
 
 /**
  *
- * @author personate
+ * Exception saat me-clink object yang tidak diperbolehkan
  */
 public class ClickNotAllowedException extends Exception{
     public ClickNotAllowedException(String exception){

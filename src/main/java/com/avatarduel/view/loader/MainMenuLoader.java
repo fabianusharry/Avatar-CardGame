@@ -23,9 +23,9 @@ public class MainMenuLoader implements Loader {
     Stage stage;
 
     /**
-     * Singleton design pattern implementation
-     * @return instance
-     * @throws IOException exception when fail to create MainMenuLoader object
+     * @return instance of this object if its not null, else create a new one and return it
+     * @throws Exception exception when create new loader
+     *         for example: file not found error
      */
     public static MainMenuLoader getInstance() throws IOException {
         if (instance == null) {
@@ -35,8 +35,10 @@ public class MainMenuLoader implements Loader {
     }
 
     /**
-     * Creates a new MainMenuLoader
-     * @throws IOException exception when FXMLLoader fails to load resource
+     * Load fxml and set a controller
+     *
+     * @throws IOException exception when load fxml file and controller
+     *         for example: file not found error
      */
     private MainMenuLoader() throws IOException {
         // init loader
@@ -48,16 +50,18 @@ public class MainMenuLoader implements Loader {
     }
 
     /**
-     * Get pane
-     * @return pane
+     * @return pane of this object
      */
+    @Override
     public Pane getPane() {
         return mainMenu;
     }
 
     /**
-     * Render pane to new stage
+     * create new stage and scene
+     * show in new window
      */
+    @Override
     public void render() {
         stage = new Stage();
         Scene scene = new Scene(mainMenu, 1360, 768);
@@ -68,8 +72,10 @@ public class MainMenuLoader implements Loader {
     }
 
     /**
-     * Render pane to specific stage
-     * @param stage stage
+     * scene
+     * show in new window
+     *
+     * @param stage is stage will be used
      */
     public void render(Stage stage) {
         this.stage = stage;
@@ -82,25 +88,25 @@ public class MainMenuLoader implements Loader {
     }
 
     /**
-     * Close stage
+     * Close this stage
      */
     public void closeStage() {
         stage.close();
     }
 
     /**
-     * Get first player name
-     * @return first player name
-     * @throws Exception exception when fails to get name from controller
+     *
+     * @return player 1 name
+     * @throws Exception exception from controller
      */
     public String getP1Name() throws Exception {
         return controller.getName(1);
     }
 
     /**
-     * Get second player name
-     * @return second player name
-     * @throws Exception exception when fails to get name from controller
+     *
+     * @return player 2 name
+     * @throws Exception from controller
      */
     public String getP2Name() throws Exception {
         return controller.getName(2);
