@@ -22,6 +22,15 @@ public class SummonedCharacter implements SummonedCard {
     public boolean isAttackMode() {
         return isAttackMode;
     }
+    
+    public boolean havePowerUp(){
+        for(Skill s: skillAttached){
+            if(s instanceof com.avatarduel.model.card.effect.PowerUp){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void rotate() {
         this.isAttackMode = !this.isAttackMode;
@@ -46,9 +55,20 @@ public class SummonedCharacter implements SummonedCard {
         isAttackMode = attackMode;
     }
     
-    public void attachSkill(Skill skill){
+    public void attachSkill(Skill skill,String location){
         skillAttached.add(skill);
+        skillLocation.add(location);
+    }
+    
+    public List<Skill> getSkillAttached() { return skillAttached; }
+    
+    public void removeSkillAttached(Skill skill){
+        skillAttached.remove(skill);
     }
 
-    public List<Skill> getSkillAttached() { return skillAttached; }
+    public List<String> getSkillLocation() { return skillLocation; }
+    
+    public void removeSkillLocation(String location){
+        skillLocation.remove(location);
+    }
 }

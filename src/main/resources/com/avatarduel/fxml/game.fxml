@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="game" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1360.0" styleClass="bodybg" stylesheets="@css/game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="game" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleOnKeyPressed" prefHeight="768.0" prefWidth="1360.0" styleClass="bodybg" stylesheets="@css/game.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="81.0" layoutY="213.0" prefHeight="351.0" prefWidth="351.0" style="-fx-background-color: gray;" />
       <Pane opacity="0.7" prefHeight="768.0" prefWidth="1360.0" style="-fx-background-color: white;">
