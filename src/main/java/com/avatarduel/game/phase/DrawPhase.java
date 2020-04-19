@@ -8,10 +8,19 @@ import com.avatarduel.model.Player;
 
 public class DrawPhase extends Phase {
 
+    /**
+     * Creates a new draw phase for player
+     * @param playerNow player that now plays
+     * @throws Exception exception when phase cannot be instantiated
+     */
     public DrawPhase(Player playerNow) throws Exception {
         super(playerNow);
     }
 
+    /**
+     * Run the draw phase
+     * @throws Exception exception when the draw phase cannot run normally
+     */
     @Override
     public void run() throws Exception {
         playerNow.resetPowerNow();

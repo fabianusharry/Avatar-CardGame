@@ -1,7 +1,6 @@
 package com.avatarduel.view.controller;
 
 import com.avatarduel.exceptions.hand.EmptyCharacterException;
-import com.avatarduel.exceptions.hand.HandOperationException;
 import com.avatarduel.exceptions.hand.LandTakenException;
 import com.avatarduel.view.event.Event;
 import com.avatarduel.view.event.EventManager;
@@ -20,15 +19,33 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * HandController is a controller for Hand pane in AvatarDuel game.
+ * @author Tony Eko Yuwono 13518030, Arief Darmawan Tantriady 13518015
+ */
 public class HandController implements Initializable {
     private Player player;
     private EventManager events;
+    /**
+     * if set to true, HandController will update CardView in game
+     */
     private boolean viewEnabled;
+    /**
+     * if set to true, HandController will disable Land card click
+     */
     private boolean disableLand;
+    /**
+     * if set to true, HandController will enable click for Hand pane
+     */
     private boolean enableClick;
 
     @FXML private List<Pane> cards;
 
+    /**
+     * Creates a new HandController for a player
+     * @param player player
+     * @throws Exception exception when GameController cannot be insantiated
+     */
     public HandController(Player player) throws Exception {
         this.player = player;
         viewEnabled = true;
@@ -52,12 +69,25 @@ public class HandController implements Initializable {
         }
     }
 
+    /**
+     * Set viewEnabled to change CardView in game
+     * @param viewEnabled viewEnabled
+     */
     public void setViewEnabled(boolean viewEnabled) {
         this.viewEnabled = viewEnabled;
     }
 
+    /**
+     * Set disableLand to disable Land card click
+     * @param disableLand disableLand
+     */
     public void setDisableLand(boolean disableLand) { this.disableLand = disableLand; }
-    
+
+    /**
+     * Checks if there is any Character card in field
+     * @return boolean that true if there is any Character card in field
+     * @throws Exception exception when GameController cannot be insantiated
+     */
     public boolean canPlaceSkill() throws Exception{
         GameController g = GameController.getInstance();
         for(int i=0;i<6;i++){
@@ -70,11 +100,16 @@ public class HandController implements Initializable {
         }
         return false;
     }
-    
+
+    /**
+     * Get card in hand
+     * @param evt event source
+     * @return taken card
+         * @throws Exception exception when a card cannot be taken from hand
+     */
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
         Card takenCard = null;
-        String errMessage = null;
         boolean canTake = true;
         if (enableClick) {
             try {
@@ -120,6 +155,11 @@ public class HandController implements Initializable {
         }
     }
 
+    /**
+     * Show card in Hand to CardView Pane
+     * @param evt event source
+     * @throws Exception exception when event cannot be notified
+     */
     @FXML
     public void showCard(javafx.event.Event evt) throws Exception {
         if (viewEnabled) {
@@ -128,6 +168,10 @@ public class HandController implements Initializable {
         }
     }
 
+    /**
+     * Flip cards in hand to back side of the card
+     * @throws IOException exception when BackCardLoader cannot load back side of the card
+     */
     public void flipCards() throws IOException {
         for (int i = 0; i < player.getHandCards().size(); i++) {
             cards.get(i).getChildren().clear();
@@ -136,6 +180,10 @@ public class HandController implements Initializable {
         this.viewEnabled = false;
     }
 
+    /**
+     * Set enableClick in HandController
+     * @param value value
+     */
     public void setEnableClick(boolean value) {
         enableClick = value;
     }

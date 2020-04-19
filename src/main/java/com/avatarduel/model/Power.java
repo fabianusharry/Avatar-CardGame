@@ -19,11 +19,11 @@ public class Power {
      */
     public Power() {
         power = new HashMap<>();
-        power.put(Element.AIR, 10);
-        power.put(Element.FIRE, 10);
-        power.put(Element.EARTH, 10);
-        power.put(Element.WATER, 10);
-        power.put(Element.ENERGY, 10);
+        power.put(Element.AIR, 0);
+        power.put(Element.FIRE, 0);
+        power.put(Element.EARTH, 0);
+        power.put(Element.WATER, 0);
+        power.put(Element.ENERGY, 0);
     }
 
     /**

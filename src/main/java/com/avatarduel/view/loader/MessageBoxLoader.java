@@ -5,6 +5,7 @@ import com.avatarduel.view.controller.MessageBoxController;
 import com.avatarduel.util.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -37,6 +38,7 @@ public class MessageBoxLoader implements Loader {
         scene.getStylesheets().add(AvatarDuel.class.getResource(Constants.messageBoxCss).toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Error");
+        stage.getIcons().add(new Image(AvatarDuel.class.getResource("momo.png").toString()));
         stage.show();
     }
 }

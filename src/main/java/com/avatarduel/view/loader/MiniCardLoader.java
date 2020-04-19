@@ -30,6 +30,7 @@ public class MiniCardLoader implements Loader {
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(card, 58, 85);
+
         stage.setScene(scene);
         stage.show();
     }
