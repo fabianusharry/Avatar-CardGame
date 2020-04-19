@@ -28,7 +28,6 @@ public class BattlePhase extends Phase {
      */
     @Override
     public void run() throws Exception {
-        System.out.println(playerNow.getName() + "BATTLE PHASE");
         initPhase();
         List<String> test = controller.getP1FieldController().getDisabledInBattle();
     }

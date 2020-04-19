@@ -1,9 +1,6 @@
 package com.avatarduel.view.controller;
 import com.avatarduel.exceptions.EndGameException;
-import com.avatarduel.exceptions.field.BattleAllowedException;
-import com.avatarduel.exceptions.field.ClickNotAllowedException;
-import com.avatarduel.exceptions.field.DefenseModeBattleException;
-import com.avatarduel.exceptions.field.WrongPlacementException;
+import com.avatarduel.exceptions.field.*;
 import com.avatarduel.view.event.Event;
 import com.avatarduel.view.event.EventManager;
 import com.avatarduel.view.loader.GameLoader;
@@ -17,7 +14,6 @@ import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Skill;
 import com.avatarduel.model.card.Character;
 import com.avatarduel.model.card.effect.Aura;
-import com.avatarduel.model.field.CardField;
 
 import java.io.IOException;
 import java.net.URL;
@@ -282,7 +278,7 @@ public class FieldController implements Initializable{
                 case "selectCard":
                  throw new ClickNotAllowedException("Cannot select opponent card");
                 case "useCard":
-                 throw new ClickNotAllowedException("Cannot attack your own card / skill card");
+                 throw new ClickNotAllowedException("Cannot attack your own\ncard/skill card");
                 case "modify":
                   throw new ClickNotAllowedException("Cannot modify opponent card");
                 case "attachSkill":
@@ -420,7 +416,7 @@ public class FieldController implements Initializable{
                     }
                 }
                 else{
-                    throw new WrongPlacementException("Cannot place skill to character field.");
+                    throw new WrongPlacementException("Cannot place skill to\ncharacter field.");
                 }
             }
              else {
@@ -438,7 +434,7 @@ public class FieldController implements Initializable{
                     }
                 }
                 else{
-                    throw new WrongPlacementException("Cannot place character to skill field");
+                    throw new WrongPlacementException("Cannot place character\nto skill field");
                 }
             }
         }
@@ -617,32 +613,39 @@ public class FieldController implements Initializable{
         } else {
             SummonedCard used = g.getCardSelected();
             SummonedCard destination = player.field.getCharacterField().getCard(idDestination);
-            if (used.getPositionValue() > destination.getPositionValue()) {
-                // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
-                removeCharacter(player,idDestination,destination.getSkillLocation());
-                if (destination.isAttackMode() || used.havePowerUp()) {
-                    int diff = used.getPositionValue() - destination.getPositionValue();
-                    player.reduceHP(diff);
-                    if (player.equals(g.getP1())) {
-                        g.P1HP.setText("HP : " + player.getHP());
-                        g.setP1HPBar(player.getHP());
-                    } else {
-                        g.P2HP.setText("HP : " + player.getHP());
-                        g.setP2HPBar(player.getHP());
-                    }
-                    try {
-                        if (g.isEndGame()) {
-                            throw new EndGameException(player.getName() + " Kehabisan HP");
+            try {
+                if (used.getPositionValue() > destination.getPositionValue()) {
+                    // LAWAN BESERTA KARTU SKILL NYA HILANG DARI FIELD
+                    removeCharacter(player,idDestination,destination.getSkillLocation());
+                    if (destination.isAttackMode() || used.havePowerUp()) {
+                        int diff = used.getPositionValue() - destination.getPositionValue();
+                        player.reduceHP(diff);
+                        if (player.equals(g.getP1())) {
+                            g.P1HP.setText("HP : " + player.getHP());
+                            g.setP1HPBar(player.getHP());
+                        } else {
+                            g.P2HP.setText("HP : " + player.getHP());
+                            g.setP2HPBar(player.getHP());
                         }
-                    } catch (Exception e) {
-                        new MessageBoxLoader(e).render();
-                        GameLoader.getInstance().exit();
+                        try {
+                            if (g.isEndGame()) {
+                                throw new EndGameException(player.getName() + " Kehabisan HP");
+                            }
+                        } catch (Exception e) {
+                            new MessageBoxLoader(e).render();
+                            GameLoader.getInstance().exit();
+                        }
                     }
+                    if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
+                    else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
+                    events.notify(Event.RESET_SELECT_CARD, player.getName());
+                } else {
+                    throw new InvalidAttackException();
                 }
-                if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
-                else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
-                events.notify(Event.RESET_SELECT_CARD, player.getName());
+            } catch (Exception e) {
+                new MessageBoxLoader(e).render();
             }
+
         }
     }
 }

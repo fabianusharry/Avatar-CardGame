@@ -30,10 +30,8 @@ public class TurnManager {
     public void startTurn() throws Exception {
         if (counter%2 == 1) {
             turn = new Turn(P1, P2);
-            System.out.println("Draw phase P1");
         } else {
             turn = new Turn(P2, P1);
-            System.out.println("Draw phase P2");
         }
         turn.startPhase();
     }
