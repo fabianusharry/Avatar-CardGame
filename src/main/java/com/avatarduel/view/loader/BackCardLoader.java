@@ -13,7 +13,7 @@ import com.avatarduel.util.Constants;
  * BackCardLoader in GUI
  * Contains pane for showing back side of a card
  */
-public class BackCardLoader {
+public class BackCardLoader implements Loader {
     Pane card;
 
     /**

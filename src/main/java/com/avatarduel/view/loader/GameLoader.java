@@ -16,7 +16,7 @@ import java.io.IOException;
  * GameLoader in GUI
  * Contains pane for show AvatarDuel Game
  */
-public class GameLoader {
+public class GameLoader implements Loader {
     private static GameLoader instance = null; //Singleton attribute
 
     Stage stage;
