@@ -30,7 +30,6 @@ public class CardLoader implements Loader {
         controller = new CardController(card);
         loader.setController(controller);
         this.card = loader.load();
-
     }
 
     /**

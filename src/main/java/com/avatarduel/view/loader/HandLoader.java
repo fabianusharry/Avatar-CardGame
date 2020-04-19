@@ -25,8 +25,6 @@ public class HandLoader implements Loader {
         loader.setController(controller);
         // make stage
         this.mainMenu = loader.load();
-//        controller.flipCards();
-
     }
 
     /**
