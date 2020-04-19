@@ -1,5 +1,8 @@
 package com.avatarduel.game.phase;
 
+import com.avatarduel.exceptions.EndGameException;
+import com.avatarduel.view.loader.GameLoader;
+import com.avatarduel.view.loader.MessageBoxLoader;
 import com.avatarduel.view.loader.PowerLoader;
 import com.avatarduel.model.Player;
 
@@ -13,7 +16,8 @@ public class DrawPhase extends Phase {
     public void run() throws Exception {
         playerNow.resetPowerNow();
         if (playerNow.getDeck().size() == 0) {
-            // NOTIF END GAME
+            new MessageBoxLoader(new EndGameException(playerNow.getName() + " Kehabisan Kartu")).render();
+            GameLoader.getInstance().exit();
         }
         if (playerNow.equals(controller.getP1())) {
             controller.reload(controller.P1Element, new PowerLoader(playerNow).getPane());

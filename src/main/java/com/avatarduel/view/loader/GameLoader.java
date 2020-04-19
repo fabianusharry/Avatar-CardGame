@@ -13,6 +13,7 @@ import com.avatarduel.util.Constants;
 public class GameLoader {
     private static GameLoader instance = null; //Singleton attribute
 
+    Stage stage;
     Pane game;
 
     public static GameLoader getInstance() throws Exception {
@@ -40,7 +41,7 @@ public class GameLoader {
     }
 
     public void render() {
-        Stage stage = new Stage();
+        stage = new Stage();
         Scene scene = new Scene(game, 1360, 768);
         stage.setTitle(Constants.gameTitle);
 //        stage.initStyle(StageStyle.UNDECORATED);
@@ -48,5 +49,9 @@ public class GameLoader {
         stage.getIcons().add(new Image(AvatarDuel.class.getResource("momo.png").toString()));
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void exit() {
+        game.setDisable(true);
     }
 }

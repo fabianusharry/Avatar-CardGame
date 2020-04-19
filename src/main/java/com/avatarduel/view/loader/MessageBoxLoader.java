@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 public class MessageBoxLoader implements Loader {
     private Pane MessageBox;
 
+    public MessageBoxLoader(Exception err) {
+        this(err.getMessage());
+    }
+
     public MessageBoxLoader(String Message) {
         try {
             FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.messageBoxFxml));
@@ -32,7 +36,7 @@ public class MessageBoxLoader implements Loader {
         Scene scene = new Scene(MessageBox);
         scene.getStylesheets().add(AvatarDuel.class.getResource(Constants.messageBoxCss).toExternalForm());
         stage.setScene(scene);
-        stage.setTitle(Constants.gameTitle);
+        stage.setTitle("Error");
         stage.show();
     }
 }

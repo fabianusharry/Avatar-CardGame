@@ -1,6 +1,9 @@
 package com.avatarduel.view.controller;
+import com.avatarduel.exceptions.EndGameException;
 import com.avatarduel.view.event.Event;
 import com.avatarduel.view.event.EventManager;
+import com.avatarduel.view.loader.GameLoader;
+import com.avatarduel.view.loader.MessageBoxLoader;
 import com.avatarduel.view.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.SummonedCard;
@@ -242,13 +245,8 @@ public class FieldController implements Initializable{
         String opponentId;
         GameController g = GameController.getInstance();
         int idUsed = Integer.parseInt(g.getSelectedPaneID().substring(0,g.getSelectedPaneID().indexOf(' ')).replaceAll("[^1-6]", ""));
-        if (g.getP1().equals(player)) {
-            opponent = g.getP1();
-            opponentId = "P1";
-        } else {
-            opponent = g.getP2();
-            opponentId = "P2";
-        }
+        opponent = player;
+        if (g.getP1().equals(player)) { opponentId = "P1"; } else { opponentId = "P2"; }
         opponent.reduceHP(g.getCardSelected().getPositionValue());
         if (opponentId.equals("P1")) {
             g.P1HP.setText("HP : " + opponent.getHP());
@@ -261,8 +259,8 @@ public class FieldController implements Initializable{
         CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
         events.notify(Event.RESET_SELECT_CARD, player.getName());
         if (g.isEndGame()) {
-            System.out.println("NOTIF END GAMEE");
-            // NOTIF END GAME
+            new MessageBoxLoader(new EndGameException(player.getName() + " Kehabisan HP")).render();
+            GameLoader.getInstance().exit();
         }
     }
 
@@ -357,7 +355,8 @@ public class FieldController implements Initializable{
             CharacterFields.get(id).getTransforms().add(new Rotate(-1*90,35,42.5));
         }
         removeSkillsFromPane(location);
-        reloadFieldPane();
+        GameController.getInstance().getP1FieldController().reloadFieldPane();
+        GameController.getInstance().getP2FieldController().reloadFieldPane();
     }
     
     public void removeSkillsFromPane(List<String> location) throws Exception {
