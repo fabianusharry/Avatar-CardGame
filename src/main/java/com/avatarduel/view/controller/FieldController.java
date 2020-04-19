@@ -336,7 +336,8 @@ public class FieldController implements Initializable{
             g.P2HP.setText("HP : " + opponent.getHP());
             g.setP2HPBar(opponent.getHP());
         }
-        //Set Border ilang (unselect) setOnClick selectCard
+        if (g.getP1().equals(player)) { g.getP2FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
+        else { g.getP1FieldController().getDisabledInBattle().add(g.getSelectedPaneID().split("\\s+")[0]); }
         CharacterFields.get(idUsed-1).setStyle("-fx-border-color: black;");
         events.notify(Event.RESET_SELECT_CARD, player.getName());
         try {
