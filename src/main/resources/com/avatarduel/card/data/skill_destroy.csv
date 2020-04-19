@@ -3,4 +3,4 @@ id	name	element	description	imagepath	power
 94	Aqua Destruct	WATER	Destroy one of your opponent's water character card.	card/image/skill/Water Destruction.png	3
 95	Flame Destruct	FIRE	Destroy one of your opponent's fire character card.	card/image/skill/Fire Destruct.png	3
 96	Land Destruct	EARTH	Destroy one of your opponent's earth character card.	card/image/skill/Earth Destruct.png	3
-97	The Destructor	AIR	Destroy one of your opponent's character card regardless the element.	card/image/skill/Aang_struck.png	3
+97	The Destructor	ENERGY	Destroy one of your opponent's character card regardless the element.	card/image/skill/Aang_struck.png	3
