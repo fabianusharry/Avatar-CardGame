@@ -15,20 +15,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * SkillPack.java
+ * A Class to build Pack that contains Skill cards
+ */
 public class SkillPack {
     private List<Skill> skills;
     private static final String SKILL_AURA_CSV_FILE_PATH = "card/data/skill_aura.csv";
     private static final String SKILL_DESTROY_CSV_FILE_PATH = "card/data/skill_destroy.csv";
     private static final String SKILL_POWER_UP_CSV_FILE_PATH = "card/data/skill_powerup.csv";
 
+    /**
+     * Create a new list to contain Skill cards
+     */
     public SkillPack() {
         this.skills = new ArrayList<>();
     }
 
+    /**
+     * Get list skill cards
+     * @return list skill cards
+     */
     public List<Skill> getCards() {
         return skills;
     }
 
+    /**
+     * Load cards from given CSV in AvatarDuel resources
+     * @return SkillPack
+     * @throws IOException exception when initiating another class attributes
+     * @throws URISyntaxException exception when the URI syntax is incorrect
+     */
     public SkillPack loadSkillAuraCards() throws IOException, URISyntaxException {
         File csvFile = new File(AvatarDuel.class.getResource(SKILL_AURA_CSV_FILE_PATH).toURI());
         CSVReader reader = new CSVReader(csvFile, "\t");
@@ -40,6 +57,12 @@ public class SkillPack {
         return this;
     }
 
+    /**
+     * Load cards from given CSV in AvatarDuel resources
+     * @return SkillPack
+     * @throws IOException exception when initiating another class attributes
+     * @throws URISyntaxException exception when the URI syntax is incorrect
+     */
     public SkillPack loadSkillDestroyCards() throws IOException, URISyntaxException {
         File csvFile = new File(AvatarDuel.class.getResource(SKILL_DESTROY_CSV_FILE_PATH).toURI());
         CSVReader reader = new CSVReader(csvFile, "\t");
@@ -51,6 +74,12 @@ public class SkillPack {
         return this;
     }
 
+    /**
+     * Load cards from given CSV in AvatarDuel resources
+     * @return SkillPack
+     * @throws IOException exception when initiating another class attributes
+     * @throws URISyntaxException exception when the URI syntax is incorrect
+     */
     public SkillPack loadSkillPowerUpCards() throws IOException, URISyntaxException {
         File csvFile = new File(AvatarDuel.class.getResource(SKILL_POWER_UP_CSV_FILE_PATH).toURI());
         CSVReader reader = new CSVReader(csvFile, "\t");
@@ -62,6 +91,9 @@ public class SkillPack {
         return this;
     }
 
+    /**
+     * Shuffle cards
+     */
     public void shuffle() {
         Collections.shuffle(skills);
     }

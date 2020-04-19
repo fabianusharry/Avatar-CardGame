@@ -38,6 +38,7 @@ public class MessageBoxLoader implements Loader {
         scene.getStylesheets().add(AvatarDuel.class.getResource(Constants.messageBoxCss).toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Error");
+        stage.setResizable(false);
         stage.getIcons().add(new Image(AvatarDuel.class.getResource("momo.png").toString()));
         stage.show();
     }
