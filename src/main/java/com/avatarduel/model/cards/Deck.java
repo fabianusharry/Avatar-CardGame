@@ -35,7 +35,7 @@ public class Deck {
         Card takenCard = null;
         if (cards.size() > 0) {
             takenCard = cards.pop();
-        } //else throw exception (END GAME)
+        }
         return takenCard;
     }
 

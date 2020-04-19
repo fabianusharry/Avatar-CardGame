@@ -2,17 +2,28 @@ package com.avatarduel.game.phase;
 
 import com.avatarduel.model.Player;
 
+/**
+ * MainPhase of the AvatarDuel game
+ * @author Tony Eko Yuwono 13518030
+ */
 public class MainPhase extends Phase {
 
+    /**
+     * Creates a new main phase for player
+     * @param playerNow player that now plays
+     * @throws Exception exception when phase cannot be instantiated
+     */
     public MainPhase(Player playerNow) throws Exception {
         super(playerNow);
     }
 
+    /**
+     * Run the end phase
+     * @throws Exception exception when the end phase cannot run normally
+     */
     @Override
     public void run() throws Exception {
-        System.out.println(playerNow.getName() + "MAIN PHASE");
         if (playerNow.equals(controller.getP1())) {
-            System.out.println("MASUUUUUUUUUUUUUUUUUUUK");
             controller.setStageTextP1("main");
             controller.P1deck.setDisable(true);
             controller.P1Field.setDisable(false);

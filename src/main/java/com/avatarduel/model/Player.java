@@ -1,5 +1,6 @@
 package com.avatarduel.model;
 
+import com.avatarduel.exceptions.hand.InsufficientPowerException;
 import com.avatarduel.model.card.Attribute;
 import com.avatarduel.model.card.Card;
 import com.avatarduel.model.card.Element;
@@ -56,7 +57,7 @@ public class Player {
 
     public void setHP(int HP) {
         if (HP <= 0) {
-            HP = 0; //atau throw exception (END GAME)
+            HP = 0;
         }
         this.HP = HP;
     }
@@ -71,7 +72,7 @@ public class Player {
         }
     }
 
-    public Card takeCard(int index) {
+    public Card takeCard(int index) throws InsufficientPowerException {
         Card takenCard = null;
         if (index >= 0 && index < handCards.size()) {
             if (handCards.peek(index) instanceof com.avatarduel.model.card.Land) {
@@ -83,7 +84,9 @@ public class Player {
                     takenCard = handCards.take(index);
                     Element takenCardElement = takenCard.getElement();
                     powerNow.set(takenCardElement, powerNow.get(takenCardElement) - takenCard.getAttribute(Attribute.POWER));
-                } //else ga berhasil
+                } else {
+                    throw new InsufficientPowerException(handCards.peek(index).getElement());
+                }
             }
         }
         return takenCard;

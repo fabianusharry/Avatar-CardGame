@@ -306,10 +306,8 @@ public class GameController implements Initializable, EventListener {
     public void disable(Text text,boolean value) {
         if(value) {
             text.setDisable(true);
-            System.out.println("Berhaisl atur mouse clicked JADI FALSE " + text.getId());
         } else {
             text.setDisable(false);
-            System.out.println("Berhasil atur mouse clicked jadi bisa " + text.getId());
         }
     }
 
@@ -388,7 +386,6 @@ public class GameController implements Initializable, EventListener {
             }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
-                System.out.println("UDA ADA KARTU READY DITARUH");
                 System.out.println(this.placing.getClass());
                 p1HandController.setEnableClick(false);
                 p1FieldController.setEnableClick(true);
