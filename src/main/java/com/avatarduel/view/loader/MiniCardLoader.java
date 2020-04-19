@@ -12,8 +12,8 @@ import java.io.IOException;
 import com.avatarduel.util.Constants;
 
 /**
- * MiniCardLoader used to create new MiniCard object in screen
- *
+ * MiniCardLoader in GUI
+ * Contains pane for show Mini card in player's hand
  */
 public class MiniCardLoader implements Loader {
     Pane card;
@@ -29,7 +29,6 @@ public class MiniCardLoader implements Loader {
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.miniCardFxml));
         MiniCardController controller = new MiniCardController(card);
         loader.setController(controller);
-        // make stage
         this.card = loader.load();
     }
 
@@ -49,6 +48,7 @@ public class MiniCardLoader implements Loader {
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(card, 58, 85);
+
         stage.setScene(scene);
         stage.show();
     }

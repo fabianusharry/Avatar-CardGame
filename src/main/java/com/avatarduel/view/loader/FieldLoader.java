@@ -12,7 +12,8 @@ import com.avatarduel.util.Constants;
 import java.io.IOException;
 
 /**
- * FieldLoader used to create new Field object in screen
+ * FieldLoader in GUI
+ * Contains pane for showing player's field
  */
 public class FieldLoader implements Loader{
     Pane field;
@@ -27,19 +28,15 @@ public class FieldLoader implements Loader{
      *         for example: file not found error
      */
     public FieldLoader(Player player, int playerNumber) throws Exception {
-        // init loader
         FXMLLoader loader;
         if (playerNumber == 1) {
             loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.fieldPlayer1Fxml));
         } else {
             loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.fieldPlayer2Fxml));
         }
-
         controller = new FieldController(player);
         loader.setController(controller);
-        // make stage
         this.field = loader.load();
-
     }
 
     /**

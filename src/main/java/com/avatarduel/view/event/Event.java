@@ -1,15 +1,13 @@
 package com.avatarduel.view.event;
 
+/**
+ * Enumeration that contains Event in AvatarDuel
+ */
 public enum Event {
     CHANGE_CARD_VIEW,
     UPDATE_POWER,
-    DRAW_CARD,
-    FLIP_CARDS,
     DISABLEPLAYER,
     ENABLEPLAYER,
-    DISABLEPLAYERHANDS,
-    ENABLEPLAYERHANDS,
-    NEXT_PHASE,
     GOT_CARD,
     PASS_CARD,
     CARD_PLACED,
@@ -17,11 +15,9 @@ public enum Event {
     PASS_SELECTED_PANEID,
     SELECTEDCARD,
     RESET_SELECT_CARD,
-    DONE_ATTACK,
     ATTACHING_SKILL,
     MODIFYING,
     MODIFY_LOCATION,
     SKILL_LOCATION,
-    SKILL_PLACING,
-    DISABLE_LAND_CARDS
+    SKILL_PLACING
 }

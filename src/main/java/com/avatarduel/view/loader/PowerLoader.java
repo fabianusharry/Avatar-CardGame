@@ -12,7 +12,8 @@ import java.io.IOException;
 import com.avatarduel.util.Constants;
 
 /**
- * Used to create power object on the screen
+ * PowerLoader in GUI
+ * Contains pane for show Player's Power
  */
 public class PowerLoader implements Loader {
     Pane power;
@@ -28,7 +29,6 @@ public class PowerLoader implements Loader {
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.powerFxml));
         PowerController controller = new PowerController(player.getPowerNow(), player.getMaxPower());
         loader.setController(controller);
-        // make stage
         this.power = loader.load();
 
     }

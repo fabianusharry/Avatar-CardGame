@@ -12,8 +12,8 @@ import java.io.IOException;
 import com.avatarduel.util.Constants;
 
 /**
- * GameLoader is a singletone class that hold the main menu stage
- *
+ * MainMenuLoader in GUI
+ * Contains pane for showing Main Menu
  */
 public class MainMenuLoader implements Loader {
     private static MainMenuLoader instance = null; //Singleton attribute
@@ -42,7 +42,7 @@ public class MainMenuLoader implements Loader {
      */
     private MainMenuLoader() throws IOException {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.menuFmxl));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.menuFxml));
         controller = new MainMenuController();
         loader.setController(controller);
         // make stage

@@ -10,11 +10,13 @@ import javafx.stage.Stage;
 
 import com.avatarduel.util.Constants;
 
+import java.io.IOException;
+
 /**
- * GameLoader is a singletone class that hold the main stage
- *
+ * GameLoader in GUI
+ * Contains pane for show AvatarDuel Game
  */
-public class GameLoader implements  Loader {
+public class GameLoader {
     private static GameLoader instance = null; //Singleton attribute
 
     Stage stage;
@@ -47,12 +49,9 @@ public class GameLoader implements  Loader {
      *         for example: file not found error
      */
     private GameLoader() throws Exception {
-        // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.gameFxml));
         loader.setController(GameController.getInstance());
-        // make stage
         this.game = loader.load();
-
     }
 
     /**
@@ -70,10 +69,9 @@ public class GameLoader implements  Loader {
     @Override
     public void render() {
         stage = new Stage();
-        Scene scene = new Scene(game, 1360, 768);
+        Scene scene = new Scene(game, 1348, 758);
         stage.setTitle(Constants.gameTitle);
-//        stage.initStyle(StageStyle.UNDECORATED);
-//        stage.setResizable(false);
+        stage.setResizable(false);
         stage.getIcons().add(new Image(AvatarDuel.class.getResource("momo.png").toString()));
         stage.setScene(scene);
         stage.show();

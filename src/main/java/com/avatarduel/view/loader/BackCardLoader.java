@@ -10,20 +10,18 @@ import java.io.IOException;
 import com.avatarduel.util.Constants;
 
 /**
- * MiniCardLoader used to create new BackCard object on screen
- *
+ * BackCardLoader in GUI
+ * Contains pane for showing back side of a card
  */
-public class BackCardLoader implements Loader {
+public class BackCardLoader {
     Pane card;
 
     /**
-     * @throws IOException exception when load fxml file
-     *         for example: file not found error
+     * Creates a new BackCardLoader
+     * @throws IOException exception when FXMLLoader fails to load resource
      */
     public BackCardLoader() throws IOException {
-        // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.backCardFxml));
-        // make stage
         this.card = loader.load();
     }
 

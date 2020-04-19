@@ -14,8 +14,8 @@ import com.avatarduel.util.Constants;
 import java.util.List;
 
 /**
- * MiniCardLoader used to create new Card object in screen
- *
+ * CardLoader in GUI
+ * Contains pane for showing BIG card in GUI
  */
 public class CardLoader implements Loader {
     Pane card;
@@ -27,11 +27,9 @@ public class CardLoader implements Loader {
      *         for example: file not found error
      */
     public CardLoader(Card card) throws IOException {
-        // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.cardFxml));
         controller = new CardController(card);
         loader.setController(controller);
-        // make stage
         this.card = loader.load();
 
     }

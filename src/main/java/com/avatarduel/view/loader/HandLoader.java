@@ -10,11 +10,9 @@ import javafx.stage.Stage;
 
 import com.avatarduel.util.Constants;
 
-import java.io.IOException;
-
 /**
- * HandLoader used to create new Hand object in screen
- *
+ * HandLoader in GUI
+ * Contains pane for showing HandCards
  */
 public class HandLoader implements Loader {
     Pane mainMenu;
