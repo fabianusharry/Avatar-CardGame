@@ -27,7 +27,7 @@ public class MainMenuLoader implements Loader {
 
     private MainMenuLoader() throws IOException {
         // init loader
-        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.menuFmxl));
+        FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.menuFxml));
         controller = new MainMenuController();
         loader.setController(controller);
         // make stage
