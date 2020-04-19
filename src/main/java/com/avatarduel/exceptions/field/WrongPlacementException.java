@@ -7,7 +7,7 @@ package com.avatarduel.exceptions.field;
 
 /**
  *
- * @author personate
+ * Exception saat mencoba meletakkan kartu ditempat yang salah
  */
 public class WrongPlacementException extends Exception{
     public WrongPlacementException(String exception){
