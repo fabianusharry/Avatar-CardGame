@@ -306,10 +306,8 @@ public class GameController implements Initializable, EventListener {
     public void disable(Text text,boolean value) {
         if(value) {
             text.setDisable(true);
-            System.out.println("Berhaisl atur mouse clicked JADI FALSE " + text.getId());
         } else {
             text.setDisable(false);
-            System.out.println("Berhasil atur mouse clicked jadi bisa " + text.getId());
         }
     }
 

@@ -4,14 +4,28 @@ import com.avatarduel.model.Player;
 
 import java.util.List;
 
+/**
+ * BattlePhase of the AvatarDuel game
+ * @author Tony Eko Yuwono 13518030
+ */
 public class BattlePhase extends Phase {
     Player opponent;
 
+    /**
+     * Creates a new battle phase for player
+     * @param playerNow player that now plays
+     * @param opponent opponent of player
+     * @throws Exception exception when phase cannot be instantiated
+     */
     public BattlePhase(Player playerNow, Player opponent) throws Exception {
         super(playerNow);
         this.opponent = opponent;
     }
 
+    /**
+     * Run the battle phase
+     * @throws Exception exception when the battle phase cannot run normally
+     */
     @Override
     public void run() throws Exception {
         System.out.println(playerNow.getName() + "BATTLE PHASE");
@@ -19,7 +33,9 @@ public class BattlePhase extends Phase {
         List<String> test = controller.getP1FieldController().getDisabledInBattle();
     }
 
-
+    /**
+     * Initialize the battle phase
+     */
     public void initPhase() {
         if (playerNow.equals(controller.getP1())) {
             controller.setStageTextP1("battle");
