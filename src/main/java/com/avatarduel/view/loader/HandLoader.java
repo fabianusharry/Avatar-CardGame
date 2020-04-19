@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 
 import com.avatarduel.util.Constants;
 
+/**
+ * HandLoader in GUI
+ * Contains pane for showing HandCards
+ */
 public class HandLoader implements Loader {
     Pane mainMenu;
     HandController controller;
@@ -25,10 +29,17 @@ public class HandLoader implements Loader {
 
     }
 
+    /**
+     * Get pane
+     * @return pane
+     */
     public Pane getPane() {
         return mainMenu;
     }
 
+    /**
+     * Render pane to new stage
+     */
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(mainMenu, 648, 85);

@@ -11,23 +11,38 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import com.avatarduel.util.Constants;
 
+/**
+ * PowerLoader in GUI
+ * Contains pane for show Player's Power
+ */
 public class PowerLoader implements Loader {
     Pane power;
 
+    /**
+     * Creates a new PowerLoader for player
+     * @param player player
+     * @throws IOException exception when FXMLLoader fails to load resource
+     */
     public PowerLoader(Player player) throws IOException {
         // init loader
         FXMLLoader loader = new FXMLLoader(AvatarDuel.class.getResource(Constants.powerFxml));
         PowerController controller = new PowerController(player.getPowerNow(), player.getMaxPower());
         loader.setController(controller);
-        // make stage
         this.power = loader.load();
 
     }
 
+    /**
+     * Get pane
+     * @return pane
+     */
     public Pane getPane() {
         return power;
     }
 
+    /**
+     * Render pane to new stage
+     */
     public void render() {
         Stage stage = new Stage();
         Scene scene = new Scene(power, 99, 310);
