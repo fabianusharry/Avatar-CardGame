@@ -1,3 +1,4 @@
+
 package com.avatarduel.view.loader;
 
 import com.avatarduel.AvatarDuel;

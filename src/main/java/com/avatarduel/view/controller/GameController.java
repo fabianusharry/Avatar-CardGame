@@ -388,17 +388,18 @@ public class GameController implements Initializable, EventListener {
             }
         } else if (eventType.equals(Event.GOT_CARD)) {
             if(value.equals(P1.getName())){
-                System.out.println("UDA ADA KARTU READY DITARUH");
                 System.out.println(this.placing.getClass());
                 p1HandController.setEnableClick(false);
                 p1FieldController.setEnableClick(true);
                 p1FieldController.setOnClick("placeCard");
+                p2FieldController.setOnClick("placeCard");
                 p2FieldController.setEnableClick(false);
                 disableAllTextClickP1();
             } else {
                 p2HandController.setEnableClick(false);
                 p2FieldController.setEnableClick(true);
                 p2FieldController.setOnClick("placeCard");
+                p1FieldController.setOnClick("placeCard");
                 p1FieldController.setEnableClick(false);
                 disableAllTextClickP2();
             }
@@ -412,6 +413,7 @@ public class GameController implements Initializable, EventListener {
                p1FieldController.reloadFieldPane();
                p1FieldController.enableAll();
                p1FieldController.setOnClick("modify");
+               p2FieldController.setOnClick("modify");
                p2FieldController.disableAll();
                disable(battlePhaseP1, false);
             }
@@ -422,6 +424,7 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.reloadFieldPane();
                 p2FieldController.reloadFieldPane();
                 p2FieldController.setOnClick("modify");
+                p1FieldController.setOnClick("modify");
                 p2FieldController.enableAll();  
                 p1FieldController.disableAll();
                 disable(battlePhaseP2, false);
@@ -467,10 +470,12 @@ public class GameController implements Initializable, EventListener {
                 p1FieldController.setEnableClick(false);
                 p2FieldController.setEnableClick(true);
                 p2FieldController.setOnClick("selectCard");
+                p1FieldController.setOnClick("selectCard");
             } else {
                 p1FieldController.setEnableClick(true);
                 p2FieldController.setEnableClick(false);
                 p1FieldController.setOnClick("selectCard");
+                p2FieldController.setOnClick("selectCard");
             }
             p1FieldController.reloadBorder();
             p2FieldController.reloadBorder();

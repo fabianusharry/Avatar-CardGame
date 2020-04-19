@@ -17,7 +17,7 @@ public class CharacterField {
         if (field[index] == null) {
             field[index] = new SummonedCharacter(card, true);
             // habis placeCard invoke player buat milih mau attack mode atau defense mode dari GUI, kalo mau defense -> panggil summonedCharacter.rotate();
-        } // else throw exception (?)
+        } 
     }
 
     public SummonedCard removeCard(int index) {
