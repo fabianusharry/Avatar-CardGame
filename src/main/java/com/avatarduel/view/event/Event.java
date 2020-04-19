@@ -1,5 +1,8 @@
 package com.avatarduel.view.event;
 
+/**
+ * Enumeration that contains Event in AvatarDuel
+ */
 public enum Event {
     CHANGE_CARD_VIEW,
     UPDATE_POWER,
