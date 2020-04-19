@@ -1,8 +1,11 @@
 package com.avatarduel.view.controller;
 
+import com.avatarduel.exceptions.HandOperationException;
 import com.avatarduel.view.event.Event;
 import com.avatarduel.view.event.EventManager;
 import com.avatarduel.view.loader.BackCardLoader;
+import com.avatarduel.view.loader.GameLoader;
+import com.avatarduel.view.loader.MessageBoxLoader;
 import com.avatarduel.view.loader.MiniCardLoader;
 import com.avatarduel.model.Player;
 import com.avatarduel.model.card.Card;
@@ -44,7 +47,7 @@ public class HandController implements Initializable {
                 cards.get(i).getChildren().add(new MiniCardLoader(player.getHandCards().peek(i)).getPane());
             }
         } catch (IOException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -70,17 +73,19 @@ public class HandController implements Initializable {
     @FXML
     public Card getCard(javafx.event.Event evt) throws Exception {
         Card takenCard = null;
+        String errMessage = null;
         boolean canTake = true;
         if (enableClick) {
             String id = evt.getSource().toString().replaceAll("[^0-9]",""); // ambil integernya aja
             if ((player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Land && disableLand)) {
                 canTake = false;
+                errMessage = "Land hanya dapat diambil 1x";
             }
             else if(player.getHandCards().peek(Integer.parseInt(id)) instanceof com.avatarduel.model.card.Skill){
                 canTake = canPlaceSkill();
+                errMessage = "Tidak ada kartu karakter";
             }
             if (canTake) {
-                System.out.println("MASUK KE SINI");
                 takenCard = player.takeCard(Integer.parseInt(id));
                 if (takenCard != null) {
                     reloadCardsPane();
@@ -94,8 +99,9 @@ public class HandController implements Initializable {
                     } else{
                         events.notify(Event.GOT_CARD,player.getName());
                     }
-                    
-                } //ELSE KASIH NOTIF ERROR
+                }
+            } else {
+                new MessageBoxLoader(new HandOperationException(errMessage)).render();
             }
         }
         return takenCard;
